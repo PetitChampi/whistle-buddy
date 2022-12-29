@@ -1,0 +1,57 @@
+import { createRouter, createWebHistory } from 'vue-router'
+import Navigation from '@/components/Navigation.vue'
+import Footer from '@/components/Footer.vue'
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'splashPage',
+      components: { FullPage: () => import('@/views/SplashPage.vue') }
+    },
+    {
+      path: '/select',
+      name: 'select',
+      components: { FullPage: () => import('@/views/SelectView.vue') }
+    },
+    {
+      path: '/fingering-table',
+      name: 'fingeringTable',
+      components: {
+        Navigation,
+        MainContent: () => import('../views/FingeringTableView.vue'),
+        Footer
+      }
+    },
+    {
+      path: '/guessing-game',
+      name: 'guessingGame',
+      components: {
+        Navigation,
+        MainContent: () => import('../views/GuessingGameView.vue'),
+        Footer
+      }
+    },
+    {
+      path: '/mix-or-match',
+      name: 'mixOrMatch',
+      components: {
+        Navigation,
+        MainContent: () => import('../views/MixOrMatchView.vue'),
+        Footer
+      }
+    },
+    {
+      path: '/about',
+      name: 'about',
+      components: {
+        Navigation,
+        MainContent: () => import('../views/AboutView.vue'),
+        Footer
+      }
+    }
+  ]
+})
+
+export default router

@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import "./variables.scss";
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: $main-font, sans-serif;
+  
+  a {
+    color: var(--accent);
+  }
+
+  .app-wrapper {
+    color: var(--text-standard);
+    background-color: var(--body-bg);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    flex-grow: 1;
+  }
+}
+
+:root {
+  --text-intense: #{$light-text-intense};
+  --text-standard: #{$light-text-standard};
+  --text-standard-half-transparent: #{transparentize($light-text-standard, .7)};
+  --faint: #{$light-faint};
+  --body-bg: #{$light-body-bg};
+  --accent: #{$light-accent};
+  --intensified-bg: #{$light-intensified-bg};
+
+  --button-shadow: #{$button-shadow} #{transparentize($light-text-standard, .8)};
+  --card-shadow-desktop: #{$card-shadow-desktop} #{transparentize($light-text-standard, .8)};
+  --card-shadow-mobile: #{$card-shadow-mobile} #{transparentize($light-text-standard, .8)};
+}
+.dark-mode {
+  --text-intense: #{$dark-text-intense};
+  --text-standard: #{$dark-text-standard};
+  --text-standard-half-transparent: #{transparentize($dark-text-standard, .7)};
+  --text-intense: #{$dark-text-intense};
+  --faint: #{$dark-faint};
+  --body-bg: #{$dark-body-bg};
+  --accent: #{$dark-accent};
+  --intensified-bg: #{$dark-intensified-bg};
+
+  --button-shadow: #{$button-shadow} #{transparentize(#000, .6)};
+  --card-shadow-desktop: #{$card-shadow-desktop} #{transparentize(#000, .6)};
+  --card-shadow-mobile: #{$card-shadow-mobile} #{transparentize(#000, .6)};
+}

@@ -1,0 +1,26 @@
+// Typography
+$main-font: "Plus Jakarta Sans";
+
+// Colours
+$light-text-intense: hsl(25, 36%, 22%);
+$light-text-standard: hsl(25, 36%, 35%);
+$light-faint: hsl(25, 36%, 89%);
+$light-body-bg: hsl(25, 36%, 96%);
+$light-accent: hsl(227, 55%, 60%);
+$light-intensified-bg: hsl(0, 0%, 100%);
+
+$dark-text-intense: hsl(216, 50%, 95%);
+$dark-text-standard: hsl(216, 50%, 82%);
+$dark-faint: hsl(216, 50%, 10%);
+$dark-body-bg: hsl(216, 50%, 13%);
+$dark-accent: hsl(25, 55%, 60%);
+$dark-intensified-bg: hsl(216, 50%, 25%);
+
+// Spacing & decoration
+$button-radius-desktop: 10px;
+$button-radius-mobile: 8px;
+$card-radius: 10px;
+
+$button-shadow: 0 2px 10px 2px;
+$card-shadow-desktop: 0 2px 15px 5px;
+$card-shadow-mobile: 0 2px 10px 2px;
