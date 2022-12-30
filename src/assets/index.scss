@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import "./iconfont.scss";
 @import "./variables.scss";
 
 * {
@@ -38,6 +39,9 @@ body {
   --accent: #{$light-accent};
   --intensified-bg: #{$light-intensified-bg};
 
+  --mode-toggle: #{$dark-body-bg};
+  --mode-toggle-shadow: #{$mode-toggle-shadow} #{transparentize($dark-body-bg, .5)};
+
   --button-shadow: #{$button-shadow} #{transparentize($light-text-standard, .8)};
   --card-shadow-desktop: #{$card-shadow-desktop} #{transparentize($light-text-standard, .8)};
   --card-shadow-mobile: #{$card-shadow-mobile} #{transparentize($light-text-standard, .8)};
@@ -51,6 +55,9 @@ body {
   --body-bg: #{$dark-body-bg};
   --accent: #{$dark-accent};
   --intensified-bg: #{$dark-intensified-bg};
+
+  --mode-toggle: #{$light-body-bg};
+  --mode-toggle-shadow: #{$mode-toggle-shadow} #{transparentize($light-body-bg, .5)};
 
   --button-shadow: #{$button-shadow} #{transparentize(#000, .6)};
   --card-shadow-desktop: #{$card-shadow-desktop} #{transparentize(#000, .6)};

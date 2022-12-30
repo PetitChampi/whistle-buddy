@@ -1,12 +1,3 @@
-<script setup>
-import { RouterLink, RouterView } from "vue-router";
-import { useDarkModeStore } from "@/stores/darkMode";
-import { storeToRefs } from 'pinia'
-
-const darkModeStore = useDarkModeStore();
-const { darkMode } = storeToRefs(darkModeStore);
-</script>
-
 <template>
   <div class="app-wrapper" :class="darkMode && 'dark-mode'">
     <RouterView name="FullPage" />
@@ -17,3 +8,12 @@ const { darkMode } = storeToRefs(darkModeStore);
     <RouterView name="Footer" />
   </div>
 </template>
+
+<script setup>
+import { RouterLink, RouterView } from "vue-router";
+import { useDarkModeStore } from "@/stores/darkMode";
+import { storeToRefs } from 'pinia'
+
+const darkModeStore = useDarkModeStore();
+const { darkMode } = storeToRefs(darkModeStore);
+</script>

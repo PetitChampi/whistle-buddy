@@ -7,7 +7,9 @@
         :closeOnInteraction="true"
       />
       <Dropdown>
-        <template v-slot:dropdown-title>bruh</template>
+        <template v-slot:dropdown-title>
+          <span class="icon-settings"></span>
+        </template>
         <template v-slot:dropdown-content>
           double bruh
         </template>

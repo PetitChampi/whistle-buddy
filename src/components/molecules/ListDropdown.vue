@@ -8,7 +8,6 @@
         class="select-option"
         :class="option.value === selectedOption && 'selected'"
         @click="selectOption(option)"
-        data-value="tesla"
         v-for="option in options"
         :key="option.value"
       >
