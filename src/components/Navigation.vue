@@ -1,6 +1,18 @@
 <template>
   <nav class="navigation">
-    <ListDropdown :options="carOptions" :closeOnInteraction="true" />
+    <div class="navigation-controls">
+      <ListDropdown
+        :options="keyOptions"
+        :defaultSelectedOption="'d'"
+        :closeOnInteraction="true"
+      />
+      <Dropdown>
+        <template v-slot:dropdown-title>bruh</template>
+        <template v-slot:dropdown-content>
+          double bruh
+        </template>
+      </Dropdown>
+    </div>
     <div class="navigation-links">
       <RouterLink :to="{ name: 'fingeringTable' }">
         <div class="navigation-links-item">Fingering table</div>
@@ -12,25 +24,33 @@
         <div class="navigation-links-item">Mix-or-match</div>
       </RouterLink>
     </div>
-    <Dropdown>
-      <template v-slot:dropdown-title>bruh</template>
-      <template v-slot:dropdown-content>
-        double bruh
-      </template>
-    </Dropdown>
+    <div class="navigation-controls">
+      <ModeToggle />
+      <ListDropdown
+        :options="langOptions"
+        :defaultSelectedOption="'en'"
+        :closeOnInteraction="true"
+      />
+    </div>
   </nav>
 </template>
 
 <script setup>
 import ListDropdown from "@/components/molecules/ListDropdown.vue";
 import Dropdown from "@/components/molecules/Dropdown.vue";
+import ModeToggle from "@/components/molecules/ModeToggle.vue";
 import { ref } from "@vue/reactivity";
 
-const carOptions = ref([
-  { value: "tesla", displayValue: "Tesla" },
-  { value: "volkswagen", displayValue: "Volkswagen" },
-  { value: "mercedes", displayValue: "Mercedes" },
-  { value: "mitsubishi", displayValue: "Mitsubishi" }
+// Todo: replace w/ state
+const keyOptions = ref([
+  { value: "a", displayValue: "A" },
+  { value: "b", displayValue: "B" },
+  { value: "c", displayValue: "C" },
+  { value: "d", displayValue: "D" }
+]);
+const langOptions = ref([
+  { value: "en", displayValue: "EN" },
+  { value: "fr", displayValue: "FR" }
 ]);
 </script>
 
@@ -65,6 +85,12 @@ const carOptions = ref([
         color: var(--text-intense);
       }
     }
+  }
+
+  &-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }
 }
 </style>

@@ -21,10 +21,11 @@
 <script setup>
 import Dropdown from "@/components/molecules/Dropdown.vue";
 import { ref } from "@vue/reactivity";
+import { onMounted } from "@vue/runtime-core";
 
 const props = defineProps({
   options: {
-    type: Object,
+    type: Array,
     required: true,
   },
   defaultSelectedOption: {
@@ -47,6 +48,13 @@ function selectOption(opt) {
   selectedOption.value = opt.value;
   buttonText.value = opt.displayValue;
 }
+
+onMounted(() => {
+  if (props.defaultSelectedOption) {
+    const defaultOpt = props.options.find(opt => opt.value === props.defaultSelectedOption);
+    selectOption(defaultOpt);
+  }
+});
 </script>
 
 <style lang="scss">
