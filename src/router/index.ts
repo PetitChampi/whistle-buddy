@@ -13,7 +13,10 @@ const router = createRouter({
     {
       path: '/select',
       name: 'select',
-      components: { FullPage: () => import('@/views/SelectView.vue') }
+      components: {
+        FullPage: () => import('@/views/SelectView.vue'),
+        Footer
+      }
     },
     {
       path: '/fingering-table',

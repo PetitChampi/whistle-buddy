@@ -1,10 +1,12 @@
 <template>
-  <ModeToggle />
-  <ListDropdown
-    :options="langOptions"
-    :defaultSelectedOption="'en'"
-    :closeOnInteraction="true"
-  />
+  <div class="controls">
+    <ModeToggle />
+    <ListDropdown
+      :options="langOptions"
+      :defaultSelectedOption="'en'"
+      :closeOnInteraction="true"
+    />
+  </div>
 </template>
 
 <script setup>
@@ -19,6 +21,10 @@ const langOptions = ref([
 ]);
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 </style>

@@ -29,6 +29,7 @@
   background-color: var(--faint);
   text-align: center;
   padding: 30px 20px;
+  margin-top: 100px;
 
   &-title {
     font-weight: 700;
