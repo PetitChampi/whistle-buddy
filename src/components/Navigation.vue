@@ -1,28 +1,30 @@
 <template>
-  <nav class="navigation">
-    <div class="navigation-controls">
-      <ListDropdown
-        :options="keyOptions"
-        :defaultSelectedOption="'d'"
-        :closeOnInteraction="true"
-      />
-      <SettingsDropdown />
-    </div>
-    <div class="navigation-links">
-      <RouterLink :to="{ name: 'fingeringTable' }">
-        <div class="navigation-links-item">Fingering table</div>
-      </RouterLink>
-      <RouterLink :to="{ name: 'guessingGame' }">
-        <div class="navigation-links-item">Guessing game</div>
-      </RouterLink>
-      <RouterLink :to="{ name: 'mixOrMatch' }">
-        <div class="navigation-links-item">Mix-or-match</div>
-      </RouterLink>
-    </div>
-    <div class="navigation-controls">
-      <NonMusicalControls />
-    </div>
-  </nav>
+  <div class="sticky-container">
+    <nav class="navigation">
+      <div class="navigation-controls">
+        <ListDropdown
+          :options="keyOptions"
+          :defaultSelectedOption="'d'"
+          :closeOnInteraction="true"
+        />
+        <SettingsDropdown />
+      </div>
+      <div class="navigation-links">
+        <RouterLink :to="{ name: 'fingeringTable' }">
+          <div class="navigation-links-item">Fingering table</div>
+        </RouterLink>
+        <RouterLink :to="{ name: 'guessingGame' }">
+          <div class="navigation-links-item">Guessing game</div>
+        </RouterLink>
+        <RouterLink :to="{ name: 'mixOrMatch' }">
+          <div class="navigation-links-item">Mix-or-match</div>
+        </RouterLink>
+      </div>
+      <div class="navigation-controls">
+        <NonMusicalControls />
+      </div>
+    </nav>
+  </div>
 </template>
 
 <script setup>
@@ -40,7 +42,11 @@ const keyOptions = ref([
 ]);
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.sticky-container {
+  position: sticky;
+  top: 0;
+}
 .navigation {
   padding: 15px 30px;
   background-color: var(--faint);

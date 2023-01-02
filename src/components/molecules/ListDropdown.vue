@@ -56,7 +56,7 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .select-option {
   display: block;
   padding: 10px 15px;

@@ -18,14 +18,11 @@
   </footer>
 </template>
 
-<script>
-</script>
-
 <style lang="scss">
 .footer {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   background-color: var(--faint);
   text-align: center;
   padding: 30px 20px;
@@ -33,16 +30,17 @@
 
   &-title {
     font-weight: 700;
-    font-size: 1.125rem;
+    font-size: 1.25rem;
   }
 
   &-credits {
     font-size: .875rem;
-    line-height: 150%;
+    line-height: 160%;
 
     a {
       text-decoration: none;
       font-weight: 700;
+      line-height: 140%;
       display: inline-block;
       border-bottom: 1px solid transparent;
       transition: border-color ease .2s;
