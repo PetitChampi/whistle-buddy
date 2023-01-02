@@ -6,14 +6,7 @@
         :defaultSelectedOption="'d'"
         :closeOnInteraction="true"
       />
-      <Dropdown>
-        <template v-slot:dropdown-title>
-          <span class="icon-settings"></span>
-        </template>
-        <template v-slot:dropdown-content>
-          double bruh
-        </template>
-      </Dropdown>
+      <SettingsDropdown />
     </div>
     <div class="navigation-links">
       <RouterLink :to="{ name: 'fingeringTable' }">
@@ -27,20 +20,15 @@
       </RouterLink>
     </div>
     <div class="navigation-controls">
-      <ModeToggle />
-      <ListDropdown
-        :options="langOptions"
-        :defaultSelectedOption="'en'"
-        :closeOnInteraction="true"
-      />
+      <NonMusicalControls />
     </div>
   </nav>
 </template>
 
 <script setup>
 import ListDropdown from "@/components/molecules/ListDropdown.vue";
-import Dropdown from "@/components/molecules/Dropdown.vue";
-import ModeToggle from "@/components/molecules/ModeToggle.vue";
+import SettingsDropdown from "@/components/molecules/SettingsDropdown.vue";
+import NonMusicalControls from "@/components/NonMusicalControls.vue";
 import { ref } from "@vue/reactivity";
 
 // Todo: replace w/ state
@@ -49,10 +37,6 @@ const keyOptions = ref([
   { value: "b", displayValue: "B" },
   { value: "c", displayValue: "C" },
   { value: "d", displayValue: "D" }
-]);
-const langOptions = ref([
-  { value: "en", displayValue: "EN" },
-  { value: "fr", displayValue: "FR" }
 ]);
 </script>
 
