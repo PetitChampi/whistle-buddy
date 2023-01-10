@@ -59,7 +59,7 @@ onBeforeUnmount(() => {
     border-radius: $button-radius-desktop;
     background: var(--intensified-bg);
     box-shadow: var(--button-shadow);
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
   }
   &-content {

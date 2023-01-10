@@ -1,10 +1,9 @@
 @font-face {
-  font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?zhbip9');
-  src:  url('fonts/icomoon.eot?zhbip9#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?zhbip9') format('truetype'),
-    url('fonts/icomoon.woff?zhbip9') format('woff'),
-    url('fonts/icomoon.svg?zhbip9#icomoon') format('svg');
+  font-family: 'wb-iconfont';
+  src:
+    url('fonts/wb-iconfont.ttf?zhbip9') format('truetype'),
+    url('fonts/wb-iconfont.woff?zhbip9') format('woff'),
+    url('fonts/wb-iconfont.svg?zhbip9#wb-iconfont') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -12,7 +11,7 @@
 
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
+  font-family: 'wb-iconfont' !important;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -56,4 +55,7 @@
 }
 .icon-volume:before {
   content: "\6d";
+}
+.icon-shuffle:before {
+  content: "\68";
 }
