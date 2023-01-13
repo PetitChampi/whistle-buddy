@@ -48,7 +48,7 @@ function toggle(e) {
   &-option {
     &-label {
       display: inline-block;
-      padding: 5px 10px 7px;
+      padding: 5px 15px 7px;
       border-radius: 50px;
   cursor: pointer;
 
