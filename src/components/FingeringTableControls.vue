@@ -23,14 +23,16 @@
       </div>
       <div class="controls-group-item">
         <span class="label">Flashcard mode</span>
+        <SwitchInput v-model="flashcardMode" />
       </div>
     </div>
-    <IconButton icon="shuffle" :activateOnClick="true" />
+    <IconButton icon="shuffle" activateOnClick />
   </div>
 </template>
 
 <script setup>
 import IconButton from "@/components/molecules/IconButton.vue";
+import SwitchInput from "@/components/molecules/SwitchInput.vue";
 import Dropdown from "@/components/molecules/Dropdown.vue";
 import ListDropdown from "@/components/molecules/ListDropdown.vue";
 import { ref } from "@vue/reactivity";
@@ -41,6 +43,8 @@ const fppOptions = ref([
   { value: "12", displayValue: "12" },
   { value: "14", displayValue: "All (14)" },
 ]);
+
+const flashcardMode = ref(false);
 </script>
 
 <style lang="scss" scoped>
