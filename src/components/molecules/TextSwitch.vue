@@ -50,8 +50,7 @@ function toggle(e) {
       display: inline-block;
       padding: 5px 15px 7px;
       border-radius: 50px;
-  cursor: pointer;
-
+      cursor: pointer;
     }
 
     &-radio {
@@ -60,7 +59,7 @@ function toggle(e) {
       height: 0;
 
       &:checked + .switch-option-label {
-        color: var(--intensified-bg);
+        color: var(--accent-contraster);
         background-color: var(--accent);
       }
     }

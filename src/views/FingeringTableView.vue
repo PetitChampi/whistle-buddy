@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import FingeringTableControls from "@/components/FingeringTableControls.vue"
+import FingeringTableControls from "@/components/FingeringTableControls.vue";
 </script>
 
 <style lang="scss" scoped>

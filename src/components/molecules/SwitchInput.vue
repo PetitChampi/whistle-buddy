@@ -36,7 +36,7 @@ function toggle() {
     }
     &:checked + .switch-slider:before {
       transform: translateX(30px);
-      background-color: var(--intensified-bg);
+      background-color: var(--accent-contraster);
     }
   }
 

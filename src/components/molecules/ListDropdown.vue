@@ -69,7 +69,7 @@ onMounted(() => {
   }
   &.selected {
     background-color: var(--accent);
-    color: var(--intensified-bg);
+    color: var(--accent-contraster);
   }
 }
 </style>

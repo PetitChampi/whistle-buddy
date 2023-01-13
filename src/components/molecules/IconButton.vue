@@ -51,7 +51,7 @@ function toggleActivate() {
 
   &.active {
     background-color: var(--accent);
-    color: var(--intensified-bg);
+    color: var(--accent-contraster);
   }
 
   &.play {
