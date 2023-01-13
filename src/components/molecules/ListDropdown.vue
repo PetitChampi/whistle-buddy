@@ -68,7 +68,7 @@ onMounted(() => {
     color: var(--text-intense);
   }
   &.selected {
-    background-color: var(--text-standard);
+    background-color: var(--accent);
     color: var(--intensified-bg);
   }
 }

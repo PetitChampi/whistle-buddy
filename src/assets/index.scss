@@ -48,7 +48,7 @@ body {
 :root {
   --text-intense: #{$light-text-intense};
   --text-standard: #{$light-text-standard};
-  --text-standard-half-transparent: #{transparentize($light-text-standard, .7)};
+  --text-standard-half-transparent: #{transparentize($light-text-standard, .75)};
   --faint: #{$light-faint};
   --body-bg: #{$light-body-bg};
   --accent: #{$light-accent};

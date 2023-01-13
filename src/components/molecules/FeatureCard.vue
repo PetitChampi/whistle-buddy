@@ -1,7 +1,7 @@
 <template>
   <div class="card" @click="goToLink">
     <div class="card-image">
-      <img src="https://png2.cleanpng.com/sh/68b326e258a0f7e08e5742baac4eb1ad/L0KzQYq3V8A6N6F4jZH0aYP2gLBuTfZwfaMyhNdqZj3mfLF9hgIue5lmheR4Y3uwc73wkL1ieqUyjORqZnbsc375gfNqdpgyTdY7NEa5RoiBVcU4P2gzTak8MEO0SYm4VcYzPmc7TasENUS5QnB3jvc=/kisspng-four-leaf-clover-shamrock-clip-art-traffic-racing-5d246667855777.5730319815626665995462.png" alt="" class="placeholder-contain">
+      <img src="https://via.placeholder.com/500" alt="" class="placeholder-contain">
     </div>
     <h2 class="card-title">{{ props.cardTitle }}</h2>
   </div>
