@@ -46,6 +46,7 @@ const keyOptions = ref([
 .sticky-container {
   position: sticky;
   top: 0;
+  z-index: 10;
 }
 .navigation {
   padding: 15px 30px;
