@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{ disabled }">
     <div class="indicators">
       <span class="indicators-min">
         {{ min }}{{ unit }}
@@ -65,7 +65,7 @@ const slider = ref(null);
 
 function updateThumb() {
   emit("update:modelValue", slider.value.value)
-  const percentage = (slider.value.value / props.max) * 100;
+  const percentage = ((slider.value.value - props.min) / (props.max - props.min)) * 100;
   const thumbWidth = getComputedStyle(thumb.value).width;
   const thumbWidthAsNb = Number(thumbWidth.substring(0, thumbWidth.length - 2));
   const thumbWidthChunk = (thumbWidthAsNb / 100) * percentage;
@@ -87,6 +87,12 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+.disabled {
+  opacity: .5;
+  pointer-events: none;
+  user-select: none;
+}
+
 .indicators {
   margin-bottom: 10px;
   display: flex;
