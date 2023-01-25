@@ -37,18 +37,6 @@
   &-credits {
     font-size: .875rem;
     line-height: 160%;
-
-    a {
-      text-decoration: none;
-      font-weight: 700;
-      line-height: 140%;
-      display: inline-block;
-      border-bottom: 1px solid transparent;
-      transition: border-color ease .2s;
-      &:hover {
-        border-bottom: 1px solid var(--accent);
-      }
-    }
     
     &-item {
       margin: 0;

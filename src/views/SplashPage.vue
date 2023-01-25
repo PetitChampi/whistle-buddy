@@ -61,6 +61,10 @@ const { darkMode } = storeToRefs(darkModeStore);
         var(--accent-contraster) 0 0 20px;
     }
 
+    a {
+      border: none;
+    }
+
     .start-btn {
       font-family: inherit;
       font-size: 1.5rem;

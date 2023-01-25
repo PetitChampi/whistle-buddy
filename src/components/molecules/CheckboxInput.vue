@@ -86,8 +86,8 @@ function tickBox() {
         width: 8px;
         height: 3px;
         transform: rotate(-45deg);
-        border-bottom: 2px solid var(--accent-contraster);
-        border-left: 2px solid var(--accent-contraster);
+        border-bottom: 2px solid var(--intensified-bg);
+        border-left: 2px solid var(--intensified-bg);
       }
     }
   }
