@@ -60,7 +60,7 @@ function toggle() {
 
   label {
     display: flex;
-    gap: 5px;
+    gap: 10px;
     align-items: center;
     cursor: pointer;
     user-select: none;
@@ -75,19 +75,21 @@ function toggle() {
       background-color: var(--intensified-bg);
       outline: 2px solid var(--text-standard);
       border-radius: 50px;
+      margin: 2px;
     }
   }
 
   &.small {
     label {
       font-size: .875rem;
-      gap: 5px;
+      gap: 7px;
       font-weight: unset;
 
       &::before {
         height: 13px;
         width: 13px;
         outline: 1px solid var(--text-standard);
+        margin: 1px;
       }
     }
   }

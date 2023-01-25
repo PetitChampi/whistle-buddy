@@ -2,11 +2,12 @@
   <div class="group">
     <header class="group-header">
       <div
+        v-if="props.accordion"
         class="group-header-icon"
         :class="{ flipped: props.accordion && !closed }"
         @click="toggleAccordion"
       >
-        <span class="icon-chevron_down" v-if="props.accordion"></span>
+        <span class="icon-chevron_down"></span>
       </div>
       <div class="group-header-text">
         <h2 class="group-header-text-title">{{ title }}</h2>
@@ -21,7 +22,7 @@
     </header>
     <div
       class="group-content"
-      :class="{ closed: props.accordion && closed }"
+      :class="{ closed: closed }"
       ref="accContent"
     >
       <div class="group-content-inner">
@@ -41,8 +42,7 @@ const props = defineProps({
     required: true
   },
   subtitle: {
-    type: String,
-    required: true
+    type: String
   },
   accordion: {
     type: Boolean,
