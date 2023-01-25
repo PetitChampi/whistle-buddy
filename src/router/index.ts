@@ -6,6 +6,15 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/:pathMatch(.*)*',
+      name: '404',
+      components: {
+        Navigation,
+        MainContent: () => import('../views/404View.vue'),
+        Footer
+      }
+    },
+    {
       path: '/',
       name: 'splashPage',
       components: { FullPage: () => import('@/views/SplashPage.vue') }

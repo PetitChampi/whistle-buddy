@@ -65,6 +65,7 @@ const keyOptions = ref([
 
     &-item {
       font-size: 1.125rem;
+      font-weight: 400;
     }
     .router-link-active {
       border-bottom: 2px solid var(--text-standard-half-transparent);
