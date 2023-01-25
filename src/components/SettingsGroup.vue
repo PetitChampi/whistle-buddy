@@ -22,11 +22,7 @@
         />
       </div>
     </header>
-    <div
-      class="group-content"
-      :class="{ closed: props.accordion && closed }"
-      ref="accContent"
-    >
+    <div class="group-content" ref="accContent">
       <div class="group-content-inner" v-if="!!slots['content']">
         <slot name="content"></slot>
       </div>
@@ -37,7 +33,7 @@
 <script setup>
 import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import { ref } from "@vue/reactivity";
-import { useSlots } from "@vue/runtime-core";
+import { onMounted, useSlots } from "@vue/runtime-core";
 
 const props = defineProps({
   title: {
@@ -78,8 +74,14 @@ const closed = ref(!props.openByDefault);
 function toggleAccordion() {
   closed.value = !closed.value;
   if (!closed.value) accContent.value.style.maxHeight = `${accContent.value.scrollHeight}px`;
-  else accContent.value.style.maxHeight = null;
+  else accContent.value.style.maxHeight = "0";
 }
+
+onMounted(() => {
+  // Manually added padding of .group-content-inner, since its existence is assessed after onMounted
+  if (!closed.value) accContent.value.style.maxHeight = `calc(${accContent.value.scrollHeight}px + 15px)`
+  else accContent.value.style.maxHeight = "0";
+});
 </script>
 
 <style lang="scss" scoped>
@@ -124,10 +126,6 @@ function toggleAccordion() {
   &-content {
     overflow: hidden;
     transition: max-height 0.2s ease;
-
-    &.closed {
-      max-height: 0;
-    }
 
     &-inner {
       padding-top: 10px;
