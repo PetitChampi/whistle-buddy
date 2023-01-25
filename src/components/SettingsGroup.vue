@@ -13,19 +13,21 @@
         <h2 class="group-header-text-title">{{ title }}</h2>
         <div class="group-header-text-subtitle">{{ subtitle }}</div>
       </div>
-      <CheckboxInput
-        v-if="hasCheckbox"
-        value="bruh"
-        v-model="settings"
-        class="group-header-checkbox"
-      />
+      <div class="group-header-checkbox">
+        <label>{{ props.checkboxLabel }}</label>
+        <CheckboxInput
+          v-if="hasCheckbox"
+          value="bruh"
+          v-model="settings"
+        />
+      </div>
     </header>
     <div
       class="group-content"
-      :class="{ closed: closed }"
+      :class="{ closed: props.accordion && closed }"
       ref="accContent"
     >
-      <div class="group-content-inner">
+      <div class="group-content-inner" v-if="!!slots['content']">
         <slot name="content"></slot>
       </div>
     </div>
@@ -35,6 +37,7 @@
 <script setup>
 import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import { ref } from "@vue/reactivity";
+import { useSlots } from "@vue/runtime-core";
 
 const props = defineProps({
   title: {
@@ -48,20 +51,29 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  openByDefault: {
+    type: Boolean,
+    default: false
+  },
   hasCheckbox: {
     type: Boolean,
     default: false
+  },
+  checkboxLabel: {
+    type: String
   },
   checkboxLabel: {
     type: String,
   }
 });
 
+const slots = useSlots();
+
 const accContent = ref(null);
 
 // TODO replace w/ real settings, edit checkbox?
 const settings = ref([]);
-const closed = ref(true);
+const closed = ref(!props.openByDefault);
 
 function toggleAccordion() {
   closed.value = !closed.value;
@@ -99,11 +111,14 @@ function toggleAccordion() {
       }
       &-subtitle {
         font-size: .875rem;
+        line-height: 140%;
       }
     }
 
     &-checkbox {
       margin-top: 5px;
+      display: flex;
+      gap: 8px;
     }
   }
   &-content {

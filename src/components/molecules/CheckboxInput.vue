@@ -95,7 +95,7 @@ function tickBox() {
   &.small {
     label {
       font-size: .875rem;
-      gap: 5px;
+      gap: 7px;
       font-weight: unset;
 
       .tick {

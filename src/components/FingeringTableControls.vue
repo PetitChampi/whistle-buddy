@@ -16,7 +16,57 @@
           </template>
           <template v-slot:dropdown-content>
             <div class="settings-container">
-              double bruh this is a very long dropdown text
+              <SettingsGroup
+                title="Basic fingerings"
+                hasCheckbox
+                checkboxLabel="All"
+                accordion
+                openByDefault
+              >
+                <template v-slot:content>
+                  <div class="checkbox-grid">
+                    <CheckboxInput v-model="selectedFingerings" value="a" label="A" small />
+                    <CheckboxInput v-model="selectedFingerings" value="b" label="B" small />
+                    <CheckboxInput v-model="selectedFingerings" value="c" label="C" small />
+                    <CheckboxInput v-model="selectedFingerings" value="d" label="D" small />
+                    <CheckboxInput v-model="selectedFingerings" value="e" label="E" small />
+                    <CheckboxInput v-model="selectedFingerings" value="f" label="F" small />
+                    <CheckboxInput v-model="selectedFingerings" value="g" label="G" small />
+                  </div>
+                </template>
+              </SettingsGroup>
+
+              <SettingsGroup
+                title="Half-holes"
+                hasCheckbox
+                checkboxLabel="All"
+                accordion
+              >
+                <template v-slot:content>
+                  <div class="checkbox-grid">
+                    <CheckboxInput v-model="selectedFingerings" value="d-hh" label="D" small />
+                    <CheckboxInput v-model="selectedFingerings" value="e-hh" label="E" small />
+                    <CheckboxInput v-model="selectedFingerings" value="f-hh" label="F" small />
+                    <CheckboxInput v-model="selectedFingerings" value="g-hh" label="G" small />
+                  </div>
+                </template>
+              </SettingsGroup>
+
+              <SettingsGroup
+                title="Specific fingerings"
+                subtitle="Alternative fingerings for certain notes"
+                hasCheckbox
+                checkboxLabel="All"
+                accordion
+              >
+                <template v-slot:content>
+                  <div class="checkbox-grid">
+                    <CheckboxInput v-model="selectedFingerings" value="d-sp" label="D" small />
+                    <CheckboxInput v-model="selectedFingerings" value="e-sp" label="E" small />
+                    <CheckboxInput v-model="selectedFingerings" value="f-sp" label="F" small />
+                  </div>
+                </template>
+              </SettingsGroup>
             </div>
           </template>
         </Dropdown>
@@ -43,6 +93,8 @@ import SwitchInput from "@/components/molecules/SwitchInput.vue";
 import Dropdown from "@/components/molecules/Dropdown.vue";
 import ListDropdown from "@/components/molecules/ListDropdown.vue";
 import TextSwitch from "@/components/molecules/TextSwitch.vue";
+import SettingsGroup from "@/components/SettingsGroup.vue";
+import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import { ref } from "@vue/reactivity";
 
 const fppOptions = ref([
@@ -54,6 +106,7 @@ const fppOptions = ref([
 const flashcardMode = ref(false);
 const flashcardOptions = ref(["Fingerings", "Notes"]);
 const chosenTxtOption = ref("Fingerings");
+const selectedFingerings = ref([]);
 </script>
 
 <style lang="scss" scoped>
@@ -81,6 +134,22 @@ const chosenTxtOption = ref("Fingerings");
         gap: 15px;
       }
     }
+  }
+}
+
+.settings-container {
+  padding: 20px 20px 30px 30px;
+  width: 300px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(3, min-content);
+    column-gap: 30px;
+    row-gap: 10px;
   }
 }
 
