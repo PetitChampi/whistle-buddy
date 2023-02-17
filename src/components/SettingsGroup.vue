@@ -78,7 +78,7 @@ function toggleAccordion() {
 }
 
 onMounted(() => {
-  // Manually added padding of .group-content-inner, since its existence is assessed after onMounted
+  // Manually added padding of .group-content-inner, since its presence is assessed after onMounted
   if (!closed.value) accContent.value.style.maxHeight = `calc(${accContent.value.scrollHeight}px + 15px)`
   else accContent.value.style.maxHeight = "0";
 });
