@@ -49,9 +49,7 @@ const props = defineProps({
   unit: {
     type: String
   },
-  modelValue: {
-    type: Number,
-  },
+  modelValue: {},
   disabled: {
     type: Boolean,
     default: false

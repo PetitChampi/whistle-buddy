@@ -64,7 +64,7 @@ function toggle() {
     align-items: center;
     cursor: pointer;
     user-select: none;
-    font-weight: 500;
+    font-weight: 400;
 
     &::before {
       content: "";

@@ -6,7 +6,7 @@
     <template v-slot:dropdown-content>
       <div class="settings-container">
         <SettingsGroup
-          title="Add french notation"
+          title="Add French notation"
           subtitle="Do, Ré, Mi..."
           hasCheckbox
         />

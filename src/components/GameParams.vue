@@ -1,0 +1,184 @@
+<template>
+  <div class="game-settings">
+    <h1 class="page-title">Game settings</h1>
+    <div class="settings-items">
+      <SettingsGroup title="Key" large>
+        <template v-slot:content>
+          <ListDropdown
+            :options="keyOptions"
+            :defaultSelectedOption="'d'"
+            :closeOnInteraction="true"
+          />
+        </template>
+      </SettingsGroup>
+
+      <SettingsGroup v-if="gameType === 'guessing'" title="Value to guess" large>
+        <template v-slot:content>
+          <div class="radio-group">
+            <RadioInput v-model="valuesToGuess" groupName="guessValue" value="note" label="Guess the note" />
+            <RadioInput v-model="valuesToGuess" groupName="guessValue" value="fingering" label="Guess the fingering" />
+          </div>
+        </template>
+      </SettingsGroup>
+
+      <SettingsGroup v-if="gameType === 'guessing'" title="Number of choices" large>
+        <template v-slot:content>
+          <div class="settings-item-content">
+            <GaugeInput :min="3" :max="12" v-model="numberOfChoices" />
+          </div>
+        </template>
+      </SettingsGroup>
+
+      <SettingsGroup v-if="gameType === 'mixmatch'" title="Number of pairs" large>
+        <template v-slot:content>
+          <div class="settings-item-content">
+            <GaugeInput :min="3" :max="14" v-model="numberOfPairs" />
+          </div>
+        </template>
+      </SettingsGroup>
+
+      <SettingsGroup title="Timer" hasCheckbox large>
+        <template v-slot:content>
+          <div class="settings-item-content">
+            <GaugeInput
+              :min="timerValues.min"
+              :max="timerValues.max"
+              :unit="timerValues.unit"
+              v-model="gameDuration"
+            />
+          </div>
+        </template>
+      </SettingsGroup>
+
+      <SettingsGroup title="Fingerings" large accordion>
+        <template v-slot:content>
+          <div class="settings-item-content">
+            fingerings
+          </div>
+        </template>
+      </SettingsGroup>
+    </div>
+
+    <div class="divider">
+      <span class="divider-text">General&nbsp;settings</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="settings-items">
+      <SettingsGroup
+        title="Add French notation"
+        subtitle="Do, Ré, Mi..."
+        hasCheckbox
+        large
+      />
+      <SettingsGroup
+        title="Synesthesia"
+        subtitle="Match each note with a colour"
+        hasCheckbox
+        large
+        accordion
+      >
+        <template v-slot:content>
+          Insert colour pickers here
+        </template>
+      </SettingsGroup>
+    </div>
+    <div class="btn-container">
+      <CustomButton btnText="Start game" @click="startGame" />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import SettingsGroup from "@/components/SettingsGroup.vue";
+import ListDropdown from "@/components/molecules/ListDropdown.vue";
+import RadioInput from "@/components/molecules/RadioInput.vue";
+import GaugeInput from "@/components/molecules/GaugeInput.vue";
+import CustomButton from "@/components/molecules/CustomButton.vue";
+import { computed, ref } from "vue";
+
+const props = defineProps({
+  gameType: {
+    type: String,
+    required: true
+  }
+});
+
+const emit = defineEmits(["gameStarted"]);
+
+const valuesToGuess = ref("note");
+const numberOfChoices = ref(5);
+const numberOfPairs = ref(6);
+
+const timerValues = computed(() => {
+  let values = {}
+  switch (props.gameType) {
+    case 'guessing':
+      values = { unit: "s", min: 2, max: 30, default: 5 };
+      break;
+    case 'mixmatch':
+      values = { unit: "m", min: 1, max: 5, default: 3 };
+      break;
+    default:
+  }
+
+  return values;
+});
+
+const gameDuration = ref(timerValues.value.default);
+
+function startGame() {
+  emit("gameStarted");
+}
+
+// Todo: replace w/ state
+const keyOptions = ref([
+  { value: "a", displayValue: "A" },
+  { value: "b", displayValue: "B" },
+  { value: "c", displayValue: "C" },
+  { value: "d", displayValue: "D" }
+]);
+</script>
+
+<style lang="scss" scoped>
+.game-settings {
+  max-width: 660px;
+  margin: 50px auto 0;
+
+  .settings-items {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 60px 0 40px;
+
+    &-text {
+      font-weight: 600;
+      color: var(--text-standard-half-transparent);
+    }
+    &-line {
+      height: 2px;
+      width: 100%;
+      background-color: var(--text-standard-half-transparent);
+    }
+  }
+
+  .settings-item-content {
+    max-width: 400px;
+  }
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .btn-container {
+    margin-top: 60px;
+    text-align: center;
+  }
+}
+</style>

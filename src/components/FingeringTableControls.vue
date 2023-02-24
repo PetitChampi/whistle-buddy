@@ -25,13 +25,13 @@
               >
                 <template v-slot:content>
                   <div class="checkbox-grid">
-                    <CheckboxInput v-model="selectedFingerings" value="a" label="A" small />
-                    <CheckboxInput v-model="selectedFingerings" value="b" label="B" small />
-                    <CheckboxInput v-model="selectedFingerings" value="c" label="C" small />
-                    <CheckboxInput v-model="selectedFingerings" value="d" label="D" small />
-                    <CheckboxInput v-model="selectedFingerings" value="e" label="E" small />
-                    <CheckboxInput v-model="selectedFingerings" value="f" label="F" small />
-                    <CheckboxInput v-model="selectedFingerings" value="g" label="G" small />
+                    <CheckboxInput v-model="selectedFingerings" value="a" label="A" size="s" />
+                    <CheckboxInput v-model="selectedFingerings" value="b" label="B" size="s" />
+                    <CheckboxInput v-model="selectedFingerings" value="c" label="C" size="s" />
+                    <CheckboxInput v-model="selectedFingerings" value="d" label="D" size="s" />
+                    <CheckboxInput v-model="selectedFingerings" value="e" label="E" size="s" />
+                    <CheckboxInput v-model="selectedFingerings" value="f" label="F" size="s" />
+                    <CheckboxInput v-model="selectedFingerings" value="g" label="G" size="s" />
                   </div>
                 </template>
               </SettingsGroup>
@@ -44,10 +44,10 @@
               >
                 <template v-slot:content>
                   <div class="checkbox-grid">
-                    <CheckboxInput v-model="selectedFingerings" value="d-hh" label="D" small />
-                    <CheckboxInput v-model="selectedFingerings" value="e-hh" label="E" small />
-                    <CheckboxInput v-model="selectedFingerings" value="f-hh" label="F" small />
-                    <CheckboxInput v-model="selectedFingerings" value="g-hh" label="G" small />
+                    <CheckboxInput v-model="selectedFingerings" value="d-hh" label="D" size="s" />
+                    <CheckboxInput v-model="selectedFingerings" value="e-hh" label="E" size="s" />
+                    <CheckboxInput v-model="selectedFingerings" value="f-hh" label="F" size="s" />
+                    <CheckboxInput v-model="selectedFingerings" value="g-hh" label="G" size="s" />
                   </div>
                 </template>
               </SettingsGroup>
@@ -61,9 +61,9 @@
               >
                 <template v-slot:content>
                   <div class="checkbox-grid">
-                    <CheckboxInput v-model="selectedFingerings" value="d-sp" label="D" small />
-                    <CheckboxInput v-model="selectedFingerings" value="e-sp" label="E" small />
-                    <CheckboxInput v-model="selectedFingerings" value="f-sp" label="F" small />
+                    <CheckboxInput v-model="selectedFingerings" value="d-sp" label="D" size="s" />
+                    <CheckboxInput v-model="selectedFingerings" value="e-sp" label="E" size="s" />
+                    <CheckboxInput v-model="selectedFingerings" value="f-sp" label="F" size="s" />
                   </div>
                 </template>
               </SettingsGroup>

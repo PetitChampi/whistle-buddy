@@ -1,7 +1,7 @@
 <template>
   <div
     class="checkbox-group"
-    :class="{ small }"
+    :class="{ small: size === 's', large: size === 'l' }"
     @click.prevent="tickBox"
   >
     <input
@@ -29,9 +29,8 @@ const props = defineProps({
   label: {
     type: String,
   },
-  small: {
-    type: Boolean,
-    default: false
+  size: {
+    type: String,
   }
 });
 
@@ -107,6 +106,21 @@ function tickBox() {
         &::before {
           width: 7px;
           top: 25%;
+        }
+      }
+    }
+  }
+  &.large {
+    label {
+      .tick {
+        height: 24px;
+        width: 24px;
+        border: 2px solid var(--text-standard);
+        border-radius: 5px;
+
+        &::before {
+          width: 12px;
+          top: 35%;
         }
       }
     }

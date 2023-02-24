@@ -1,7 +1,7 @@
 <template>
   <Dropdown :closeOnInteraction="props.closeOnInteraction">
     <template v-slot:dropdown-title>
-      <span>{{ buttonText }}</span>
+      <span class="select-title">{{ buttonText }}</span>
     </template>
     <template v-slot:dropdown-content>
       <span
@@ -57,6 +57,10 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+.select-title {
+  user-select: none;
+}
+
 .select-option {
   display: block;
   padding: 10px 15px;

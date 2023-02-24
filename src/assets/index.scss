@@ -43,7 +43,6 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    overflow: hidden;
   }
 
   .container {
@@ -51,6 +50,12 @@ body {
     max-width: 1000px;
     margin: 0 auto;
     flex-grow: 1;
+  }
+
+  h1 {
+    font-size: 3rem;
+    color: var(--text-intense);
+    margin-bottom: 30px;
   }
 }
 

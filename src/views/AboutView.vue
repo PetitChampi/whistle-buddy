@@ -15,14 +15,11 @@
 
 <style lang="scss" scoped>
 .about {
-  margin: 60px auto 0;
+  margin: 50px auto 0;
   max-width: 660px;
 
   &-title {
     text-align: center;
-    font-size: 3rem;
-    color: var(--text-intense);
-    margin-bottom: 30px;
   }
 
   &-text {
