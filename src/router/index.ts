@@ -4,6 +4,14 @@ import Footer from '@/components/Footer.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior(to, from, savedPosition) {
+    // scroll to top on route change
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({ top: 0 })
+      }, 300)
+    });
+  },
   routes: [
     {
       path: '/:pathMatch(.*)*',

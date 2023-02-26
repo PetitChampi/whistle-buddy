@@ -154,13 +154,15 @@ const selectedFingerings = ref([]);
 }
 
 // transition classes
-.v-enter-active,
-.v-leave-active {
-  transition: opacity .4s ease;
-}
+.v {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity .4s ease;
+  }
 
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+  }
 }
 </style>

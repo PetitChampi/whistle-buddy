@@ -53,7 +53,31 @@
       <SettingsGroup title="Fingerings" large accordion>
         <template v-slot:content>
           <div class="settings-item-content">
-            fingerings
+            <p class="checkbox-grid-label">Standard</p>
+            <div class="checkbox-grid">
+              <CheckboxInput v-model="selectedFingerings" value="a" label="A" />
+              <CheckboxInput v-model="selectedFingerings" value="b" label="B" />
+              <CheckboxInput v-model="selectedFingerings" value="c" label="C" />
+              <CheckboxInput v-model="selectedFingerings" value="d" label="D" />
+              <CheckboxInput v-model="selectedFingerings" value="e" label="E" />
+              <CheckboxInput v-model="selectedFingerings" value="f" label="F" />
+              <CheckboxInput v-model="selectedFingerings" value="g" label="G" />
+            </div>
+            <p class="checkbox-grid-label">Half-hole</p>
+            <div class="checkbox-grid">
+              <CheckboxInput v-model="selectedFingerings" value="a-hh" label="A" />
+              <CheckboxInput v-model="selectedFingerings" value="b-hh" label="B" />
+              <CheckboxInput v-model="selectedFingerings" value="c-hh" label="C" />
+              <CheckboxInput v-model="selectedFingerings" value="d-hh" label="D" />
+            </div>
+            <p class="checkbox-grid-label">Specific</p>
+            <div class="checkbox-grid">
+              <CheckboxInput v-model="selectedFingerings" value="a-sp" label="A" />
+              <CheckboxInput v-model="selectedFingerings" value="b-sp" label="B" />
+              <CheckboxInput v-model="selectedFingerings" value="c-sp" label="C" />
+              <CheckboxInput v-model="selectedFingerings" value="d-sp" label="D" />
+              <CheckboxInput v-model="selectedFingerings" value="e-sp" label="E" />
+            </div>
           </div>
         </template>
       </SettingsGroup>
@@ -93,6 +117,7 @@
 import SettingsGroup from "@/components/SettingsGroup.vue";
 import ListDropdown from "@/components/molecules/ListDropdown.vue";
 import RadioInput from "@/components/molecules/RadioInput.vue";
+import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import GaugeInput from "@/components/molecules/GaugeInput.vue";
 import CustomButton from "@/components/molecules/CustomButton.vue";
 import { computed, ref } from "vue";
@@ -109,6 +134,7 @@ const emit = defineEmits(["gameStarted"]);
 const valuesToGuess = ref("note");
 const numberOfChoices = ref(5);
 const numberOfPairs = ref(6);
+const selectedFingerings = ref([]);
 
 const timerValues = computed(() => {
   let values = {}
@@ -148,7 +174,7 @@ const keyOptions = ref([
   .settings-items {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 50px;
   }
   .divider {
     display: flex;
@@ -179,6 +205,19 @@ const keyOptions = ref([
   .btn-container {
     margin-top: 60px;
     text-align: center;
+  }
+
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(4, min-content);
+    column-gap: 40px;
+    row-gap: 15px;
+    margin-bottom: 20px;
+
+    &-label {
+      font-size: .875rem;
+      margin-bottom: 10px;
+    }
   }
 }
 </style>

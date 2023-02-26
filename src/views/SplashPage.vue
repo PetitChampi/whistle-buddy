@@ -41,7 +41,7 @@ const { darkMode } = storeToRefs(darkModeStore);
   &-controls {
     display: flex;
     justify-content: flex-end;
-    padding: 20px 30px;
+    padding: 15px 30px;
   }
   &-items {
     flex-grow: 1;

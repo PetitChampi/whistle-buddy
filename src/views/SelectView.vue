@@ -35,7 +35,7 @@ import FeatureCard from "@/components/molecules/FeatureCard.vue"
 .controls-bar {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 30px 0;
+  padding: 15px 30px 0;
 }
 .main {
   margin-top: 20px;
