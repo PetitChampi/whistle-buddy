@@ -27,14 +27,15 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import ListDropdown from "@/components/molecules/ListDropdown.vue";
 import SettingsDropdown from "@/components/molecules/SettingsDropdown.vue";
 import NonMusicalControls from "@/components/NonMusicalControls.vue";
 import { ref } from "@vue/reactivity";
+import type { IOption } from "@/types/UiElements";
 
 // Todo: replace w/ state
-const keyOptions = ref([
+const keyOptions = ref<IOption[]>([
   { value: "a", displayValue: "A" },
   { value: "b", displayValue: "B" },
   { value: "c", displayValue: "C" },

@@ -10,7 +10,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from "@vue/runtime-core";
 
 const props = defineProps({
@@ -20,17 +20,17 @@ const props = defineProps({
   },
 });
 
-const isOpen = ref(false);
-const selectEl = ref(null);
-const triggerEl = ref(null);
+const isOpen = ref<boolean>(false);
+const selectEl = ref<HTMLElement | null>(null);
+const triggerEl = ref<HTMLElement | null>(null);
 
 function toggleOpen() {
   isOpen.value = !isOpen.value;
 }
-function checkClickTarget(e) {
+function checkClickTarget(e: MouseEvent) {
   if (!isOpen.value) return;
   const elToCheck = props.closeOnInteraction ? triggerEl : selectEl;
-  if (!e.target === elToCheck.value || !e.composedPath().includes(elToCheck.value)) {
+  if (!e.composedPath().includes((elToCheck.value as EventTarget))) {
     isOpen.value = false;
   }
 }

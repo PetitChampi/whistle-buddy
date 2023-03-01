@@ -21,15 +21,13 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Card from "@/components/molecules/Card.vue";
+import type { ICard } from "@/types/UiElements";
 
-const props = defineProps({
-  cards: {
-    type: Array,
-    required: true
-  }
-});
+const props = defineProps<{
+  cards: ICard[]
+}>();
 
 // todo implement page navigation
 function prev() {

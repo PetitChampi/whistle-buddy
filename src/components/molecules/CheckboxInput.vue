@@ -17,10 +17,11 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   modelValue: {
-    type: Array
+    type: Array,
+    required: true,
   },
   value: {
     type: String,
@@ -40,7 +41,7 @@ function tickBox() {
   // deep copy instead of shallow just in case
   let newArray = JSON.parse(JSON.stringify(props.modelValue));
   if (!props.modelValue.includes(props.value)) newArray.push(props.value);
-  else newArray = newArray.filter(item => item !== props.value);
+  else newArray = newArray.filter((item: string) => item !== props.value);
   emit("update:modelValue", newArray);
 }
 </script>

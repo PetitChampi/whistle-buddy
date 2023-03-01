@@ -26,9 +26,9 @@
   </main>
 </template>
 
-<script setup>
-import NonMusicalControls from "@/components/NonMusicalControls.vue"
-import FeatureCard from "@/components/molecules/FeatureCard.vue"
+<script setup lang="ts">
+import NonMusicalControls from "@/components/NonMusicalControls.vue";
+import FeatureCard from "@/components/molecules/FeatureCard.vue";
 </script>
 
 <style lang="scss" scoped>

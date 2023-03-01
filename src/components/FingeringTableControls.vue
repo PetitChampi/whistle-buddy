@@ -87,7 +87,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import IconButton from "@/components/molecules/IconButton.vue";
 import SwitchInput from "@/components/molecules/SwitchInput.vue";
 import Dropdown from "@/components/molecules/Dropdown.vue";
@@ -96,17 +96,18 @@ import TextSwitch from "@/components/molecules/TextSwitch.vue";
 import SettingsGroup from "@/components/SettingsGroup.vue";
 import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import { ref } from "@vue/reactivity";
+import type { IOption } from "@/types/UiElements";
 
-const fppOptions = ref([
+const fppOptions = ref<IOption[]>([
   { value: "6", displayValue: "6" },
   { value: "10", displayValue: "10" },
   { value: "12", displayValue: "12" },
   { value: "14", displayValue: "All (14)" },
 ]);
-const flashcardMode = ref(false);
-const flashcardOptions = ref(["Fingerings", "Notes"]);
-const chosenTxtOption = ref("Fingerings");
-const selectedFingerings = ref([]);
+const flashcardMode = ref<boolean>(false);
+const flashcardOptions = ref<string[]>(["Fingerings", "Notes"]);
+const chosenTxtOption = ref<string>("Fingerings");
+const selectedFingerings = ref<string[]>([]);
 </script>
 
 <style lang="scss" scoped>

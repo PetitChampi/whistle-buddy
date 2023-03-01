@@ -46,7 +46,7 @@
   </Dropdown>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Dropdown from "@/components/molecules/Dropdown.vue";
 import SettingsGroup from "@/components/SettingsGroup.vue";
 import RadioInput from "@/components/molecules/RadioInput.vue";
@@ -55,7 +55,7 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 
-const showOctave = ref("");
+const showOctave = ref<string>("");
 </script>
 
 <style lang="scss" scoped>

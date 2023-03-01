@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "@vue/reactivity";
 
 const props = defineProps({
@@ -22,8 +22,8 @@ const props = defineProps({
   }
 });
 
-const isActive = ref(false);
-const isPlay = ref(props.icon === "play");
+const isActive = ref<Boolean>(false);
+const isPlay = ref<Boolean>(props.icon === "play");
 
 function toggleActivate() {
   if (!props.activateOnClick) return;

@@ -3,9 +3,9 @@
   <div v-else>Game on!</div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "@vue/reactivity";
 import GameParams from "@/components/GameParams.vue";
 
-const gameStarted = ref(false);
+const gameStarted = ref<boolean>(false);
 </script>

@@ -18,21 +18,19 @@
   </span>
 </template>
 
-<script setup>
-const props = defineProps({
-  options: {
-    type: Array,
-    required: true
-  },
-  modelValue: {
-    type: String
-  }
+<script setup lang="ts">
+export interface IProps {
+  options: string[],
+  modelValue: string
+}
+const props = withDefaults(defineProps<IProps>(), {
+  options: () => ["opt 1", "opt 2", "opt 3"]
 });
 
 const emit = defineEmits(["update:modelValue"]);
 
-function toggle(e) {
-  emit("update:modelValue", e.target.value);
+function toggle(e: MouseEvent) {
+  emit("update:modelValue", (e.target as HTMLInputElement).value);
 }
 </script>
 

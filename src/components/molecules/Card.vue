@@ -32,7 +32,7 @@
   </article>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 
@@ -57,7 +57,7 @@ const props = defineProps({
 
 const route = useRoute();
 
-const isFlipped = ref(props.flipped);
+const isFlipped = ref<boolean>(props.flipped);
 
 function flipCard() {
   if (!props.flashcard) return;

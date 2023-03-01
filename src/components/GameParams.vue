@@ -113,7 +113,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import SettingsGroup from "@/components/SettingsGroup.vue";
 import ListDropdown from "@/components/molecules/ListDropdown.vue";
 import RadioInput from "@/components/molecules/RadioInput.vue";
@@ -131,13 +131,20 @@ const props = defineProps({
 
 const emit = defineEmits(["gameStarted"]);
 
-const valuesToGuess = ref("note");
-const numberOfChoices = ref(5);
-const numberOfPairs = ref(6);
-const selectedFingerings = ref([]);
+const valuesToGuess = ref<string>("note");
+const numberOfChoices = ref<number>(5);
+const numberOfPairs = ref<number>(6);
+const selectedFingerings = ref<string[]>([]);
 
-const timerValues = computed(() => {
-  let values = {}
+interface ITimerValues {
+  unit: string,
+  min: number,
+  max: number,
+  default: number
+}
+const timerValues = computed<ITimerValues>(() => {
+  let values = { unit: "", min: 0, max: 0, default: 0 };
+  
   switch (props.gameType) {
     case 'guessing':
       values = { unit: "s", min: 2, max: 30, default: 5 };

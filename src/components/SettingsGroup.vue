@@ -24,11 +24,11 @@
           v-if="hasCheckbox"
           value="bruh"
           v-model="settings"
-          :size="large ? 'l' : null"
+          :size="large ? 'l' : undefined"
         />
       </div>
     </header>
-    <div class="group-content" ref="accContent">
+    <div class="group-content" :class="{ accordion }" ref="accContent">
       <div class="group-content-inner" v-if="!!slots['content']">
         <slot name="content"></slot>
       </div>
@@ -36,7 +36,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import { ref } from "@vue/reactivity";
 import { onMounted, useSlots } from "@vue/runtime-core";
@@ -72,11 +72,11 @@ const props = defineProps({
 
 const slots = useSlots();
 
-const accContent = ref(null);
+const accContent = ref<any>(null);
 
 // TODO replace w/ real settings, edit checkbox?
-const settings = ref([]);
-const closed = ref(!props.openByDefault);
+const settings = ref<any[]>([]);
+const closed = ref<boolean>(!props.openByDefault);
 
 function toggleAccordion() {
   if (!props.accordion) return;
@@ -137,7 +137,10 @@ onMounted(() => {
     }
   }
   &-content {
-    transition: max-height 0.2s ease;
+    &.accordion {
+      overflow: hidden;
+      transition: max-height 0.2s ease;
+    }
 
     &-inner {
       padding-top: 10px;

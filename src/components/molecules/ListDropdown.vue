@@ -17,35 +17,28 @@
   </Dropdown>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Dropdown from "@/components/molecules/Dropdown.vue";
 import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
+import type { IOption } from "@/types/UiElements";
 
-const props = defineProps({
-  options: {
-    type: Array,
-    required: true,
-  },
-  defaultSelectedOption: {
-    type: String,
-  },
-  defaultButtonText: {
-    type: String,
-    default: "Choose...",
-  },
-  closeOnInteraction: {
-    type: Boolean,
-    default: false,
-  },
+export interface IProps {
+  options: IOption[],
+  defaultSelectedOption?: string,
+  defaultButtonText?: string,
+  closeOnInteraction?: boolean
+}
+const props = withDefaults(defineProps<IProps>(), {
+  defaultButtonText: "Choose...",
 });
 
-const selectedOption = ref(props.defaultSelectedOption);
-const buttonText = ref(props.defaultButtonText);
+const selectedOption = ref<string | undefined>(props.defaultSelectedOption);
+const buttonText = ref<string | undefined>(props.defaultButtonText);
 
-function selectOption(opt) {
-  selectedOption.value = opt.value;
-  buttonText.value = opt.displayValue;
+function selectOption(opt: IOption | undefined) {
+  selectedOption.value = opt?.value;
+  buttonText.value = opt?.displayValue;
 }
 
 onMounted(() => {

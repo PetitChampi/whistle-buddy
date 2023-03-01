@@ -7,12 +7,13 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import FingeringTableControls from "@/components/FingeringTableControls.vue";
 import CardGrid from "@/components/CardGrid.vue";
 import { ref } from "vue";
+import type { ICard } from "@/types/UiElements";
 
-const cards = ref([
+const cards = ref<ICard[]>([
   {
     id: 1,
     name: {en: 'Gb', fr: 'Sol b'},

@@ -33,7 +33,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "@vue/reactivity";
 import { onMounted } from "vue";
 
@@ -49,7 +49,9 @@ const props = defineProps({
   unit: {
     type: String
   },
-  modelValue: {},
+  modelValue: {
+    required: true
+  },
   disabled: {
     type: Boolean,
     default: false
@@ -58,11 +60,11 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
-const thumb = ref(null);
-const slider = ref(null);
+const thumb = ref<any>(null);
+const slider = ref<any>(null);
 
 function updateThumb() {
-  emit("update:modelValue", slider.value.value)
+  emit("update:modelValue", slider.value?.value)
   const percentage = ((slider.value.value - props.min) / (props.max - props.min)) * 100;
   const thumbWidth = getComputedStyle(thumb.value).width;
   const thumbWidthAsNb = Number(thumbWidth.substring(0, thumbWidth.length - 2));
@@ -71,11 +73,11 @@ function updateThumb() {
 }
 
 function increment() {
-  if (props.modelValue < props.max) ++slider.value.value;
+  if (Number(props.modelValue) < props.max) ++slider.value.value;
   updateThumb();
 }
 function decrement() {
-  if (props.modelValue > props.min) --slider.value.value;
+  if (Number(props.modelValue) > props.min) --slider.value.value;
   updateThumb();
 }
 

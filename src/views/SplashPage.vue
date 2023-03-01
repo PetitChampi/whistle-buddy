@@ -12,10 +12,10 @@
   </main>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import NonMusicalControls from "@/components/NonMusicalControls.vue";
 import { useDarkModeStore } from "@/stores/darkMode";
-import { storeToRefs } from 'pinia'
+import { storeToRefs } from 'pinia';
 
 const darkModeStore = useDarkModeStore();
 const { darkMode } = storeToRefs(darkModeStore);
