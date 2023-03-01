@@ -1,5 +1,5 @@
 <template>
-  <GameParams :gameType="'guessing'" v-if="!gameStarted" @gameStarted="gameStarted = true" />
+  <GameParams :gameType="'guessing'" v-if="!gameStarted" @@gameStarted="gameStarted = true" />
   <div v-else>Game on!</div>
 </template>
 

@@ -121,6 +121,7 @@ import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import GaugeInput from "@/components/molecules/GaugeInput.vue";
 import CustomButton from "@/components/molecules/CustomButton.vue";
 import { computed, ref } from "vue";
+import type { IOption } from "@/types/UiElements";
 
 const props = defineProps({
   gameType: {
@@ -129,7 +130,7 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(["gameStarted"]);
+const emit = defineEmits(["@gameStarted"]);
 
 const valuesToGuess = ref<string>("note");
 const numberOfChoices = ref<number>(5);
@@ -158,14 +159,14 @@ const timerValues = computed<ITimerValues>(() => {
   return values;
 });
 
-const gameDuration = ref(timerValues.value.default);
+const gameDuration = ref<number>(timerValues.value.default);
 
 function startGame() {
-  emit("gameStarted");
+  emit("@gameStarted");
 }
 
 // Todo: replace w/ state
-const keyOptions = ref([
+const keyOptions = ref<IOption[]>([
   { value: "a", displayValue: "A" },
   { value: "b", displayValue: "B" },
   { value: "c", displayValue: "C" },
