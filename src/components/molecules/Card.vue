@@ -14,7 +14,10 @@
           (route.name === 'fingeringTable' && !flashcard) ||
           route.name !== 'fingeringTable'
         ">
-          <p class="card-note-en">{{ note.name.en }}</p>
+          <div class="card-note-title">
+            <p class="card-note-en">{{ note.name.en }}</p>
+            <span class="icon-volume" @click="playSound"></span>
+          </div>
           <p class="card-note-fr">{{ note.name.fr }}</p>
         </div>
       </div>
@@ -60,6 +63,11 @@ function flipCard() {
   if (!props.flashcard) return;
   isFlipped.value = !isFlipped.value;
 }
+
+function playSound() {
+  // todo replace with actual sound
+  console.log(`${props.note.name.en} played`);
+}
 </script>
 
 <style lang="scss" scoped>
@@ -82,6 +90,19 @@ function flipCard() {
   }
 
   &-note {
+    text-align: center;
+
+    &-title {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      .icon-volume {
+        color: var(--text-standard-half-transparent);
+        font-size: .875rem;
+        cursor: pointer;
+      }
+    }
     &-en {
       font-size: 1.5rem;
       font-weight: 700;

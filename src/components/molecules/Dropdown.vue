@@ -61,6 +61,11 @@ onBeforeUnmount(() => {
     box-shadow: var(--button-shadow);
     font-weight: 500;
     cursor: pointer;
+    transition: filter ease .2s;
+
+    &:hover {
+      filter: brightness(1.3);
+    }
   }
   &-content {
     position: absolute;

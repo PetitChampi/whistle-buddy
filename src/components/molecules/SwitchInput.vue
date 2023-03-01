@@ -25,6 +25,11 @@ function toggle() {
   display: inline-block;
   width: 70px;
   height: 40px;
+  transition: filter ease .2s;
+  
+  &:hover {
+    filter: brightness(1.3);
+  }
 
   &-checkbox {
     opacity: 0;

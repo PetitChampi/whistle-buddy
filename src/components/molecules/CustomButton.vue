@@ -34,7 +34,7 @@ const props = defineProps({
   transition: filter .2s ease;
 
   &:hover {
-    filter: brightness(1.2);
+    filter: brightness(1.3);
   }
 
   &.secondary {
