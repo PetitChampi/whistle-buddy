@@ -1,10 +1,10 @@
 <template>
   <div class="notfound">
     <h1 class="notfound-title">404</h1>
-    <h2 class="notfound-subtitle">This page doesn't exist.</h2>
-    <p class="notfound-paragraph">Go back to the
+    <h2 class="notfound-subtitle">{{ $t('404_SUBTITLE') }}</h2>
+    <p class="notfound-paragraph">{{ $t('404_PARAGRAPH') }}
       <RouterLink :to="{ name: 'select' }">
-        start page
+        {{ $t('404_LINK') }}
       </RouterLink></p>
   </div>
 </template>

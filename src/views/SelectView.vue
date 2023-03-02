@@ -10,15 +10,15 @@
       enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis mollit non deserunt</p>
       <div class="main-cards">
         <FeatureCard
-          cardTitle="Fingering table"
+          :cardTitle="$t('GEN_FINGERING_TABLE')"
           toPageName="fingeringTable"
         />
         <FeatureCard
-          cardTitle="Guessing game"
+          :cardTitle="$t('GEN_GUESSING_GAME')"
           toPageName="guessingGame"
         />
         <FeatureCard
-          cardTitle="Mix-or-match"
+          :cardTitle="$t('GEN_MIX_OR_MATCH')"
           toPageName="mixOrMatch"
         />
       </div>

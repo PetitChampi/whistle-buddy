@@ -14,6 +14,7 @@
   "GEN_FINGERING_TABLE": "Table des doigtés",
   "GEN_GUESSING_GAME": "Jeu QCM",
   "GEN_MIX_OR_MATCH": "Memory",
+  "GEN_THANKS": "Merci !",
 
   "GEN_PARAMS_GENERAL": "Paramètres&nbsp;généraux",
   "GEN_PARAMS_FR_NOTATION": "Ajouter la notation française",
@@ -27,6 +28,8 @@
   "FOOTER_CREDIT_CC": "Co-création :",
   "FOOTER_CREDIT_I": "Illustrations :",
 
+  "SPLASH_START": "C'est parti!",
+
   "F_TABLE_LABEL_FPP": "Doigtés par page",
   "F_TABLE_LABEL_FLASHCARD_MODE": "Mode flashcards",
 
@@ -37,5 +40,9 @@
   "G_PARAMS_VTG_FING": "Deviner le doigté",
   "G_PARAMS_TITLE_NB_CHOICES": "Nombre de choix",
   "G_PARAMS_TITLE_NB_PAIRS": "Nombre de paires",
-  "G_PARAMS_TITLE_TIMER": "Chronomètre"
+  "G_PARAMS_TITLE_TIMER": "Chronomètre",
+
+  "404_SUBTITLE": "Cette page n'existe pas.",
+  "404_PARAGRAPH": "Retourner à la",
+  "404_LINK": "page d'accueil"
 }

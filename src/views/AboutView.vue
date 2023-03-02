@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1 class="about-title">About us</h1>
+    <h1 class="about-title">{{ $t('GEN_ABOUT_US') }}</h1>
     <div class="about-text">
       <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis about us enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis mollit non deserunt ullamco. Velit officia consequat duis about us enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis mollit non deserunt ullamco</p>
       <p>Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis mollit non deserunt ullamco. Velit officia consequat duis about us enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis mollit non deserunt ullamco</p>
@@ -9,7 +9,7 @@
     <div class="about-image">
       <img src="https://via.placeholder.com/500" alt="" class="placeholder-contain">
     </div>
-    <p class="about-thanks">Thank you!</p>
+    <p class="about-thanks">{{ $t('GEN_THANKS') }}</p>
   </div>
 </template>
 

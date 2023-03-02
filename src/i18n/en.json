@@ -14,6 +14,7 @@
   "GEN_FINGERING_TABLE": "Fingering table",
   "GEN_GUESSING_GAME": "Guessing game",
   "GEN_MIX_OR_MATCH": "Mix-or-match",
+  "GEN_THANKS": "Thank you!",
 
   "GEN_PARAMS_GENERAL": "General&nbsp;settings",
   "GEN_PARAMS_FR_NOTATION": "Add French notation",
@@ -27,6 +28,8 @@
   "FOOTER_CREDIT_CC": "Co-creator:",
   "FOOTER_CREDIT_I": "Illustrator:",
 
+  "SPLASH_START": "Let's go!",
+
   "F_TABLE_LABEL_FPP": "Fingerings per page",
   "F_TABLE_LABEL_FLASHCARD_MODE": "Flashcard mode",
 
@@ -37,5 +40,9 @@
   "G_PARAMS_VTG_FING": "Guess the fingering",
   "G_PARAMS_TITLE_NB_CHOICES": "Number of choices",
   "G_PARAMS_TITLE_NB_PAIRS": "Number of pairs",
-  "G_PARAMS_TITLE_TIMER": "Timer"
+  "G_PARAMS_TITLE_TIMER": "Timer",
+
+  "404_SUBTITLE": "This page doesn't exist.",
+  "404_PARAGRAPH": "Go back to the",
+  "404_LINK": "start page"
 }

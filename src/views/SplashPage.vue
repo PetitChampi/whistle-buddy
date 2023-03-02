@@ -6,7 +6,7 @@
     <div class="main-items">
       <h1 class="main-items-title">Whistle Buddy</h1>
       <RouterLink :to="{ name: 'select' }">
-        <button class="start-btn">Start here</button>
+        <button class="start-btn">{{ $t('SPLASH_START') }}</button>
       </RouterLink>
     </div>
   </main>
