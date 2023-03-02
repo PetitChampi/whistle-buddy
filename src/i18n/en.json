@@ -1,0 +1,41 @@
+{
+  "GEN_ALL": "All",
+  "GEN_FINGERINGS": "Fingerings",
+  "GEN_NOTES": "Notes",
+  "GEN_ABOUT_US": "About us",
+  "GEN_CHOOSE": "Choose...",
+  "GEN_STANDARD": "Standard",
+  "GEN_STANDARD_L": "Standard fingerings",
+  "GEN_HALFHOLE": "Half-hole",
+  "GEN_SPECIFIC": "Specific",
+  "GEN_SPECIFIC_L": "Specific fingerings",
+  "GEN_SUBTITLE_SPECIFIC": "Alternative fingerings for certain notes",
+  "GEN_START_GAME": "Start game",
+  "GEN_FINGERING_TABLE": "Fingering table",
+  "GEN_GUESSING_GAME": "Guessing game",
+  "GEN_MIX_OR_MATCH": "Mix-or-match",
+
+  "GEN_PARAMS_GENERAL": "General&nbsp;settings",
+  "GEN_PARAMS_FR_NOTATION": "Add French notation",
+  "GEN_PARAMS_SYNESTHESIA": "Synesthesia",
+  "GEN_PARAMS_SUBTITLE_SYN": "Match each note with a colour",
+  "GEN_PARAMS_SHOW_OCTAVE": "Show octave",
+  "GEN_PARAMS_GROUP_HOMOPHONES": "Group homphones",
+  "GEN_PARAMS_SUBTITLE_HOMO": "When a note has two possible fingerings, show both",
+
+  "FOOTER_CREDIT_CCDP": "Co-creator, designer, programmer:",
+  "FOOTER_CREDIT_CC": "Co-creator:",
+  "FOOTER_CREDIT_I": "Illustrator:",
+
+  "F_TABLE_LABEL_FPP": "Fingerings per page",
+  "F_TABLE_LABEL_FLASHCARD_MODE": "Flashcard mode",
+
+  "G_PARAMS_HEADING": "Game settings",
+  "G_PARAMS_TITLE_KEY": "Key",
+  "G_PARAMS_TITLE_VTG": "Values to guess",
+  "G_PARAMS_VTG_NOTE": "Guess the note",
+  "G_PARAMS_VTG_FING": "Guess the fingering",
+  "G_PARAMS_TITLE_NB_CHOICES": "Number of choices",
+  "G_PARAMS_TITLE_NB_PAIRS": "Number of pairs",
+  "G_PARAMS_TITLE_TIMER": "Timer"
+}

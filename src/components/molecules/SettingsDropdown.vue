@@ -6,14 +6,14 @@
     <template v-slot:dropdown-content>
       <div class="settings-container">
         <SettingsGroup
-          title="Add French notation"
+          :title="$t('GEN_PARAMS_FR_NOTATION')"
           subtitle="Do, Ré, Mi..."
           hasCheckbox
         />
 
         <SettingsGroup
           v-if="route.name !== 'guessingGame' && route.name !== 'mixOrMatch'"
-          title="Show octave"
+          :title="$t('GEN_PARAMS_SHOW_OCTAVE')"
         >
           <template v-slot:content>
             <div class="radio-group">
@@ -26,14 +26,14 @@
 
         <SettingsGroup
           v-if="route.name !== 'guessingGame' && route.name !== 'mixOrMatch'"
-          title="Group homophones"
-          subtitle="When a note has two possible fingerings, show both"
+          :title="$t('GEN_PARAMS_GROUP_HOMOPHONES')"
+          :subtitle="$t('GEN_PARAMS_SUBTITLE_HOMO')"
           hasCheckbox
         />
 
         <SettingsGroup
-          title="Synesthesia"
-          subtitle="Match each note with a colour"
+          :title="$t('GEN_PARAMS_SYNESTHESIA')"
+          :subtitle="$t('GEN_PARAMS_SUBTITLE_SYN')"
           hasCheckbox
           accordion
         >
@@ -64,7 +64,7 @@ const showOctave = ref<string>("");
 }
 .settings-container {
   padding: 20px 20px 30px 30px;
-  width: 300px;
+  width: 350px;
   max-width: 100%;
   display: flex;
   flex-direction: column;

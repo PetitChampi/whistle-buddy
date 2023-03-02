@@ -2,14 +2,14 @@
   <div class="controls">
     <div class="controls-group">
       <div class="controls-group-item">
-        <span class="label">Fingerings per page</span>
+        <span class="label">{{ $t("F_TABLE_LABEL_FPP") }}</span>
         <ListDropdown
           class="block"
           :options="fppOptions"
         />
       </div>
       <div class="controls-group-item">
-        <span class="label">Fingerings</span>
+        <span class="label">{{ $t("GEN_FINGERINGS") }}</span>
         <Dropdown>
           <template v-slot:dropdown-title>
             fingerings
@@ -17,9 +17,9 @@
           <template v-slot:dropdown-content>
             <div class="settings-container">
               <SettingsGroup
-                title="Basic fingerings"
+                :title="$t('GEN_STANDARD_L')"
                 hasCheckbox
-                checkboxLabel="All"
+                :checkboxLabel="$t('GEN_ALL')"
                 accordion
                 openByDefault
               >
@@ -37,9 +37,9 @@
               </SettingsGroup>
 
               <SettingsGroup
-                title="Half-holes"
+                :title="$t('GEN_HALFHOLE')"
                 hasCheckbox
-                checkboxLabel="All"
+                :checkboxLabel="$t('GEN_ALL')"
                 accordion
               >
                 <template v-slot:content>
@@ -53,10 +53,10 @@
               </SettingsGroup>
 
               <SettingsGroup
-                title="Specific fingerings"
-                subtitle="Alternative fingerings for certain notes"
+                :title="$t('GEN_SPECIFIC_L')"
+                :subtitle="$t('GEN_SUBTITLE_SPECIFIC')"
                 hasCheckbox
-                checkboxLabel="All"
+                :checkboxLabel="$t('GEN_ALL')"
                 accordion
               >
                 <template v-slot:content>
@@ -72,7 +72,7 @@
         </Dropdown>
       </div>
       <div class="controls-group-item">
-        <span class="label">Flashcard mode</span>
+        <span class="label">{{ $t("F_TABLE_LABEL_FLASHCARD_MODE") }}</span>
         <div class="flex-container">
           <SwitchInput v-model="flashcardMode" />
           <Transition>
@@ -97,6 +97,9 @@ import SettingsGroup from "@/components/SettingsGroup.vue";
 import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import { ref } from "@vue/reactivity";
 import type { IOption } from "@/types/UiElements";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n({ useScope: "global" });
 
 const fppOptions = ref<IOption[]>([
   { value: "6", displayValue: "6" },
@@ -105,8 +108,8 @@ const fppOptions = ref<IOption[]>([
   { value: "14", displayValue: "All (14)" },
 ]);
 const flashcardMode = ref<boolean>(false);
-const flashcardOptions = ref<string[]>(["Fingerings", "Notes"]);
-const chosenTxtOption = ref<string>("Fingerings");
+const flashcardOptions = ref<string[]>([t("GEN_FINGERINGS"), t("GEN_NOTES")]);
+const chosenTxtOption = ref<string>(t("GEN_FINGERINGS"));
 const selectedFingerings = ref<string[]>([]);
 </script>
 
@@ -140,7 +143,7 @@ const selectedFingerings = ref<string[]>([]);
 
 .settings-container {
   padding: 20px 20px 30px 30px;
-  width: 300px;
+  width: 350px;
   max-width: 100%;
   display: flex;
   flex-direction: column;

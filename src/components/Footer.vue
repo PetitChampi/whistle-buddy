@@ -3,16 +3,16 @@
     <div class="footer-title">Whistle Buddy</div>
     <div class="footer-credits">
       <RouterLink :to="{ name: 'about' }">
-        About us
+        {{ $t("GEN_ABOUT_US") }}
       </RouterLink>
       <p class="footer-credits-item">
-        Co-creator, designer, programmer: <span class="footer-credits-item-name">Esther Bauzou</span>
+        {{ $t("FOOTER_CREDIT_CCDP") }} <span class="footer-credits-item-name">Esther Bauzou</span>
       </p>
       <p class="footer-credits-item">
-        Co-creator: <span class="footer-credits-item-name">Arthur Ozenne</span>
+        {{ $t("FOOTER_CREDIT_CC") }} <span class="footer-credits-item-name">Arthur Ozenne</span>
       </p>
       <p class="footer-credits-item">
-        Illustrator: <span class="footer-credits-item-name">Noémie Levenson</span>
+        {{ $t("FOOTER_CREDIT_I") }} <span class="footer-credits-item-name">Noémie Levenson</span>
       </p>
     </div>
   </footer>

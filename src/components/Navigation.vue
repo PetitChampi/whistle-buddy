@@ -11,13 +11,13 @@
       </div>
       <div class="navigation-links">
         <RouterLink :to="{ name: 'fingeringTable' }">
-          <div class="navigation-links-item">Fingering table</div>
+          <div class="navigation-links-item">{{ $t('GEN_FINGERING_TABLE') }}</div>
         </RouterLink>
         <RouterLink :to="{ name: 'guessingGame' }">
-          <div class="navigation-links-item">Guessing game</div>
+          <div class="navigation-links-item">{{ $t('GEN_GUESSING_GAME') }}</div>
         </RouterLink>
         <RouterLink :to="{ name: 'mixOrMatch' }">
-          <div class="navigation-links-item">Mix-or-match</div>
+          <div class="navigation-links-item">{{ $t('GEN_MIX_OR_MATCH') }}</div>
         </RouterLink>
       </div>
       <div class="navigation-controls">

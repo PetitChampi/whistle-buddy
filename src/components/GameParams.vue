@@ -1,8 +1,8 @@
 <template>
   <div class="game-settings">
-    <h1 class="page-title">Game settings</h1>
+    <h1 class="page-title">{{ $t("G_PARAMS_HEADING") }}</h1>
     <div class="settings-items">
-      <SettingsGroup title="Key" large>
+      <SettingsGroup :title="$t('G_PARAMS_TITLE_KEY')" large>
         <template v-slot:content>
           <ListDropdown
             :options="keyOptions"
@@ -12,16 +12,26 @@
         </template>
       </SettingsGroup>
 
-      <SettingsGroup v-if="gameType === 'guessing'" title="Value to guess" large>
+      <SettingsGroup v-if="gameType === 'guessing'" :title="$t('G_PARAMS_TITLE_VTG')" large>
         <template v-slot:content>
           <div class="radio-group">
-            <RadioInput v-model="valuesToGuess" groupName="guessValue" value="note" label="Guess the note" />
-            <RadioInput v-model="valuesToGuess" groupName="guessValue" value="fingering" label="Guess the fingering" />
+            <RadioInput
+              v-model="valuesToGuess"
+              groupName="guessValue"
+              value="note"
+              :label="$t('G_PARAMS_VTG_NOTE')"
+            />
+            <RadioInput
+              v-model="valuesToGuess"
+              groupName="guessValue"
+              value="fingering"
+              :label="$t('G_PARAMS_VTG_FING')"
+            />
           </div>
         </template>
       </SettingsGroup>
 
-      <SettingsGroup v-if="gameType === 'guessing'" title="Number of choices" large>
+      <SettingsGroup v-if="gameType === 'guessing'" :title="$t('G_PARAMS_TITLE_NB_CHOICES')" large>
         <template v-slot:content>
           <div class="settings-item-content">
             <GaugeInput :min="3" :max="12" v-model="numberOfChoices" />
@@ -29,7 +39,7 @@
         </template>
       </SettingsGroup>
 
-      <SettingsGroup v-if="gameType === 'mixmatch'" title="Number of pairs" large>
+      <SettingsGroup v-if="gameType === 'mixmatch'" :title="$t('G_PARAMS_TITLE_NB_PAIRS')" large>
         <template v-slot:content>
           <div class="settings-item-content">
             <GaugeInput :min="3" :max="14" v-model="numberOfPairs" />
@@ -37,7 +47,7 @@
         </template>
       </SettingsGroup>
 
-      <SettingsGroup title="Timer" hasCheckbox large>
+      <SettingsGroup :title="$t('G_PARAMS_TITLE_TIMER')" hasCheckbox large>
         <template v-slot:content>
           <div class="settings-item-content">
             <GaugeInput
@@ -50,10 +60,10 @@
         </template>
       </SettingsGroup>
 
-      <SettingsGroup title="Fingerings" large accordion>
+      <SettingsGroup :title="$t('GEN_FINGERINGS')" large accordion>
         <template v-slot:content>
           <div class="settings-item-content">
-            <p class="checkbox-grid-label">Standard</p>
+            <p class="checkbox-grid-label">{{ $t('GEN_STANDARD') }}</p>
             <div class="checkbox-grid">
               <CheckboxInput v-model="selectedFingerings" value="a" label="A" />
               <CheckboxInput v-model="selectedFingerings" value="b" label="B" />
@@ -63,14 +73,14 @@
               <CheckboxInput v-model="selectedFingerings" value="f" label="F" />
               <CheckboxInput v-model="selectedFingerings" value="g" label="G" />
             </div>
-            <p class="checkbox-grid-label">Half-hole</p>
+            <p class="checkbox-grid-label">{{ $t('GEN_HALFHOLE') }}</p>
             <div class="checkbox-grid">
               <CheckboxInput v-model="selectedFingerings" value="a-hh" label="A" />
               <CheckboxInput v-model="selectedFingerings" value="b-hh" label="B" />
               <CheckboxInput v-model="selectedFingerings" value="c-hh" label="C" />
               <CheckboxInput v-model="selectedFingerings" value="d-hh" label="D" />
             </div>
-            <p class="checkbox-grid-label">Specific</p>
+            <p class="checkbox-grid-label">{{ $t('GEN_SPECIFIC') }}</p>
             <div class="checkbox-grid">
               <CheckboxInput v-model="selectedFingerings" value="a-sp" label="A" />
               <CheckboxInput v-model="selectedFingerings" value="b-sp" label="B" />
@@ -84,20 +94,20 @@
     </div>
 
     <div class="divider">
-      <span class="divider-text">General&nbsp;settings</span>
+      <span class="divider-text" v-html="$t('GEN_PARAMS_GENERAL')"></span>
       <div class="divider-line"></div>
     </div>
 
     <div class="settings-items">
       <SettingsGroup
-        title="Add French notation"
+        :title="$t('GEN_PARAMS_FR_NOTATION')"
         subtitle="Do, Ré, Mi..."
         hasCheckbox
         large
       />
       <SettingsGroup
-        title="Synesthesia"
-        subtitle="Match each note with a colour"
+        :title="$t('GEN_PARAMS_SYNESTHESIA')"
+        :subtitle="$t('GEN_PARAMS_SUBTITLE_SYN')"
         hasCheckbox
         large
         accordion
@@ -108,7 +118,7 @@
       </SettingsGroup>
     </div>
     <div class="btn-container">
-      <CustomButton btnText="Start game" @click="startGame" />
+      <CustomButton :btnText="$t('GEN_START_GAME')" @click="startGame" />
     </div>
   </div>
 </template>

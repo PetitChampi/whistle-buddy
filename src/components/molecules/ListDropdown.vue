@@ -22,6 +22,7 @@ import Dropdown from "@/components/molecules/Dropdown.vue";
 import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 import type { IOption } from "@/types/UiElements";
+import { useI18n } from "vue-i18n";
 
 export interface IProps {
   options: IOption[],
@@ -29,16 +30,19 @@ export interface IProps {
   defaultButtonText?: string,
   closeOnInteraction?: boolean
 }
-const props = withDefaults(defineProps<IProps>(), {
-  defaultButtonText: "Choose...",
-});
+const props = withDefaults(defineProps<IProps>(), {});
+
+const { t } = useI18n({ useScope: "global" });
+
+const emit = defineEmits(["@optionSelected"]);
 
 const selectedOption = ref<string | undefined>(props.defaultSelectedOption);
-const buttonText = ref<string | undefined>(props.defaultButtonText);
+const buttonText = ref<string | undefined>(props.defaultButtonText || t("GEN_CHOOSE"));
 
 function selectOption(opt: IOption | undefined) {
   selectedOption.value = opt?.value;
   buttonText.value = opt?.displayValue;
+  emit("@optionSelected", opt);
 }
 
 onMounted(() => {

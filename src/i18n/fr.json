@@ -1,0 +1,41 @@
+{
+  "GEN_ALL": "Tous",
+  "GEN_FINGERINGS": "Doigtés",
+  "GEN_NOTES": "Notes",
+  "GEN_ABOUT_US": "À propos",
+  "GEN_CHOOSE": "Choisir...",
+  "GEN_STANDARD": "Standard",
+  "GEN_STANDARD_L": "Doigtés standard",
+  "GEN_HALFHOLE": "Demi-trous",
+  "GEN_SPECIFIC": "Spécifiques",
+  "GEN_SPECIFIC_L": "Doigtés spécifiques",
+  "GEN_SUBTITLE_SPECIFIC": "Doigtés alternatifs pour certaines notes",
+  "GEN_START_GAME": "Commencer le jeu",
+  "GEN_FINGERING_TABLE": "Table des doigtés",
+  "GEN_GUESSING_GAME": "Jeu QCM",
+  "GEN_MIX_OR_MATCH": "Memory",
+
+  "GEN_PARAMS_GENERAL": "Paramètres&nbsp;généraux",
+  "GEN_PARAMS_FR_NOTATION": "Ajouter la notation française",
+  "GEN_PARAMS_SYNESTHESIA": "Synesthésie",
+  "GEN_PARAMS_SUBTITLE_SYN": "Coupler chaque note avec une couleur",
+  "GEN_PARAMS_SHOW_OCTAVE": "Afficher les octaves",
+  "GEN_PARAMS_GROUP_HOMOPHONES": "Grouper les homphones",
+  "GEN_PARAMS_SUBTITLE_HOMO": "Lorsqu'une note a deux doigtés possibles, montrer les deux",
+
+  "FOOTER_CREDIT_CCDP": "Co-création, design, programmation :",
+  "FOOTER_CREDIT_CC": "Co-création :",
+  "FOOTER_CREDIT_I": "Illustrations :",
+
+  "F_TABLE_LABEL_FPP": "Doigtés par page",
+  "F_TABLE_LABEL_FLASHCARD_MODE": "Mode flashcards",
+
+  "G_PARAMS_HEADING": "Paramètres de jeu",
+  "G_PARAMS_TITLE_KEY": "Tonalité",
+  "G_PARAMS_TITLE_VTG": "Valeurs à deviner",
+  "G_PARAMS_VTG_NOTE": "Deviner la note",
+  "G_PARAMS_VTG_FING": "Deviner le doigté",
+  "G_PARAMS_TITLE_NB_CHOICES": "Nombre de choix",
+  "G_PARAMS_TITLE_NB_PAIRS": "Nombre de paires",
+  "G_PARAMS_TITLE_TIMER": "Chronomètre"
+}
