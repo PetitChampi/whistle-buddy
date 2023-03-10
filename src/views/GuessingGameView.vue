@@ -1,6 +1,8 @@
 <template>
-  <GameParams :gameType="'guessing'" v-if="gameStarted" @@gameStarted="gameStarted = true" />
-  <div v-else class="game">
+<div>
+<!-- see above parent div for router transition -->
+  <GameParams :gameType="'guessing'" v-if="!gameStarted" @@gameStarted="gameStarted = true" />
+  <div v-if="gameStarted && !gameFinished" class="game">
     <div class="game-metrics-wrapper">
       <div class="game-metrics">
         <div class="score">
@@ -28,9 +30,27 @@
       </div>
     </div>
     <div class="btn-container">
-      <CustomButton :btnText="$t('G_GUESS_NEXT')" iconR="chevron_forward" disabled />
+      <CustomButton :btnText="$t('G_GUESS_NEXT')" iconR="chevron_forward" @click="gameFinished = true" />
     </div>
   </div>
+
+  <div v-if="gameFinished"  class="finish">
+    <h1 class="finish-title">{{ $t("G_GUESS_FINISH_TITLE") }}</h1>
+    <p class="finish-subtitle">{{ $t("G_GUESS_FINISH_SUBTITLE", {score: 13, total: 14}) }}</p>
+    <img src="" alt="Happy mascot">
+    <div class="finish-links">
+      <div class="btn-container">
+        <CustomButton :btnText="$t('G_GUESS_FINISH_BACK_SET')" btnType="secondary" @click="backToSettings" />
+        <CustomButton :btnText="$t('G_GUESS_FINISH_REPLAY')" @click="replayRound" />
+      </div>
+      <span class="finish-links-bottom">
+        <RouterLink :to="{ name: 'fingeringTable' }">
+          {{ $t("G_GUESS_FINISH_BACK_TAB") }}
+        </RouterLink>
+      </span>
+    </div>
+  </div>
+</div>
 </template>
 
 <script setup lang="ts">
@@ -41,8 +61,10 @@ import Card from "@/components/molecules/Card.vue";
 import ChoiceGrid from "@/components/ChoiceGrid.vue";
 import CustomButton from "@/components/molecules/CustomButton.vue";
 import type { ICard } from "@/types/UiElements";
+import { watch } from "vue";
 
 const gameStarted = ref<boolean>(false);
+const gameFinished = ref<boolean>(false);
 const note = ref<ICard>({
   id: 1,
   name: {en: 'Gb', fr: 'Sol b'},
@@ -68,61 +90,23 @@ const cards = ref<ICard[]>([
     fingering: [2, 2, 1, 0, 0, 0],
     octave: 1
   },
-  {
-    id: 4,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 1
-  },
-  {
-    id: 5,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 1
-  },
-  {
-    id: 6,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 1
-  },
-  {
-    id: 7,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 1
-  },
-  {
-    id: 8,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 1
-  },
-  {
-    id: 9,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 1
-  },
-  {
-    id: 10,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 1
-  },
-  {
-    id: 11,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 1
-  },
-  {
-    id: 12,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 1
-  },
 ]);
+
+function backToSettings() {
+  gameStarted.value = false;
+  gameFinished.value = false;
+}
+function replayRound() {
+  gameStarted.value = true;
+  gameFinished.value = false;
+}
+
+watch(gameStarted, () => {
+  window.scrollTo(0, 0);
+})
+watch(gameFinished, () => {
+  window.scrollTo(0, 0);
+})
 </script>
 
 <style lang="scss" scoped>
@@ -188,5 +172,38 @@ const cards = ref<ICard[]>([
   margin-top: 40px;
   display: flex;
   justify-content: flex-end;
+}
+
+.finish {
+  max-width: 660px;
+  margin: 50px auto 0;
+  background-color: var(--intensified-bg);
+  padding: 30px 30px 20px;
+  border-radius: 10px;
+
+  &-title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  &-subtitle {
+    text-align: center;
+    font-size: 1.25rem;
+  }
+
+  img {
+    width: 200px;
+    display: block;
+    margin: 30px auto;
+  }
+  .btn-container {
+    justify-content: space-between;
+    margin: 0;
+  }
+
+  &-links-bottom {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: .75rem;
+  }
 }
 </style>

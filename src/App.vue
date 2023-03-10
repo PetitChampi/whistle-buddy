@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
 import { useDarkModeStore } from "@/stores/darkMode";
 import { storeToRefs } from 'pinia';
 
