@@ -31,7 +31,7 @@
           hasCheckbox
         />
 
-        <SettingsGroup
+        <!-- <SettingsGroup
           :title="$t('GEN_PARAMS_SYNESTHESIA')"
           :subtitle="$t('GEN_PARAMS_SUBTITLE_SYN')"
           hasCheckbox
@@ -39,6 +39,12 @@
         >
           <template v-slot:content>
             Insert colour pickers here
+          </template>
+        </SettingsGroup> -->
+
+        <SettingsGroup :title="$t('GEN_PARAMS_INSTRUMENT')">
+          <template v-slot:content>
+            <ListDropdown :options="instrOptions" defaultSelectedOption="low" closeOnInteraction />
           </template>
         </SettingsGroup>
       </div>
@@ -50,12 +56,18 @@
 import Dropdown from "@/components/molecules/Dropdown.vue";
 import SettingsGroup from "@/components/SettingsGroup.vue";
 import RadioInput from "@/components/molecules/RadioInput.vue";
+import ListDropdown from "./ListDropdown.vue";
+import type { IOption } from "@/types/UiElements";
 import { ref } from "@vue/reactivity";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
 
 const showOctave = ref<string>("");
+const instrOptions = ref<IOption[]>([
+  { value: "low", displayValue: "Low / mezzo whistle" },
+  { value: "tin", displayValue: "Tin whistle" }
+]);
 </script>
 
 <style lang="scss" scoped>

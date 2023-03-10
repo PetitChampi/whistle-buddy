@@ -23,6 +23,7 @@
   "GEN_PARAMS_SHOW_OCTAVE": "Afficher les octaves",
   "GEN_PARAMS_GROUP_HOMOPHONES": "Grouper les homphones",
   "GEN_PARAMS_SUBTITLE_HOMO": "Lorsqu'une note a deux doigtés possibles, montrer les deux",
+  "GEN_PARAMS_INSTRUMENT": "Instrument",
 
   "FOOTER_CREDIT_CCDP": "Co-création, design, programmation :",
   "FOOTER_CREDIT_CC": "Co-création :",

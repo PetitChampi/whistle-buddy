@@ -105,7 +105,7 @@
         hasCheckbox
         large
       />
-      <SettingsGroup
+      <!-- <SettingsGroup
         :title="$t('GEN_PARAMS_SYNESTHESIA')"
         :subtitle="$t('GEN_PARAMS_SUBTITLE_SYN')"
         hasCheckbox
@@ -115,7 +115,7 @@
         <template v-slot:content>
           Insert colour pickers here
         </template>
-      </SettingsGroup>
+      </SettingsGroup> -->
     </div>
     <div class="btn-container">
       <CustomButton :btnText="$t('GEN_START_GAME')" @click="startGame" />

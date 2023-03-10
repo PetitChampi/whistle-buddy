@@ -63,6 +63,18 @@ onMounted(() => {
   padding: 10px 15px;
   cursor: pointer;
   transition: color .2s, background-color .2s;
+  min-width: max-content;
+  width: 100%;
+
+  &:first-child {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+  }
+  &:last-child {
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
   &:hover {
     cursor: pointer;
     background-color: var(--text-standard-half-transparent);
