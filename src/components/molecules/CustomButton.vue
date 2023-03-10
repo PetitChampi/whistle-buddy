@@ -1,19 +1,22 @@
 <template>
-  <button class="btn" :class="{ secondary: btnType === 'secondary' }">
+  <button class="btn" :class="{ secondary: btnType === 'secondary', disabled }" :disabled="disabled">
+    <span v-if="props.iconL" class="icon-chevron_forward icon-l"></span>
     {{ btnText }}
+    <span v-if="props.iconR" class="icon-chevron_forward icon-r"></span>
   </button>
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  btnType: {
-    type: String,
-    default: "primary"
-  },
-  btnText: {
-    type: String,
-    default: "Button text"
-  }
+export interface IProps {
+  btnType?: string,
+  btnText: string,
+  iconR?: string,
+  iconL?: string,
+  disabled?: boolean
+}
+const props = withDefaults(defineProps<IProps>(), {
+  btnType: "primary",
+  btnText: "Button text"
 });
 </script>
 
@@ -44,6 +47,21 @@ const props = defineProps({
     &:hover {
       filter: brightness(.95);
     }
+  }
+  &.disabled {
+    filter: var(--disabled-filter);
+    cursor: not-allowed;
+  }
+}
+.icon {
+  &-r, &-l {
+    font-size: .8rem;
+  }
+  &-r {
+    margin-left: 10px;
+  }
+  &-l {
+    margin-right: 10px;
   }
 }
 </style>

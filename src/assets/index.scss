@@ -75,6 +75,10 @@ body {
   --button-shadow: #{$button-shadow} #{transparentize($light-text-standard, .8)};
   --card-shadow-desktop: #{$card-shadow-desktop} #{transparentize($light-text-standard, .8)};
   --card-shadow-mobile: #{$card-shadow-mobile} #{transparentize($light-text-standard, .8)};
+  --disabled-filter: grayscale(.8) brightness(1.3);
+
+  --error: #D16161;
+  --success: #77D161;
 }
 .dark-mode {
   --text-intense: #{$dark-text-intense};
@@ -93,4 +97,5 @@ body {
   --button-shadow: #{$button-shadow} #{transparentize(#000, .6)};
   --card-shadow-desktop: #{$card-shadow-desktop} #{transparentize(#000, .6)};
   --card-shadow-mobile: #{$card-shadow-mobile} #{transparentize(#000, .6)};
+  --disabled-filter: grayscale(.8) brightness(.7);
 }

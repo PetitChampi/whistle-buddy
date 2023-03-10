@@ -1,8 +1,8 @@
 <template>
-  <article class="card" :class="{ flashcard }" @click="flipCard">
-    <div class="card-inner" :class="{ flipped: isFlipped }">
+  <article class="card" :class="{ flashcard }" @click="handleCardClick(note)">
+    <div class="card-inner" :class="{ flipped: isFlipped, selected: isSelected, error, success }">
       <div class="front">
-        <div class="card-fingering" :class="{ oct2: note.octave === 2 }">
+        <div v-if="!noteOnly" class="card-fingering" :class="{ oct2: note.octave === 2 }">
           <span
             class="card-fingering-hole"
             v-for="(hole, index) in note.fingering"
@@ -11,16 +11,18 @@
           ></span>
         </div>
         <div class="card-note" v-if="
-          (route.name === 'fingeringTable' && !flashcard) ||
-          route.name !== 'fingeringTable'
+          ((route.name === 'fingeringTable' && !flashcard) ||
+          route.name !== 'fingeringTable') &&
+          !fingeringOnly
         ">
           <div class="card-note-title">
             <p class="card-note-en">{{ note.name.en }}</p>
-            <span class="icon-volume" @click="playSound"></span>
+            <span class="icon-volume" @click.stop="playSound"></span>
           </div>
           <p class="card-note-fr">{{ note.name.fr }}</p>
         </div>
       </div>
+
       <div class="back" v-if="flashcard">
         <div class="card-note" v-if="route.name === 'fingeringTable'">
           <p class="card-note-en">{{ note.name.en }}</p>
@@ -29,58 +31,83 @@
         <div v-else>back</div>
       </div>
     </div>
+
+    <span v-if="hasTick" class="tick" :class="{ error, success }"></span>
+    <p class="error-msg" v-if="errorMsg">{{ errorMsg }}</p>
   </article>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
+import type { ICard } from "@/types/UiElements";
 
-const props = defineProps({
-  note: {
-    type: Object,
-    required: true
-  },
-  flipped: {
-    type: Boolean,
-    default: false
-  },
-  fingerings: {
-    type: Number,
-    default: 1
-  },
-  flashcard: {
-    type: Boolean,
-    default: false
-  }
+export interface IProps {
+  note: ICard,
+  flipped?: boolean,
+  fingerings?: number,
+  flashcard?: boolean,
+  noteOnly?: boolean,
+  fingeringOnly?: boolean,
+  selectable?: boolean,
+  selected?: boolean,
+  success?: boolean,
+  error?: boolean,
+  hasTick?: boolean,
+  errorMsg?: string
+}
+const props = withDefaults(defineProps<IProps>(), {
+  fingerings: 1,
+  flipped: false,
+  selected: false
 });
 
 const route = useRoute();
+const emit = defineEmits(["@cardClicked"]);
 
 const isFlipped = ref<boolean>(props.flipped);
+const isSelected = ref<boolean>(props.selected);
 
-function flipCard() {
-  if (!props.flashcard) return;
-  isFlipped.value = !isFlipped.value;
+function handleCardClick(card: ICard) {
+  if (props.flashcard) isFlipped.value = !isFlipped.value;
+  if (props.selectable) isSelected.value = !isSelected.value;
+  emit("@cardClicked", isSelected.value ? card : null);
 }
 
 function playSound() {
   // todo replace with actual sound
   console.log(`${props.note.name.en} played`);
 }
+
+watch(() => props.selected, (newVal) => {
+  isSelected.value = newVal;
+});
 </script>
 
 <style lang="scss" scoped>
 .card {
+  position: relative;
   &-inner {
     background-color: var(--intensified-bg);
     border-radius: 10px;
     box-shadow: var(--card-shadow-desktop);
-    padding: 20px;
+    padding: 18px;
+    border: 2px solid transparent;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: border ease .2s;
+
+    &.selected {
+      border: 2px solid var(--accent);
+    }
+    &.error {
+      border: 2px solid var(--error);
+    }
+    &.success {
+      border: 2px solid var(--success);
+    }
   }
 
   .front {
@@ -169,6 +196,57 @@ function playSound() {
 
   &:hover {
     transform: translateY(-3px);
+  }
+}
+
+.error-msg {
+  color: var(--error);
+  font-size: .875rem;
+  margin-top: 5px;
+}
+.tick {
+  &.success, &.error {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--intensified-bg);
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+  }
+  &.success {
+    background-color: var(--success);
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 4px;
+      border-bottom: 2px solid var(--intensified-bg);
+      border-left: 2px solid var(--intensified-bg);
+      transform: rotate(-45deg);
+      position: absolute;
+      left: 25%;
+      top: 30%;
+    }
+  }
+  &.error {
+    background-color: var(--error);
+    &::before, &::after {
+      content: "";
+      display: inline-block;
+      width: 12px;
+      height: 2px;
+      border-radius: 10px;
+      background-color: var(--intensified-bg);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+    &::after {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
   }
 }
 </style>

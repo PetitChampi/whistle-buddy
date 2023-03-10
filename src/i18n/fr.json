@@ -42,6 +42,19 @@
   "G_PARAMS_TITLE_NB_PAIRS": "Nombre de paires",
   "G_PARAMS_TITLE_TIMER": "Chronomètre",
 
+  "G_GUESS_HEADING_NTOF": "Sélectionne le doigté pour cette note",
+  "G_GUESS_HEADING_FTON": "Sélectionne la note pour ce doigté",
+  "G_GUESS_SUBHEADING": "En tonalité de {key}",
+  "G_GUESS_SCORE": "Score",
+  "G_GUESS_NEXT": "Suivant",
+  "G_GUESS_ERR_FING": "Voici le doigté pour {note}",
+  "G_GUESS_ERR_NOTE": "Cette note correspond à ta réponse",
+  "G_GUESS_FINISH_TITLE": "Partie terminée!",
+  "G_GUESS_FINISH_SUBTITLE": "Tu as marqué {score} sur {total}",
+  "G_GUESS_FINISH_BACK_SET": "Retourner aux paramètres",
+  "G_GUESS_FINISH_BACK_TAB": "Table des doigtés",
+  "G_GUESS_FINISH_REPLAY": "Rejouer cette partie",
+
   "404_SUBTITLE": "Cette page n'existe pas.",
   "404_PARAGRAPH": "Retourner à la",
   "404_LINK": "page d'accueil"

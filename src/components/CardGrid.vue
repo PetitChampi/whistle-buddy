@@ -10,7 +10,7 @@
   >
     <Card v-for="note in cards" :key="note.id" :note="note" class="grid-item" />
   </div>
-  <div class="pagination">
+  <div class="pagination" v-if="pagination">
     <div class="pagination-prev" @click="prev">
       <span class="icon-arrow_left"></span>
     </div>
@@ -26,7 +26,8 @@ import Card from "@/components/molecules/Card.vue";
 import type { ICard } from "@/types/UiElements";
 
 const props = defineProps<{
-  cards: ICard[]
+  cards: ICard[],
+  pagination?: boolean
 }>();
 
 // todo implement page navigation

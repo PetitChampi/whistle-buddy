@@ -2,7 +2,7 @@
   <div class="fingering-table-view">
     <FingeringTableControls />
     <div class="card-grid">
-      <CardGrid :cards="cards" />
+      <CardGrid :cards="cards" pagination />
     </div>
   </div>
 </template>

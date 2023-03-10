@@ -42,6 +42,19 @@
   "G_PARAMS_TITLE_NB_PAIRS": "Number of pairs",
   "G_PARAMS_TITLE_TIMER": "Timer",
 
+  "G_GUESS_HEADING_NTOF": "Select the fingering for this note",
+  "G_GUESS_HEADING_FTON": "Select the note for this fingering",
+  "G_GUESS_SUBHEADING": "In the key of {key}",
+  "G_GUESS_SCORE": "Your score",
+  "G_GUESS_NEXT": "Next",
+  "G_GUESS_ERR_FING": "This is the fingering for {note}",
+  "G_GUESS_ERR_NOTE": "This note corresponds to your answer",
+  "G_GUESS_FINISH_TITLE": "Round finished!",
+  "G_GUESS_FINISH_SUBTITLE": "You scored {score} out of {total}",
+  "G_GUESS_FINISH_BACK_SET": "Back to game settings",
+  "G_GUESS_FINISH_BACK_TAB": "Go to fingerings table",
+  "G_GUESS_FINISH_REPLAY": "Replay this round",
+
   "404_SUBTITLE": "This page doesn't exist.",
   "404_PARAGRAPH": "Go back to the",
   "404_LINK": "start page"
