@@ -48,7 +48,8 @@ function selectOption(opt: IOption | undefined) {
 onMounted(() => {
   if (props.defaultSelectedOption) {
     const defaultOpt = props.options.find(opt => opt.value === props.defaultSelectedOption);
-    selectOption(defaultOpt);
+    selectedOption.value = defaultOpt?.value;
+    buttonText.value = defaultOpt?.displayValue;
   }
 });
 </script>

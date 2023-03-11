@@ -12,7 +12,7 @@ import "./assets/index.scss";
 // i18n
 const messages = { en, fr };
 let locale = localStorage.getItem("lang_key");
-if (locale === null) locale = "en";
+if (locale === null) locale = navigator.language.includes("fr") ? "fr" : "en";
 
 const i18n = createI18n({
   globalInjection: true,
