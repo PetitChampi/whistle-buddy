@@ -48,7 +48,7 @@
       </div>
       <span class="finish-links-bottom">
         <RouterLink :to="{ name: 'fingeringTable' }">
-          {{ $t("G_GUESS_FINISH_BACK_TAB") }}
+          {{ $t("G_FINISH_BACK_TAB") }}
         </RouterLink>
       </span>
     </div>

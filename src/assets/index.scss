@@ -68,6 +68,7 @@ body {
   --accent: #{$light-accent};
   --intensified-bg: #{$light-intensified-bg};
   --accent-contraster: #{$light-intensified-bg};
+  --overlay-bg: rgba(0, 0, 0, 0.7);
 
   --mode-toggle: #{$dark-body-bg};
   --mode-toggle-shadow: #{$mode-toggle-shadow} #{transparentize($dark-body-bg, .5)};
@@ -90,6 +91,7 @@ body {
   --accent: #{$dark-accent};
   --intensified-bg: #{$dark-intensified-bg};
   --accent-contraster: #{$dark-faint};
+  --overlay-bg: rgba(255, 255, 255, 0.7);
 
   --mode-toggle: #{$light-body-bg};
   --mode-toggle-shadow: #{$mode-toggle-shadow} #{transparentize($light-body-bg, .5)};

@@ -54,8 +54,20 @@
   "G_GUESS_FINISH_SUB_INTRO": "You scored",
   "G_GUESS_FINISH_SUB_NUMS": "{score} out of {total}",
   "G_GUESS_FINISH_BACK_SET": "Back to game settings",
-  "G_GUESS_FINISH_BACK_TAB": "Go to fingerings table",
   "G_GUESS_FINISH_REPLAY": "Replay this round",
+
+  "G_MIXM_INSTRUCTION": "Find the pairs!",
+  "G_MIXM_PAUSED": "Game paused",
+  "G_MIXM_RESUME": "Resume",
+  "G_MIXM_VICTORY": "Victory !",
+  "G_MIXM_LOSE": "Time's up!",
+  "G_MIXM_VIC_TIME": "You won in {min}m{sec}s",
+  "G_MIXM_LOSE_SUBTITLE": "The pairs were well hidden!",
+  "G_MIXM_HISCORE": "Your high score: {min}m{sec}s",
+  "G_MIXM_FINISH_BACK_SET": "Back to settings",
+  "G_MIXM_FINISH_REPLAY": "New game",
+
+  "G_FINISH_BACK_TAB": "Go to fingerings table",
 
   "404_SUBTITLE": "This page doesn't exist.",
   "404_PARAGRAPH": "Go back to the",

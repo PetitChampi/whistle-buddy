@@ -1,6 +1,9 @@
 <template>
   <article class="card" :class="{ flashcard }" @click="handleCardClick(note)">
-    <div class="card-inner" :class="{ flipped: isFlipped, selected: isSelected, error, success }">
+    <div
+      class="card-inner"
+      :class="{ flipped: isFlipped, selected: isSelected, error, success, fixed: fixedHeight }"
+    >
       <div class="front">
         <div v-if="!noteOnly" class="card-fingering" :class="{ oct2: note.octave === 2 }">
           <span
@@ -23,12 +26,12 @@
         </div>
       </div>
 
-      <div class="back" v-if="flashcard">
+      <div class="back">
         <div class="card-note" v-if="route.name === 'fingeringTable'">
           <p class="card-note-en">{{ note.name.en }}</p>
           <p class="card-note-fr">{{ note.name.fr }}</p>
         </div>
-        <div v-else>back</div>
+        <div v-else>back of the card</div>
       </div>
     </div>
 
@@ -49,6 +52,7 @@ export interface IProps {
   flashcard?: boolean,
   noteOnly?: boolean,
   fingeringOnly?: boolean,
+  fixedHeight?: boolean,
   selectable?: boolean,
   selected?: boolean,
   success?: boolean,
@@ -87,6 +91,10 @@ watch(() => props.selected, (newVal) => {
 <style lang="scss" scoped>
 .card {
   position: relative;
+  // flashcard styles
+  perspective: 1000px;
+  transition: transform ease .2s;
+
   &-inner {
     background-color: var(--intensified-bg);
     border-radius: 10px;
@@ -97,8 +105,12 @@ watch(() => props.selected, (newVal) => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: border ease .2s;
+    transition: border ease .2s, transform ease .3s;
+    transform-style: preserve-3d;
 
+    &.flipped {
+      transform: rotateY(180deg);
+    }
     &.selected {
       border: 2px solid var(--accent);
     }
@@ -108,12 +120,22 @@ watch(() => props.selected, (newVal) => {
     &.success {
       border: 2px solid var(--success);
     }
+    &.fixed {
+      height: 140px;
+    }
   }
 
   .front {
     display: flex;
     flex-direction: column;
     gap: 20px;
+  }
+  .front, .back {
+    backface-visibility: hidden;
+  }
+  .back {
+    position: absolute;
+    transform: rotateY(180deg);
   }
 
   &-note {
@@ -174,25 +196,7 @@ watch(() => props.selected, (newVal) => {
 }
 
 .flashcard {
-  perspective: 1000px;
   cursor: pointer;
-  transition: transform ease .2s;
-
-  .card-inner {
-    transition: transform ease .3s;
-    transform-style: preserve-3d;
-  }
-  .card-inner.flipped {
-    transform: rotateY(180deg);
-  }
-
-  .front, .back {
-    backface-visibility: hidden;
-  }
-  .back {
-    position: absolute;
-    transform: rotateY(180deg);
-  }
 
   &:hover {
     transform: translateY(-3px);

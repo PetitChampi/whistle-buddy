@@ -54,8 +54,20 @@
   "G_GUESS_FINISH_SUB_INTRO": "Tu as marqué",
   "G_GUESS_FINISH_SUB_NUMS": "{score} sur {total}",
   "G_GUESS_FINISH_BACK_SET": "Retour aux paramètres",
-  "G_GUESS_FINISH_BACK_TAB": "Table des doigtés",
   "G_GUESS_FINISH_REPLAY": "Rejouer cette partie",
+
+  "G_MIXM_INSTRUCTION": "Trouve les paires!",
+  "G_MIXM_PAUSED": "Jeu en pause",
+  "G_MIXM_RESUME": "Reprendre",
+  "G_MIXM_VICTORY": "Victoire !",
+  "G_MIXM_LOSE": "Temps écoulé !",
+  "G_MIXM_VIC_TIME": "Tu as gagné en {min}m{sec}s",
+  "G_MIXM_LOSE_SUBTITLE": "Les paires étaient bien cachées !",
+  "G_MIXM_HISCORE": "Tom meilleur score : {min}m{sec}s",
+  "G_MIXM_FINISH_BACK_SET": "Retour aux paramètres",
+  "G_MIXM_FINISH_REPLAY": "Nouvelle partie",
+
+  "G_FINISH_BACK_TAB": "Table des doigtés",
 
   "404_SUBTITLE": "Cette page n'existe pas.",
   "404_PARAGRAPH": "Retourner à la",

@@ -8,7 +8,7 @@
       'grid-6': cards.length >= 11,
     }"
   >
-    <Card v-for="note in cards" :key="note.id" :note="note" class="grid-item" />
+    <Card v-for="note in cards" :key="note.id" :note="note" class="grid-item" flashcard />
   </div>
   <div class="pagination" v-if="pagination">
     <div class="pagination-prev" @click="prev">
