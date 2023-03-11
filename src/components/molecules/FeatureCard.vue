@@ -41,6 +41,9 @@ function goToLink() {
   background-color: var(--intensified-bg);
   transition: transform ease .2s;
   cursor: pointer;
+  @media screen and (max-width: $mobile) {
+    padding: 20px;
+  }
 
   &:hover {
     transform: translateY(-5px);
@@ -50,6 +53,7 @@ function goToLink() {
     text-transform: uppercase;
     letter-spacing: 3px;
     font-size: 1rem;
+    line-height: 160%;
   }
 }
 </style>

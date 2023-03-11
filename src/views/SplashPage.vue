@@ -22,6 +22,8 @@ const { darkMode } = storeToRefs(darkModeStore);
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/variables.scss";
+
 .main {
   height: 100vh;
   display: flex;
@@ -92,6 +94,25 @@ const { darkMode } = storeToRefs(darkModeStore);
   }
   50% {
     transform: translateY(-20px);
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .main {
+    &-controls {
+      padding: 10px 20px;
+    }
+    &-items {
+      &-title {
+        font-size: 3rem;
+        text-align: center;
+        margin: 20px 10px;
+      }
+    }
+    .start-btn {
+      font-size: 1.25rem;
+      padding: 15px 30px;
+    }
   }
 }
 </style>

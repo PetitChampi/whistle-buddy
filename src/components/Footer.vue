@@ -2,17 +2,19 @@
   <footer class="footer">
     <div class="footer-title">Whistle Buddy</div>
     <div class="footer-credits">
-      <RouterLink :to="{ name: 'about' }">
-        {{ $t("GEN_ABOUT_US") }}
-      </RouterLink>
+      <span class="footer-credits-link">
+        <RouterLink :to="{ name: 'about' }">
+          {{ $t("GEN_ABOUT_US") }}
+        </RouterLink>
+      </span>
       <p class="footer-credits-item">
-        {{ $t("FOOTER_CREDIT_CCDP") }} <span class="footer-credits-item-name">Esther Bauzou</span>
+        {{ $t("FOOTER_CREDIT_CCDP") }} <span class="footer-credits-item-name">Esther&nbsp;Bauzou</span>
       </p>
       <p class="footer-credits-item">
-        {{ $t("FOOTER_CREDIT_CC") }} <span class="footer-credits-item-name">Arthur Ozenne</span>
+        {{ $t("FOOTER_CREDIT_CC") }} <span class="footer-credits-item-name">Arthur&nbsp;Ozenne</span>
       </p>
       <p class="footer-credits-item">
-        {{ $t("FOOTER_CREDIT_I") }} <span class="footer-credits-item-name">Noémie Levenson</span>
+        {{ $t("FOOTER_CREDIT_I") }} <span class="footer-credits-item-name">Noémie&nbsp;Levenson</span>
       </p>
     </div>
   </footer>
@@ -37,6 +39,11 @@
   &-credits {
     font-size: .875rem;
     line-height: 160%;
+
+    &-link {
+      display: inline-block;
+      margin-bottom: 10px;
+    }
     
     &-item {
       margin: 0;

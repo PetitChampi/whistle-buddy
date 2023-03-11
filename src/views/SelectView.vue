@@ -12,14 +12,17 @@
         <FeatureCard
           :cardTitle="$t('GEN_FINGERING_TABLE')"
           toPageName="fingeringTable"
+          class="main-cards-item"
         />
         <FeatureCard
           :cardTitle="$t('GEN_GUESSING_GAME')"
           toPageName="guessingGame"
+          class="main-cards-item"
         />
         <FeatureCard
           :cardTitle="$t('GEN_MIX_OR_MATCH')"
           toPageName="mixOrMatch"
+          class="main-cards-item"
         />
       </div>
     </div>
@@ -32,6 +35,8 @@ import FeatureCard from "@/components/molecules/FeatureCard.vue";
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/variables.scss";
+
 .controls-bar {
   display: flex;
   justify-content: flex-end;
@@ -40,11 +45,18 @@ import FeatureCard from "@/components/molecules/FeatureCard.vue";
 .main {
   margin-top: 20px;
   text-align: center;
+  @media screen and (max-width: $mobile) {
+    padding: 0 20px;
+  }
 
   &-title {
     font-size: 4rem;
     font-weight: 800;
     color: var(--text-intense);
+    @media screen and (max-width: $mobile) {
+      font-size: 2.5rem;
+      margin-top: 20px;
+    }
   }
 
   &-text {
@@ -65,9 +77,19 @@ import FeatureCard from "@/components/molecules/FeatureCard.vue";
   }
 
   &-cards {
-    display: grid;
+    display: flex;
     gap: 20px;
-    grid-template-columns: repeat(3, 1fr);
+    @media screen and (max-width: $mobile) {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    &-item {
+      @media screen and (max-width: $mobile) {
+        flex-basis: calc(50% - 5px);
+      }
+    }
   }
 }
 </style>
