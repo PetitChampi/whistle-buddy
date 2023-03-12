@@ -20,12 +20,18 @@ function toggle() {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/variables.scss";
+
 .switch {
+  --height: 40px;
   position: relative;
   display: inline-block;
-  width: 70px;
-  height: 40px;
+  width: calc(var(--height) * 1.75);
+  height: var(--height);
   transition: filter ease .2s;
+  @media screen and (max-width: $mobile) {
+    --height: 36px;
+  }
   
   &:hover {
     filter: brightness(1.3);
@@ -40,7 +46,7 @@ function toggle() {
       background-color: var(--accent);
     }
     &:checked + .switch-slider:before {
-      transform: translateX(30px);
+      transform: translateX(calc(var(--height) - 10px));
       background-color: var(--accent-contraster);
     }
   }
@@ -60,8 +66,8 @@ function toggle() {
     &:before {
       position: absolute;
       content: "";
-      height: 30px;
-      width: 30px;
+      height: calc(var(--height) - 10px);
+      width: calc(var(--height) - 10px);
       left: 5px;
       bottom: 5px;
       background-color: var(--text-standard);

@@ -1,5 +1,5 @@
 <template>
-  <Dropdown>
+  <Dropdown type="settings">
     <template v-slot:dropdown-title>
       <span class="icon-settings"></span>
     </template>
@@ -63,6 +63,8 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 
+const tray = ref<any>(null)
+
 const showOctave = ref<string>("");
 const instrOptions = ref<IOption[]>([
   { value: "low", displayValue: "Low / mezzo whistle" },
@@ -71,12 +73,13 @@ const instrOptions = ref<IOption[]>([
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/variables.scss";
 .icon-settings {
   font-size: 1.25rem;
 }
 .settings-container {
   padding: 20px 20px 30px 30px;
-  width: 350px;
+  width: 330px;
   max-width: 100%;
   display: flex;
   flex-direction: column;

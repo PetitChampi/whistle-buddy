@@ -1,5 +1,5 @@
 <template>
-  <Dropdown :closeOnInteraction="props.closeOnInteraction">
+  <Dropdown :closeOnInteraction="props.closeOnInteraction" type="list">
     <template v-slot:dropdown-title>
       <span class="select-title">{{ buttonText }}</span>
     </template>

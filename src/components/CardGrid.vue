@@ -2,10 +2,14 @@
   <div
     class="grid"
     :class="{
+      // desktop
       'grid-3': (cards.length <= 6 && cards.length !== 4),
       'grid-4': (cards.length === 4 || cards.length >= 7),
       'grid-5': cards.length >= 9,
       'grid-6': cards.length >= 11,
+      // mobile
+      'grid-mob-2': [1, 2].includes(cards.length),
+      'grid-mob-3': [3, 5, 6, 9].includes(cards.length)
     }"
   >
     <Card v-for="note in cards" :key="note.id" :note="note" class="grid-item" flashcard />
@@ -40,12 +44,19 @@ function next() {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/variables.scss";
+
 .grid {
   display: flex;
   gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
   margin: 0 -10px;
+  @media screen and (max-width: $mobile) {
+    column-gap: 10px;
+    row-gap: 15px;
+    margin: 0 -5px;
+  }
 
   &-3 .grid-item {
     flex-basis: calc((100% / 3) - 20px);
@@ -58,6 +69,21 @@ function next() {
   }
   &-6 .grid-item {
     flex-basis: calc((100% / 6) - 20px);
+  }
+
+  @media screen and (max-width: $mobile) {
+    &-3 .grid-item, &-4 .grid-item, &-5 .grid-item, &-6 .grid-item {
+      flex-basis: unset;
+    }
+    .grid-item {
+      flex-basis: calc((100% / 4) - 10px);
+    }
+    &-mob-2 .grid-item {
+      flex-basis: calc((100% / 2) - 10px);
+    }
+    &-mob-3 .grid-item {
+      flex-basis: calc((100% / 3) - 10px);
+    }
   }
 }
 

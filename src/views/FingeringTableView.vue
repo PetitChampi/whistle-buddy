@@ -14,78 +14,18 @@ import { ref } from "vue";
 import type { ICard } from "@/types/UiElements";
 
 const cards = ref<ICard[]>([
-  {
-    id: 1,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 1
-  },
-  {
-    id: 2,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 1
-  },
-  {
-    id: 3,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 2
-  },
-  {
-    id: 4,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 1
-  },
-  {
-    id: 5,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 2
-  },
-  {
-    id: 6,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 2
-  },
-  {
-    id: 7,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 2
-  },
-  {
-    id: 8,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 2
-  },
-  {
-    id: 9,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 2
-  },
-  {
-    id: 10,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 2
-  },
-  {
-    id: 11,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 2
-  },
-  {
-    id: 12,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 2
-  },
+  { id: 1, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 2, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 3, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 4, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 5, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 6, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 7, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 8, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 9, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 10, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 11, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 12, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
 ]);
 </script>
 

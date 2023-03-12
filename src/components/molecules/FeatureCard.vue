@@ -43,6 +43,7 @@ function goToLink() {
   cursor: pointer;
   @media screen and (max-width: $mobile) {
     padding: 20px;
+    box-shadow: var(--card-shadow-mobile);
   }
 
   &:hover {

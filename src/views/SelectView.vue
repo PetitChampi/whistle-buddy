@@ -41,13 +41,13 @@ import FeatureCard from "@/components/molecules/FeatureCard.vue";
   display: flex;
   justify-content: flex-end;
   padding: 15px 30px 0;
+  @media screen and (max-width: $mobile) {
+    padding: 10px 20px 0;
+  }
 }
 .main {
   margin-top: 20px;
   text-align: center;
-  @media screen and (max-width: $mobile) {
-    padding: 0 20px;
-  }
 
   &-title {
     font-size: 4rem;

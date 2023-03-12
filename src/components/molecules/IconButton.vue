@@ -32,19 +32,25 @@ function toggleActivate() {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/variables.scss";
+
 .button {
+  --size: 40px;
   font-size: 1.125rem;
   border-radius: 50px;
   background-color: var(--intensified-bg);
   box-shadow: var(--button-shadow);
-  height: 40px;
-  width: 40px;
+  height: var(--size);
+  width: var(--size);
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   transition: filter .2s ease, background-color .2s ease, color .2s ease;
-
+  @media screen and (max-width: $mobile) {
+    --size: 36px;
+    font-size: 1rem;
+  }
   &:hover {
     filter: brightness(1.2);
   }

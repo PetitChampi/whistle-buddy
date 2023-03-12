@@ -4,7 +4,11 @@
       <slot name="dropdown-title"></slot>
       <div class="custom-select--arrow" :class="{ open: isOpen }"></div>
     </div>
-    <div class="custom-select-content" :class="{ open: isOpen }">
+    <div
+      class="custom-select-content"
+      :class="{ open: isOpen, settings: type === 'settings' }"
+      ref="trayEl"
+    >
       <slot name="dropdown-content"></slot>
     </div>
   </div>
@@ -13,16 +17,16 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from "@vue/runtime-core";
 
-const props = defineProps({
-  closeOnInteraction: {
-    type: Boolean,
-    default: false,
-  },
-});
+export interface IProps {
+  closeOnInteraction?: boolean,
+  type?: "list" | "settings"
+}
+const props = withDefaults(defineProps<IProps>(), {});
 
 const isOpen = ref<boolean>(false);
 const selectEl = ref<HTMLElement | null>(null);
-const triggerEl = ref<HTMLElement | null>(null);
+const triggerEl = ref<any>(null);
+const trayEl = ref<any>(null);
 
 function toggleOpen() {
   isOpen.value = !isOpen.value;
@@ -35,12 +39,30 @@ function checkClickTarget(e: MouseEvent) {
   }
 }
 
+function resizeTray() {
+  if (window.innerWidth > 500) {
+    trayEl.value.style.top = null;
+    return;
+  }
+  const trigCoords = triggerEl.value.getBoundingClientRect();
+  trayEl.value.style.top = `${trigCoords.top + triggerEl.value.offsetHeight}px`;
+}
+
 onMounted(() => {
   document.body.addEventListener("click", checkClickTarget);
+  if (props.type === "settings") {
+    window.addEventListener("resize", resizeTray);
+    window.addEventListener("scroll", resizeTray);
+    resizeTray();
+  }
 });
 
 onBeforeUnmount(() => {
   document.body.removeEventListener("click", checkClickTarget);
+  if (props.type === "settings") {
+    window.removeEventListener("resize", resizeTray);
+    window.removeEventListener("scroll", resizeTray);
+  }
 });
 </script>
 
@@ -62,6 +84,11 @@ onBeforeUnmount(() => {
     font-weight: 500;
     cursor: pointer;
     transition: filter ease .2s;
+    @media screen and (max-width: $mobile) {
+      border-radius: $button-radius-mobile;
+      font-weight: normal;
+      padding: 8px 12px;
+    }
 
     &:hover {
       filter: brightness(1.3);
@@ -80,6 +107,16 @@ onBeforeUnmount(() => {
     visibility: hidden;
     pointer-events: none;
     z-index: 2;
+
+    &.settings {
+      @media screen and (max-width: 500px) {
+        position: fixed;
+        right: 20px;
+        left: 20px;
+        min-width: unset;
+        max-width: calc(100vw - 40px);
+      }
+    }
   }
   &-content.open {
     opacity: 1;

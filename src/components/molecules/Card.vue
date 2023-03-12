@@ -28,7 +28,10 @@
 
       <div class="back">
         <div class="card-note" v-if="route.name === 'fingeringTable'">
-          <p class="card-note-en">{{ note.name.en }}</p>
+          <div class="card-note-title">
+            <p class="card-note-en">{{ note.name.en }}</p>
+            <span class="icon-volume" @click.stop="playSound"></span>
+          </div>
           <p class="card-note-fr">{{ note.name.fr }}</p>
         </div>
         <div v-else>back of the card</div>
@@ -89,6 +92,8 @@ watch(() => props.selected, (newVal) => {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/variables.scss";
+
 .card {
   position: relative;
   // flashcard styles
@@ -107,6 +112,10 @@ watch(() => props.selected, (newVal) => {
     align-items: center;
     transition: border ease .2s, transform ease .3s;
     transform-style: preserve-3d;
+    @media screen and (max-width: $mobile) {
+      padding: 15px 10px;
+      box-shadow: var(--card-shadow-mobile);
+    }
 
     &.flipped {
       transform: rotateY(180deg);
@@ -155,6 +164,9 @@ watch(() => props.selected, (newVal) => {
     &-en {
       font-size: 1.5rem;
       font-weight: 700;
+      @media screen and (max-width: $mobile) {
+        font-size: 1.25rem;
+      }
     }
     &-fr {
       font-size: .875rem;
@@ -173,6 +185,10 @@ watch(() => props.selected, (newVal) => {
       font-size: .875rem;
       position: absolute;
       bottom: -14px;
+      @media screen and (max-width: $mobile) {
+        font-size: .75rem;
+        bottom: -12px;
+      }
     }
 
     &-hole {
@@ -182,6 +198,10 @@ watch(() => props.selected, (newVal) => {
       border: 1px solid var(--text-standard);
       overflow: hidden;
       position: relative;
+      @media screen and (max-width: $mobile) {
+        height: 9px;
+        width: 9px;
+      }
 
       &.full {background-color: var(--text-standard);}
       &.half::before {
@@ -200,6 +220,9 @@ watch(() => props.selected, (newVal) => {
 
   &:hover {
     transform: translateY(-3px);
+    @media screen and (max-width: $mobile) {
+      transform: unset;
+    }
   }
 }
 
