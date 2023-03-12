@@ -6,7 +6,7 @@
     <div class="game-metrics-wrapper">
       <div class="game-metrics">
         <div class="score">
-          <p>{{ $t("G_GUESS_SCORE") }}</p>
+          <p class="score-caption">{{ $t("G_GUESS_SCORE") }}</p>
           <p class="score-numbers">
             <span class="score-numbers-current">3 </span>
             / 14
@@ -22,8 +22,8 @@
     </div>
     <div class="game-cards">
       <div class="game-cards-toguess">
-        <Card :note="note" class="card-item" fingeringOnly />
-        <Card :note="note" class="card-item" error :errorMsg="$t('G_GUESS_ERR_NOTE')" fingeringOnly />
+        <Card :note="note" class="card-item" noteOnly />
+        <!-- <Card :note="note" class="card-item" error :errorMsg="$t('G_GUESS_ERR_NOTE')" fingeringOnly /> -->
       </div>
       <div class="game-cards-choices">
         <ChoiceGrid :cards="cards" />
@@ -75,24 +75,18 @@ const note = ref<ICard>({
   octave: 1
 });
 const cards = ref<ICard[]>([
-  {
-    id: 1,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 1
-  },
-  {
-    id: 2,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 1
-  },
-  {
-    id: 3,
-    name: {en: 'Gb', fr: 'Sol b'},
-    fingering: [2, 2, 1, 0, 0, 0],
-    octave: 1
-  },
+  { id: 1, name: {en: 'A', fr: 'La'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 2, name: {en: 'B', fr: 'Si'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 3, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 4, name: {en: 'C', fr: 'Do'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 5, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 6, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 7, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 8, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 9, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 10, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 11, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  { id: 12, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
 ]);
 
 function backToSettings() {
@@ -113,6 +107,8 @@ watch(gameFinished, () => {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/variables.scss";
+
 .game {
   position: relative;
 
@@ -123,36 +119,62 @@ watch(gameFinished, () => {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    @media screen and (max-width: $mobile) {
+      position: unset;
+    }
 
     &-wrapper {
       position: sticky;
       top: 50px;
       z-index: 5;
+      @media screen and (max-width: $mobile) {
+        top: 70px
+      }
     }
 
     .score {
       font-size: .875rem;
       font-weight: 400;
+      box-shadow: 0 2px 5px 2px var(--body-bg);
+      background-color: var(--body-bg);
+      border-radius: 10px;
+      &-caption {
+        @media screen and (max-width: $mobile) {
+          display: none;
+        }
+      }
       &-numbers-current {
         font-weight: 800;
         color: var(--accent);
         font-size: 2rem;
         line-height: 100%;
+        @media screen and (max-width: $mobile) {
+          font-size: 1.5rem;
+        }
       }
     }
   }
   &-text {
     padding-top: 50px;
     text-align: center;
+    @media screen and (max-width: $mobile) {
+      padding-top: 40px;
+    }
 
     h2 {
       font-weight: 500;
       font-size: 2rem;
       margin-bottom: 10px;
+      @media screen and (max-width: $mobile) {
+        font-size: 1.5rem;
+      }
     }
     p {
       font-size: 1.125rem;
       margin-bottom: 20px;
+      @media screen and (max-width: $mobile) {
+        font-size: 1rem;
+      }
     }
   }
   &-cards {
@@ -164,9 +186,16 @@ watch(gameFinished, () => {
       display: flex;
       justify-content: center;
       gap: 20px;
+      @media screen and (max-width: $mobile) {
+        gap: 10px;
+      }
       .card-item {
         flex-grow: 1;
+        flex-basis: 50%;
         max-width: 160px;
+        @media screen and (max-width: $mobile) {
+          gap: 10px;
+        }
       }
     }
   }
@@ -183,14 +212,25 @@ watch(gameFinished, () => {
   background-color: var(--intensified-bg);
   padding: 30px 30px 20px;
   border-radius: 10px;
+  @media screen and (max-width: $mobile) {
+    text-align: center;
+    margin-top: 30px;
+  }
 
   &-title {
     text-align: center;
     margin-bottom: 20px;
+    @media screen and (max-width: $mobile) {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
   }
   &-subtitle {
     text-align: center;
     font-size: 1.25rem;
+    @media screen and (max-width: $mobile) {
+      font-size: 1.125rem;
+    }
 
     .score {
       font-weight: 700;
@@ -208,6 +248,11 @@ watch(gameFinished, () => {
   .btn-container {
     justify-content: space-between;
     margin: 0;
+    @media screen and (max-width: $mobile) {
+      flex-direction: column-reverse;
+      align-items: center;
+      gap: 30px;
+    }
   }
 
   &-links-bottom {

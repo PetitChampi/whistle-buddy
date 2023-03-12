@@ -185,9 +185,14 @@ const keyOptions = ref<IOption[]>([
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/variables.scss";
+
 .game-settings {
   max-width: 660px;
   margin: 50px auto 0;
+  @media screen and (max-width: $mobile) {
+    margin-top: 30px;
+  }
 
   .settings-items {
     display: flex;
@@ -228,8 +233,7 @@ const keyOptions = ref<IOption[]>([
   .checkbox-grid {
     display: grid;
     grid-template-columns: repeat(4, min-content);
-    column-gap: 40px;
-    row-gap: 15px;
+    gap: 15px 40px;
     margin-bottom: 20px;
 
     &-label {

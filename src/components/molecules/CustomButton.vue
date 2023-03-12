@@ -35,6 +35,9 @@ const props = withDefaults(defineProps<IProps>(), {
   padding: 10px 20px;
   cursor: pointer;
   transition: filter .2s ease;
+  @media screen and (max-width: $mobile) {
+    font-weight: 400;
+  }
 
   &:hover {
     filter: brightness(1.3);

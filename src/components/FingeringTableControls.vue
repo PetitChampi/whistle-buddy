@@ -168,8 +168,7 @@ const selectedFingerings = ref<string[]>([]);
   .checkbox-grid {
     display: grid;
     grid-template-columns: repeat(3, min-content);
-    column-gap: 30px;
-    row-gap: 10px;
+    gap: 10px 30px;
   }
 }
 

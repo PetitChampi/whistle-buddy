@@ -57,7 +57,7 @@ function toggleOpen() {
 }
 
 watch(() => route.name, () => {
-  toggleOpen();
+  open.value && toggleOpen();
 });
 </script>
 

@@ -113,7 +113,7 @@ watch(() => props.selected, (newVal) => {
     transition: border ease .2s, transform ease .3s;
     transform-style: preserve-3d;
     @media screen and (max-width: $mobile) {
-      padding: 15px 10px;
+      padding: 15px 5px;
       box-shadow: var(--card-shadow-mobile);
     }
 

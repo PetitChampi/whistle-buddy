@@ -96,6 +96,8 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/variables.scss";
+
 .group {
   &-header {
     position: relative;
@@ -161,6 +163,9 @@ onMounted(() => {
         order: 1;
         flex-grow: 1;
         font-size: 1rem;
+        @media screen and (max-width: $mobile) {
+          font-size: .75rem;
+        }
       }
       &-text {
         &-title {
@@ -168,6 +173,9 @@ onMounted(() => {
           font-size: 1.75rem;
           display: flex;
           gap: 10px;
+          @media screen and (max-width: $mobile) {
+            font-size: 1.5rem;
+          }
         }
       }
       &-checkbox {

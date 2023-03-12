@@ -12,7 +12,7 @@
       'grid-mob-3': [3, 5, 6, 9].includes(cards.length)
     }"
   >
-    <Card v-for="note in cards" :key="note.id" :note="note" class="grid-item" flashcard />
+    <Card v-for="note in cards" :key="note.id" :note="note" class="grid-item" />
   </div>
   <div class="pagination" v-if="pagination">
     <div class="pagination-prev" @click="prev">
@@ -53,8 +53,7 @@ function next() {
   flex-wrap: wrap;
   margin: 0 -10px;
   @media screen and (max-width: $mobile) {
-    column-gap: 10px;
-    row-gap: 15px;
+    gap: 15px 10px;
     margin: 0 -5px;
   }
 

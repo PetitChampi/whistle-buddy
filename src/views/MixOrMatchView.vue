@@ -61,9 +61,9 @@ import MixMatchGrid from "@/components/MixMatchGrid.vue";
 import CustomButton from "@/components/molecules/CustomButton.vue";
 import type { ICard } from "@/types/UiElements";
 
-const gameStarted = ref<boolean>(true);
+const gameStarted = ref<boolean>(false);
 const gamePaused = ref<boolean>(false);
-const gameFinished = ref<boolean>(true);
+const gameFinished = ref<boolean>(false);
 
 const showOverlay = ref<boolean>(false);
 const victory = ref<boolean>(false);
@@ -80,6 +80,7 @@ const cards = ref<ICard[]>([
 ]);
 
 function startGame() {
+  window.scrollTo(0, 0);
   gameStarted.value = true;
   showOverlay.value = true;
   setTimeout(() => {
@@ -102,6 +103,8 @@ function replay() {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/variables.scss";
+
 .overlay {
   position: fixed;
   top: 0;
@@ -116,27 +119,53 @@ function replay() {
   color: var(--accent-contraster);
   font-size: 3rem;
   font-weight: 700;
+  padding: 20px;
   user-select: none;
+  @media screen and (max-width: $mobile) {
+    font-size: 2rem;
+    text-align: center;
+  }
 }
 
 .game {
   margin-top: 40px;
+  @media screen and (max-width: $mobile) {
+    margin-top: 70px;
+  }
+
   &-action {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 20px;
+    @media screen and (max-width: $mobile) {
+      flex-direction: column-reverse;
+      align-items: stretch;
+      gap: 10px;
+    }
 
     &-title {
       color: var(--text-standard);
       font-weight: 500;
       font-size: 2rem;
       margin: 0;
+      text-align: center;
+      @media screen and (max-width: $mobile) {
+        font-size: 1.5rem;
+      }
     }
     &-controls {
       display: flex;
       gap: 20px;
       align-items: flex-end;
+      @media screen and (max-width: $mobile) {
+        justify-content: space-between;
+        position: fixed;
+        top: 70px;
+        right: 20px;
+        left: 20px;
+        z-index: 5;
+      }
     }
   }
   &-grid {
@@ -158,11 +187,18 @@ function replay() {
       border-radius: 10px;
       box-shadow: var(--card-shadow-desktop);
       text-align: center;
+      @media screen and (max-width: $mobile) {
+        padding: 15px 20px;
+        width: max-content;
+      }
 
       &-title {
         color: var(--text-intense);
         font-size: 2.5rem;
         font-weight: 500;
+        @media screen and (max-width: $mobile) {
+          font-size: 1.75rem;
+        }
       }
       &-link {
         color: var(--accent);
@@ -198,6 +234,10 @@ function replay() {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+  @media screen and (max-width: $mobile) {
+    text-align: center;
+  }
 
   &-content {
     background-color: var(--intensified-bg);
@@ -207,11 +247,18 @@ function replay() {
   &-title {
     text-align: center;
     margin-bottom: 20px;
+    @media screen and (max-width: $mobile) {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
   }
   &-subtitle {
     text-align: center;
     font-size: 1.25rem;
     font-weight: 500;
+    @media screen and (max-width: $mobile) {
+      font-size: 1rem;
+    }
   }
   img {
     margin: 30px auto;
@@ -219,6 +266,11 @@ function replay() {
   .btn-container {
     display: flex;
     gap: 50px;
+    @media screen and (max-width: $mobile) {
+      flex-direction: column-reverse;
+      align-items: center;
+      gap: 30px;
+    }
   }
   &-link {
     display: inline-block;

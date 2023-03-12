@@ -63,14 +63,24 @@ function selectCard(card: IPairItem) {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/variables.scss";
+
 .grid {
   display: flex;
   gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
   margin: 0 -10px;
+  @media screen and (max-width: $mobile) {
+    gap: 10px;
+    margin: 0;
+  }
   .grid-item {
     flex-basis: calc((100% / 6) - 20px);
+    @media screen and (max-width: $mobile) {
+      flex-basis: calc((100% / 4) - 10px);
+      flex-grow: 1;
+    }
   }
 }
 </style>
