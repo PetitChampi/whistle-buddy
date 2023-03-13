@@ -11,16 +11,10 @@
 <script setup lang="ts">
 import { ref } from "@vue/reactivity";
 
-const props = defineProps({
-  activateOnClick: {
-    type: Boolean,
-    default: false
-  },
-  icon: {
-    type: String,
-    required: true
-  }
-});
+const props = defineProps<{
+  activateOnClick?: boolean,
+  icon: string,
+}>();
 
 const isActive = ref<Boolean>(false);
 const isPlay = ref<Boolean>(props.icon === "play");

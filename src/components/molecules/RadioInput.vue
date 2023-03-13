@@ -16,26 +16,13 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  modelValue: {
-    type: String
-  },
-  groupName: {
-    type: String,
-    required: true
-  },
-  value: {
-    type: String,
-    required: true
-  },
-  label: {
-    type: String,
-  },
-  small: {
-    type: Boolean,
-    default: false
-  }
-});
+const props = defineProps<{
+  modelValue: string,
+  groupName: string,
+  value: string,
+  label?: string,
+  small?: boolean,
+}>();
 
 const emit = defineEmits(["update:modelValue"]);
 

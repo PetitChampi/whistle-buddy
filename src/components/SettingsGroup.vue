@@ -41,34 +41,15 @@ import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import { ref } from "@vue/reactivity";
 import { onMounted, useSlots } from "@vue/runtime-core";
 
-const props = defineProps({
-  title: {
-    type: String,
-    required: true
-  },
-  subtitle: {
-    type: String
-  },
-  accordion: {
-    type: Boolean,
-    default: false
-  },
-  openByDefault: {
-    type: Boolean,
-    default: false
-  },
-  hasCheckbox: {
-    type: Boolean,
-    default: false
-  },
-  checkboxLabel: {
-    type: String
-  },
-  large: {
-    type: Boolean,
-    default: false
-  }
-});
+const props = defineProps<{
+  title: string,
+  subtitle?: string,
+  accordion?: boolean,
+  openByDefault?: boolean,
+  hasCheckbox?: boolean,
+  checkboxLabel?: string,
+  large?: boolean,
+}>();
 
 const slots = useSlots();
 

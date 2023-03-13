@@ -37,26 +37,13 @@
 import { ref } from "@vue/reactivity";
 import { onMounted } from "vue";
 
-const props = defineProps({
-  min: {
-    type: Number,
-    required: true
-  },
-  max: {
-    type: Number,
-    required: true
-  },
-  unit: {
-    type: String
-  },
-  modelValue: {
-    required: true
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  }
-});
+const props = defineProps<{
+  min: number,
+  max: number,
+  unit?: string,
+  modelValue: number | string,
+  disabled?: boolean
+}>();
 
 const emit = defineEmits(["update:modelValue"]);
 

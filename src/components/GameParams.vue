@@ -55,6 +55,7 @@
               :max="timerValues.max"
               :unit="timerValues.unit"
               v-model="gameDuration"
+              disabled
             />
           </div>
         </template>
@@ -133,12 +134,9 @@ import CustomButton from "@/components/molecules/CustomButton.vue";
 import { computed, ref } from "vue";
 import type { IOption } from "@/types/UiElements";
 
-const props = defineProps({
-  gameType: {
-    type: String,
-    required: true
-  }
-});
+const props = defineProps<{
+  gameType: string
+}>();
 
 const emit = defineEmits(["@gameStarted"]);
 

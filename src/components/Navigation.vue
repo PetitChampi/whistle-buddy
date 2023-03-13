@@ -10,7 +10,11 @@
         <SettingsDropdown />
       </div>
 
-      <div class="burger" @click="toggleOpen"></div>
+      <div class="burger" @click="toggleOpen">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
 
       <div class="navigation-menu">
         <div class="navigation-links">
@@ -111,21 +115,15 @@ watch(() => route.name, () => {
 
 @media screen and (max-width: $mobile) {
   .burger {
-    &, &::before, &::after {
-      display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .bar {
       height: 2px;
       width: 30px;
       background-color: var(--text-standard);
       border-radius: 10px;
       transition: .3s;
-    }
-    &::before {
-      content: "";
-      transform: translateY(-12px);
-    }
-    &::after {
-      content: "";
-      transform: translateY(10px);
     }
   }
   .navigation {
@@ -158,12 +156,14 @@ watch(() => route.name, () => {
   }
   .navigation.open {
     & > .burger {
-      background-color: transparent;
-      &::before {
-        transform: translateY(0) rotate(45deg);
+      .bar:nth-child(2) {
+        background-color: transparent;
       }
-      &::after {
-        transform: translateY(-2px) rotate(135deg);
+      .bar:first-child {
+        transform: translateY(12px) rotate(45deg);
+      }
+      .bar:last-child {
+        transform: translateY(-12px) rotate(135deg);
       }
     }
     .navigation-menu {

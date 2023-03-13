@@ -10,15 +10,12 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 
-const props = defineProps({
-  cardTitle: {
-    type: String,
-    default: "Card title",
-  },
-  toPageName: {
-    type: String,
-    required: true,
-  },
+export interface IProps {
+  cardTitle?: string,
+  toPageName: string
+}
+const props = withDefaults(defineProps<IProps>(), {
+  cardTitle: "Card title"
 });
 
 const router = useRouter();

@@ -18,27 +18,17 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  modelValue: {
-    type: Array,
-    required: true,
-  },
-  value: {
-    type: String,
-    required: true
-  },
-  label: {
-    type: String,
-  },
-  size: {
-    type: String,
-  }
-});
+const props = defineProps<{
+  modelValue: any[],
+  value: string,
+  label?: string,
+  size?: string
+}>();
 
 const emit = defineEmits(["update:modelValue"]);
 
 function tickBox() {
-  // deep copy instead of shallow just in case
+  // rudimentary deep copy instead of shallow just in case
   let newArray = JSON.parse(JSON.stringify(props.modelValue));
   if (!props.modelValue.includes(props.value)) newArray.push(props.value);
   else newArray = newArray.filter((item: string) => item !== props.value);
