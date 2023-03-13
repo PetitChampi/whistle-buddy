@@ -132,7 +132,7 @@ import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import GaugeInput from "@/components/molecules/GaugeInput.vue";
 import CustomButton from "@/components/molecules/CustomButton.vue";
 import { computed, ref } from "vue";
-import type { IOption } from "@/types/UiElements";
+import type { IOption, IGaugeValues } from "@/types/UiElements";
 
 const props = defineProps<{
   gameType: string
@@ -145,13 +145,7 @@ const numberOfChoices = ref<number>(5);
 const numberOfPairs = ref<number>(6);
 const selectedFingerings = ref<string[]>([]);
 
-interface ITimerValues {
-  unit: string,
-  min: number,
-  max: number,
-  default: number
-}
-const timerValues = computed<ITimerValues>(() => {
+const timerValues = computed<IGaugeValues>(() => {
   let values = { unit: "", min: 0, max: 0, default: 0 };
   
   switch (props.gameType) {

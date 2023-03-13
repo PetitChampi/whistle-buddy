@@ -10,4 +10,11 @@ interface ICard {
   octave: number
 }
 
-export type { IOption, ICard };
+interface IGaugeValues {
+  unit: string,
+  min: number,
+  max: number,
+  default: number
+}
+
+export type { IOption, ICard, IGaugeValues };

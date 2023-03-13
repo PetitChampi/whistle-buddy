@@ -20,7 +20,11 @@
         ">
           <div class="card-note-title">
             <p class="card-note-en">{{ note.name.en }}</p>
-            <span class="icon-volume" @click.stop="playSound"></span>
+            <span
+              class="icon-volume"
+              v-if="route.name === 'fingeringTable'"
+              @click.stop="playSound"
+            ></span>
           </div>
           <p class="card-note-fr">{{ note.name.fr }}</p>
         </div>
@@ -30,7 +34,11 @@
         <div class="card-note" v-if="route.name === 'fingeringTable'">
           <div class="card-note-title">
             <p class="card-note-en">{{ note.name.en }}</p>
-            <span class="icon-volume" @click.stop="playSound"></span>
+            <span
+              class="icon-volume"
+              v-if="route.name === 'fingeringTable'"
+              @click.stop="playSound"
+            ></span>
           </div>
           <p class="card-note-fr">{{ note.name.fr }}</p>
         </div>
