@@ -7,7 +7,7 @@
     <input
       type="checkbox"
       :id="value"
-      :checked="modelValue.includes(value)"
+      :checked="checkedCond"
       :value="value"
     >
     <label :for="value">
@@ -18,8 +18,10 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
 const props = defineProps<{
-  modelValue: any[],
+  modelValue: string[] | boolean,
   value: string,
   label?: string,
   size?: string
@@ -27,7 +29,17 @@ const props = defineProps<{
 
 const emit = defineEmits(["update:modelValue"]);
 
+const checkedCond = computed<boolean>(() => {
+  return typeof props.modelValue === "boolean" ?
+    props.modelValue :
+    props.modelValue.includes(props.value);
+});
+
 function tickBox() {
+  if (typeof props.modelValue === "boolean") {
+    emit("update:modelValue", !props.modelValue);
+    return;
+  }
   // rudimentary deep copy instead of shallow just in case
   let newArray = JSON.parse(JSON.stringify(props.modelValue));
   if (!props.modelValue.includes(props.value)) newArray.push(props.value);

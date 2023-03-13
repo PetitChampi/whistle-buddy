@@ -22,8 +22,9 @@
         <label>{{ props.checkboxLabel }}</label>
         <CheckboxInput
           v-if="hasCheckbox"
-          value="bruh"
-          v-model="settings"
+          :value="checkboxValue"
+          :modelValue="checkboxModelValue"
+          @update:modelValue="$emit('@updateCheckbox', $event)"
           :size="large ? 'l' : undefined"
         />
       </div>
@@ -38,25 +39,31 @@
 
 <script setup lang="ts">
 import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
-import { ref } from "@vue/reactivity";
+import { ref } from "vue";
 import { onMounted, useSlots } from "@vue/runtime-core";
 
-const props = defineProps<{
+export interface IProps {
   title: string,
   subtitle?: string,
   accordion?: boolean,
   openByDefault?: boolean,
   hasCheckbox?: boolean,
   checkboxLabel?: string,
+  checkboxModelValue?: string[] | boolean,
+  checkboxValue?: string,
   large?: boolean,
-}>();
+}
+const props = withDefaults(defineProps<IProps>(), {
+  checkboxModelValue: () => [],
+  checkboxValue: "defaultVal"
+});
+
+const emit = defineEmits(["@updateCheckbox"]);
 
 const slots = useSlots();
 
 const accContent = ref<any>(null);
 
-// TODO replace w/ real settings, edit checkbox?
-const settings = ref<any[]>([]);
 const closed = ref<boolean>(!props.openByDefault);
 
 function toggleAccordion() {

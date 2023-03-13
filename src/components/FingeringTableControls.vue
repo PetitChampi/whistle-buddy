@@ -74,10 +74,10 @@
       <div class="controls-item">
         <span class="label">{{ $t("F_TABLE_LABEL_FLASHCARD_MODE") }}</span>
         <div class="flex-container">
-          <SwitchInput v-model="flashcardMode" />
+          <SwitchInput v-model="fingTableParams.flashcardMode" />
           <Transition>
-            <div v-if="flashcardMode">
-              <TextSwitch :options="flashcardOptions" v-model="chosenTxtOption" />
+            <div v-if="fingTableParams.flashcardMode">
+              <TextSwitch :options="flashcardOptions" v-model="fingTableParams.flashcardSide" />
             </div>
           </Transition>
         </div>
@@ -100,8 +100,13 @@ import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import { ref } from "@vue/reactivity";
 import type { IOption } from "@/types/UiElements";
 import { useI18n } from "vue-i18n";
+import { useFingTableParamsStore } from "@/stores/params";
+import { storeToRefs } from "pinia";
 
 const { t } = useI18n({ useScope: "global" });
+
+const fingTableParamsStore = useFingTableParamsStore();
+const { fingTableParams } = storeToRefs(fingTableParamsStore);
 
 const fppOptions = ref<IOption[]>([
   { value: "6", displayValue: "6" },
@@ -109,9 +114,10 @@ const fppOptions = ref<IOption[]>([
   { value: "12", displayValue: "12" },
   { value: "14", displayValue: "All (14)" },
 ]);
-const flashcardMode = ref<boolean>(false);
-const flashcardOptions = ref<string[]>([t("GEN_FINGERINGS"), t("GEN_NOTES")]);
-const chosenTxtOption = ref<string>(t("GEN_FINGERINGS"));
+const flashcardOptions = ref<IOption[]>([
+  { value: "fing", displayValue: t("GEN_FINGERINGS") },
+  { value: "notes", displayValue: t("GEN_NOTES") },
+]);
 const selectedFingerings = ref<string[]>([]);
 </script>
 

@@ -3,28 +3,34 @@
     <label
       class="switch-option"
       v-for="option in options"
-      :key="option"
+      :key="option.value"
     >
       <input
         class="switch-option-radio"
         type="radio"
         name="textswitch"
-        :value="option"
-        :checked="modelValue === option"
+        :value="option.value"
+        :checked="modelValue === option.value"
         @click="toggle($event)"
       >
-      <span class="switch-option-label">{{ option }}</span>
+      <span class="switch-option-label">{{ option.displayValue }}</span>
     </label>
   </span>
 </template>
 
 <script setup lang="ts">
+import type { IOption } from "@/types/UiElements";
+
 export interface IProps {
-  options: string[],
+  options: IOption[],
   modelValue: string
 }
 const props = withDefaults(defineProps<IProps>(), {
-  options: () => ["opt 1", "opt 2", "opt 3"]
+  options: () => [
+    { value: "opt1", displayValue: "Opt 1" },
+    { value: "opt2", displayValue: "Opt 2" },
+    { value: "opt3", displayValue: "Opt 3" },
+  ]
 });
 
 const emit = defineEmits(["update:modelValue"]);

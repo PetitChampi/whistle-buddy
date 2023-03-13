@@ -11,6 +11,7 @@ interface IGenParams {
 interface IFingTableParams {
   fingsPerPage: number,
   flashcardMode: boolean,
+  flashcardSide: "notes" | "fing",
   shuffle: boolean
 }
 

@@ -12,7 +12,14 @@
       'grid-mob-3': [3, 5, 6, 9].includes(cards.length)
     }"
   >
-    <Card v-for="note in cards" :key="note.id" :note="note" class="grid-item" />
+    <Card
+      v-for="note in cards"
+      :key="note.id"
+      :note="note"
+      class="grid-item"
+      :flashcard="fingTableParams.flashcardMode"
+      :flipped="fingTableParams.flashcardMode && fingTableParams.flashcardSide === 'notes'"
+    />
   </div>
   <div class="pagination" v-if="pagination">
     <div class="pagination-prev" @click="prev">
@@ -28,11 +35,16 @@
 <script setup lang="ts">
 import Card from "@/components/molecules/Card.vue";
 import type { ICard } from "@/types/UiElements";
+import { useFingTableParamsStore } from "@/stores/params";
+import { storeToRefs } from "pinia";
 
 const props = defineProps<{
   cards: ICard[],
   pagination?: boolean
 }>();
+
+const fingTableParamsStore = useFingTableParamsStore();
+const { fingTableParams } = storeToRefs(fingTableParamsStore);
 
 // todo implement page navigation
 function prev() {

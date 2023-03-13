@@ -1,4 +1,4 @@
-import { defineStore } from "pinia";
+import { defineStore, acceptHMRUpdate } from "pinia";
 import { useLocalStorage } from "@vueuse/core"
 import type { IGenParams, IFingTableParams, IGuessGameParams, IMixMatchParams } from "@/types/ParamTypes";
 
@@ -25,6 +25,7 @@ export const useFingTableParamsStore = defineStore("fingTableParams", () => {
     {
       fingsPerPage: 12,
       flashcardMode: false,
+      flashcardSide: "fing",
       shuffle: false
     }
   );
@@ -60,3 +61,7 @@ export const useMixMatchParamsStore = defineStore("mixMatchParams", () => {
 
   return { mixMatchParams };
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useFingTableParamsStore, import.meta.hot))
+}

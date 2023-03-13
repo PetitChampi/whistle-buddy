@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import { useDarkModeStore } from "@/stores/darkMode";
-import { storeToRefs } from 'pinia'
+import { storeToRefs } from "pinia";
 
 const darkModeStore = useDarkModeStore();
 const { darkMode } = storeToRefs(darkModeStore);

@@ -2,7 +2,7 @@
   <article class="card" :class="{ flashcard }" @click="handleCardClick(note)">
     <div
       class="card-inner"
-      :class="{ flipped: isFlipped, selected: isSelected, error, success, fixed: fixedHeight }"
+      :class="{ flipped: flashcard && isFlipped, selected: isSelected, error, success, fixed: fixedHeight }"
     >
       <div class="front">
         <div v-if="!noteOnly" class="card-fingering" :class="{ oct2: note.octave === 2 }">
@@ -26,7 +26,7 @@
               @click.stop="playSound"
             ></span>
           </div>
-          <p class="card-note-fr">{{ note.name.fr }}</p>
+          <p class="card-note-fr" v-if="generalParams.frNotation">{{ note.name.fr }}</p>
         </div>
       </div>
 
@@ -40,7 +40,7 @@
               @click.stop="playSound"
             ></span>
           </div>
-          <p class="card-note-fr">{{ note.name.fr }}</p>
+          <p class="card-note-fr" v-if="generalParams.frNotation">{{ note.name.fr }}</p>
         </div>
         <div v-else>back of the card</div>
       </div>
@@ -55,6 +55,8 @@
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import type { ICard } from "@/types/UiElements";
+import { useGeneralParamsStore } from "@/stores/params";
+import { storeToRefs } from "pinia";
 
 export interface IProps {
   note: ICard,
@@ -73,9 +75,13 @@ export interface IProps {
 }
 const props = withDefaults(defineProps<IProps>(), {
   fingerings: 1,
+  flashcard: false,
   flipped: false,
   selected: false
 });
+
+const genParamsStore = useGeneralParamsStore();
+const { generalParams } = storeToRefs(genParamsStore);
 
 const route = useRoute();
 const emit = defineEmits(["@cardClicked"]);
@@ -96,6 +102,12 @@ function playSound() {
 
 watch(() => props.selected, (newVal) => {
   isSelected.value = newVal;
+});
+watch(() => props.flipped, (newVal) => {
+  isFlipped.value = newVal;
+});
+watch(() => props.flashcard, (newVal) => {
+  if (!newVal) isFlipped.value = newVal;
 });
 </script>
 
