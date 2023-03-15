@@ -39,7 +39,7 @@ export const useMusicalDataStore = defineStore("musicalData", () => {
       specific: fingerings.value.filter(fing => fing.type === "specific")
     }
   });
-  const currentScale = computed(() => {
+  const currentScale = computed<INote[]>(() => {
     const firstHalf = notes.value.slice(paramsStore.generalParams.key.absolutePos - 1);
     const secondHalf = notes.value.slice(0, paramsStore.generalParams.key.absolutePos - 1);
 
@@ -51,5 +51,5 @@ export const useMusicalDataStore = defineStore("musicalData", () => {
 });
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useMusicalDataStore, import.meta.hot))
+  import.meta.hot.accept(acceptHMRUpdate(useMusicalDataStore, import.meta.hot));
 }

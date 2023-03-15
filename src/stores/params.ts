@@ -2,13 +2,14 @@ import { defineStore, acceptHMRUpdate } from "pinia";
 import { computed } from "vue";
 import { useLocalStorage } from "@vueuse/core";
 import type { IGenParams, IFingTableParams, IGuessGameParams, IMixMatchParams } from "@/types/ParamTypes";
+import type { IFingering, INote } from "@/types/MusicalDataTypes";
 import { useMusicalDataStore } from "@/stores/musicalData";
 
 export const useParamsStore = defineStore("params", () => {
   const musicalDataStore = useMusicalDataStore();
 
-  const currentKey = computed(() => musicalDataStore.notes[2]);
-  const currentSelectedFings = computed(() => {
+  const currentKey = computed<INote>(() => musicalDataStore.notes[2]);
+  const currentSelectedFings = computed<IFingering[]>(() => {
     return musicalDataStore.fingerings.filter(fing => fing.type === "standard");
   });
 
@@ -50,5 +51,5 @@ export const useParamsStore = defineStore("params", () => {
 });
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useParamsStore, import.meta.hot))
+  import.meta.hot.accept(acceptHMRUpdate(useParamsStore, import.meta.hot));
 }
