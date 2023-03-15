@@ -35,7 +35,7 @@
 <script setup lang="ts">
 import Card from "@/components/molecules/Card.vue";
 import type { ICard } from "@/types/UiElements";
-import { useFingTableParamsStore } from "@/stores/params";
+import { useParamsStore } from "@/stores/params";
 import { storeToRefs } from "pinia";
 
 const props = defineProps<{
@@ -43,8 +43,8 @@ const props = defineProps<{
   pagination?: boolean
 }>();
 
-const fingTableParamsStore = useFingTableParamsStore();
-const { fingTableParams } = storeToRefs(fingTableParamsStore);
+const paramsStore = useParamsStore();
+const { fingTableParams } = storeToRefs(paramsStore);
 
 // todo implement page navigation
 function prev() {

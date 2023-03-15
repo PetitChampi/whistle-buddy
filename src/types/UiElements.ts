@@ -14,7 +14,7 @@ interface IGaugeValues {
   unit: string,
   min: number,
   max: number,
-  default: number
+  current: number
 }
 
 export type { IOption, ICard, IGaugeValues };

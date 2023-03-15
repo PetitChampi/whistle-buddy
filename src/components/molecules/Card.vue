@@ -55,7 +55,7 @@
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import type { ICard } from "@/types/UiElements";
-import { useGeneralParamsStore } from "@/stores/params";
+import { useParamsStore } from "@/stores/params";
 import { storeToRefs } from "pinia";
 
 export interface IProps {
@@ -80,8 +80,8 @@ const props = withDefaults(defineProps<IProps>(), {
   selected: false
 });
 
-const genParamsStore = useGeneralParamsStore();
-const { generalParams } = storeToRefs(genParamsStore);
+const paramsStore = useParamsStore();
+const { generalParams } = storeToRefs(paramsStore);
 
 const route = useRoute();
 const emit = defineEmits(["@cardClicked"]);

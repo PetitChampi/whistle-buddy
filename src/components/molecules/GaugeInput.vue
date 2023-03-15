@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ disabled }">
+  <div class="gauge-wrapper" :class="{ disabled }">
     <div class="indicators">
       <span class="indicators-min">
         {{ min }}{{ unit }}
@@ -91,6 +91,9 @@ onMounted(() => {
   display: flex;
   align-items: center;
 
+  &-wrapper {
+    transition: opacity ease .2s;
+  }
   &-input-container {
     position: relative;
     flex-grow: 1;

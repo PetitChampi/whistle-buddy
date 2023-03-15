@@ -16,12 +16,15 @@ const props = defineProps<{
   icon: string,
 }>();
 
+const emit = defineEmits(["@activateBtn"]);
+
 const isActive = ref<Boolean>(false);
 const isPlay = ref<Boolean>(props.icon === "play");
 
 function toggleActivate() {
   if (!props.activateOnClick) return;
   isActive.value = !isActive.value;
+  emit("@activateBtn");
 }
 </script>
 

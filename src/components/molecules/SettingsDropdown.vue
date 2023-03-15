@@ -19,9 +19,9 @@
         >
           <template v-slot:content>
             <div class="radio-group">
-              <RadioInput v-model="showOctave" groupName="octave" value="lower" label="1" small />
-              <RadioInput v-model="showOctave" groupName="octave" value="higher" label="2" small />
-              <RadioInput v-model="showOctave" groupName="octave" value="both" label="1 + 2" small />
+              <RadioInput v-model="generalParams.showOctave" groupName="octave" value="low" label="1" small />
+              <RadioInput v-model="generalParams.showOctave" groupName="octave" value="high" label="2" small />
+              <RadioInput v-model="generalParams.showOctave" groupName="octave" value="both" label="1 + 2" small />
             </div>
           </template>
         </SettingsGroup>
@@ -48,7 +48,12 @@
 
         <SettingsGroup :title="$t('GEN_PARAMS_INSTRUMENT')">
           <template v-slot:content>
-            <ListDropdown :options="instrOptions" defaultSelectedOption="low" closeOnInteraction />
+            <ListDropdown
+              :options="instrOptions"
+              :defaultSelectedOption="generalParams.instrument"
+              closeOnInteraction
+              @@optionSelected="generalParams.instrument = $event.value"
+            />
           </template>
         </SettingsGroup>
       </div>
@@ -64,22 +69,20 @@ import ListDropdown from "./ListDropdown.vue";
 import type { IOption } from "@/types/UiElements";
 import { ref } from "@vue/reactivity";
 import { useRoute } from "vue-router";
-import { useGeneralParamsStore } from "@/stores/params";
+import { useParamsStore } from "@/stores/params";
 import { storeToRefs } from "pinia";
 
 const route = useRoute();
 
-const genParamsStore = useGeneralParamsStore();
-const { generalParams } = storeToRefs(genParamsStore);
+const paramsStore = useParamsStore();
+const { generalParams } = storeToRefs(paramsStore);
 
 const tray = ref<any>(null)
 
-const showOctave = ref<string>("");
 const instrOptions = ref<IOption[]>([
   { value: "low", displayValue: "Low / mezzo whistle" },
   { value: "tin", displayValue: "Tin whistle" }
 ]);
-
 </script>
 
 <style lang="scss" scoped>

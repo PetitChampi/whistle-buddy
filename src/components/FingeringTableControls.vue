@@ -83,7 +83,7 @@
         </div>
       </div>
       <div class="controls-button">
-        <IconButton icon="shuffle" activateOnClick />
+        <IconButton icon="shuffle" activateOnClick @@activateBtn="fingTableParams.shuffle = !fingTableParams.shuffle" />
       </div>
     </div>
   </div>
@@ -100,13 +100,13 @@ import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import { ref } from "@vue/reactivity";
 import type { IOption } from "@/types/UiElements";
 import { useI18n } from "vue-i18n";
-import { useFingTableParamsStore } from "@/stores/params";
+import { useParamsStore } from "@/stores/params";
 import { storeToRefs } from "pinia";
 
 const { t } = useI18n({ useScope: "global" });
 
-const fingTableParamsStore = useFingTableParamsStore();
-const { fingTableParams } = storeToRefs(fingTableParamsStore);
+const paramsStore = useParamsStore();
+const { fingTableParams } = storeToRefs(paramsStore);
 
 const fppOptions = ref<IOption[]>([
   { value: "6", displayValue: "6" },

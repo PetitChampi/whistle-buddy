@@ -16,15 +16,15 @@
         <template v-slot:content>
           <div class="radio-group">
             <RadioInput
-              v-model="valuesToGuess"
+              v-model="guessGameParams.valuesToGuess"
               groupName="guessValue"
               value="note"
               :label="$t('G_PARAMS_VTG_NOTE')"
             />
             <RadioInput
-              v-model="valuesToGuess"
+              v-model="guessGameParams.valuesToGuess"
               groupName="guessValue"
-              value="fingering"
+              value="fing"
               :label="$t('G_PARAMS_VTG_FING')"
             />
           </div>
@@ -34,7 +34,11 @@
       <SettingsGroup v-if="gameType === 'guessing'" :title="$t('G_PARAMS_TITLE_NB_CHOICES')" large>
         <template v-slot:content>
           <div class="settings-item-content">
-            <GaugeInput :min="3" :max="12" v-model="numberOfChoices" />
+            <GaugeInput
+              :min="guessGameParams.nbChoices.min"
+              :max="guessGameParams.nbChoices.max"
+              v-model="guessGameParams.nbChoices.current"
+            />
           </div>
         </template>
       </SettingsGroup>
@@ -42,20 +46,30 @@
       <SettingsGroup v-if="gameType === 'mixmatch'" :title="$t('G_PARAMS_TITLE_NB_PAIRS')" large>
         <template v-slot:content>
           <div class="settings-item-content">
-            <GaugeInput :min="3" :max="14" v-model="numberOfPairs" />
+            <GaugeInput
+              :min="mixMatchParams.nbOfPairs.min"
+              :max="mixMatchParams.nbOfPairs.max"
+              v-model="mixMatchParams.nbOfPairs.current"
+            />
           </div>
         </template>
       </SettingsGroup>
 
-      <SettingsGroup :title="$t('G_PARAMS_TITLE_TIMER')" hasCheckbox large>
+      <SettingsGroup
+        :title="$t('G_PARAMS_TITLE_TIMER')"
+        hasCheckbox
+        large
+        :checkboxModelValue="currentGameParams.value.timer"
+        @@updateCheckbox="currentGameParams.value.timer = $event"
+      >
         <template v-slot:content>
           <div class="settings-item-content">
             <GaugeInput
-              :min="timerValues.min"
-              :max="timerValues.max"
-              :unit="timerValues.unit"
-              v-model="gameDuration"
-              disabled
+              :min="currentGameParams.value.timerValues.min"
+              :max="currentGameParams.value.timerValues.max"
+              :unit="currentGameParams.value.timerValues.unit"
+              v-model="currentGameParams.value.timerValues.current"
+              :disabled="!currentGameParams.value.timer"
             />
           </div>
         </template>
@@ -105,6 +119,8 @@
         subtitle="Do, Ré, Mi..."
         hasCheckbox
         large
+        :checkboxModelValue="generalParams.frNotation"
+        @@updateCheckbox="generalParams.frNotation = $event"
       />
       <!-- <SettingsGroup
         :title="$t('GEN_PARAMS_SYNESTHESIA')"
@@ -132,36 +148,37 @@ import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import GaugeInput from "@/components/molecules/GaugeInput.vue";
 import CustomButton from "@/components/molecules/CustomButton.vue";
 import { computed, ref } from "vue";
-import type { IOption, IGaugeValues } from "@/types/UiElements";
+import type { Ref } from "vue";
+import type { IOption } from "@/types/UiElements";
+import type { IGuessGameParams, IMixMatchParams } from "@/types/ParamTypes";
+import { useParamsStore } from "@/stores/params";
+import { storeToRefs } from "pinia";
 
 const props = defineProps<{
   gameType: string
 }>();
 
+const paramsStore = useParamsStore();
+const { generalParams, guessGameParams, mixMatchParams } = storeToRefs(paramsStore);
+
 const emit = defineEmits(["@gameStarted"]);
 
-const valuesToGuess = ref<string>("note");
-const numberOfChoices = ref<number>(5);
-const numberOfPairs = ref<number>(6);
 const selectedFingerings = ref<string[]>([]);
 
-const timerValues = computed<IGaugeValues>(() => {
-  let values = { unit: "", min: 0, max: 0, default: 0 };
-  
+const currentGameParams = computed<Ref<IGuessGameParams> | Ref<IMixMatchParams>>(() => {
+  let currGameParams: Ref<IGuessGameParams> | Ref<IMixMatchParams> = guessGameParams;
   switch (props.gameType) {
     case 'guessing':
-      values = { unit: "s", min: 2, max: 30, default: 5 };
+      currGameParams = guessGameParams;
       break;
     case 'mixmatch':
-      values = { unit: "m", min: 1, max: 5, default: 3 };
+      currGameParams = mixMatchParams;
       break;
     default:
   }
 
-  return values;
+  return currGameParams;
 });
-
-const gameDuration = ref<number>(timerValues.value.default);
 
 function startGame() {
   emit("@gameStarted");

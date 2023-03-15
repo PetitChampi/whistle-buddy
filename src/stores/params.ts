@@ -2,11 +2,9 @@ import { defineStore, acceptHMRUpdate } from "pinia";
 import { useLocalStorage } from "@vueuse/core"
 import type { IGenParams, IFingTableParams, IGuessGameParams, IMixMatchParams } from "@/types/ParamTypes";
 
-// General params
-export const useGeneralParamsStore = defineStore("generalParams", () => {
+export const useParamsStore = defineStore("params", () => {
   const generalParams = useLocalStorage<IGenParams>(
-    "general_params",
-    {
+    "general_params", {
       key: { positionId: 3, names: ["d"] },
       frNotation: false,
       showOctave: "low",
@@ -14,54 +12,33 @@ export const useGeneralParamsStore = defineStore("generalParams", () => {
       instrument: "low"
     }
   );
-
-  return { generalParams };
-});
-
-// Fingering table
-export const useFingTableParamsStore = defineStore("fingTableParams", () => {
   const fingTableParams = useLocalStorage<IFingTableParams>(
-    "fing_table_params",
-    {
+    "fing_table_params", {
       fingsPerPage: 12,
       flashcardMode: false,
       flashcardSide: "fing",
       shuffle: false
     }
   );
-
-  return { fingTableParams };
-});
-
-// Guessing game
-export const useGuessGameParamsStore = defineStore("guessGameParams", () => {
   const guessGameParams = useLocalStorage<IGuessGameParams>(
-    "guess_game_params",
-    {
+    "guess_game_params", {
       valuesToGuess: "note",
-      nbChoices: { unit: "", min: 2, max: 12, default: 3 },
+      nbChoices: { unit: "", min: 2, max: 12, current: 3 },
       timer: false,
-      timerValues: { unit: "s", min: 2, max: 30, default: 5 }
+      timerValues: { unit: "s", min: 2, max: 30, current: 5 }
     }
   );
-
-  return { guessGameParams };
-});
-
-// Mix or match
-export const useMixMatchParamsStore = defineStore("mixMatchParams", () => {
   const mixMatchParams = useLocalStorage<IMixMatchParams>(
-    "mix_match_params",
-    {
-      nbOfPairs: { unit: "", min: 2, max: 12, default: 3 },
+    "mix_match_params", {
+      nbOfPairs: { unit: "", min: 2, max: 12, current: 3 },
       timer: false,
-      timerValues: { unit: "s", min: 2, max: 30, default: 5 }
+      timerValues: { unit: "m", min: 1, max: 5, current: 3 }
     }
   );
 
-  return { mixMatchParams };
+  return { generalParams, fingTableParams, guessGameParams, mixMatchParams };
 });
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useFingTableParamsStore, import.meta.hot))
+  import.meta.hot.accept(acceptHMRUpdate(useParamsStore, import.meta.hot))
 }
