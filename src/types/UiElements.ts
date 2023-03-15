@@ -1,3 +1,5 @@
+type Octave = 1 | 2;
+
 interface IOption {
   value: string,
   displayValue: string,
@@ -7,7 +9,7 @@ interface ICard {
   id: number,
   name: { en: string, fr: string },
   fingering: number[],
-  octave: number
+  octave: Octave
 }
 
 interface IGaugeValues {
@@ -17,4 +19,4 @@ interface IGaugeValues {
   current: number
 }
 
-export type { IOption, ICard, IGaugeValues };
+export type { Octave, IOption, ICard, IGaugeValues };

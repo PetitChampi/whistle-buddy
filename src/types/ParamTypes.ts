@@ -1,11 +1,13 @@
 import type { IGaugeValues } from "@/types/UiElements";
+import type { INote, IFingering } from "@/types/MusicalDataTypes";
 
 interface IGenParams {
-  key: { positionId: number, names: string[] }
+  key: INote,
   frNotation: boolean,
   showOctave: "low" | "high" | "both",
   groupHomophones: boolean,
   instrument: "low" | "tin",
+  selectedFingerings: IFingering[]
 }
 
 interface IFingTableParams {

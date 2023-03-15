@@ -1,15 +1,25 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
-import { useLocalStorage } from "@vueuse/core"
+import { computed } from "vue";
+import { useLocalStorage } from "@vueuse/core";
 import type { IGenParams, IFingTableParams, IGuessGameParams, IMixMatchParams } from "@/types/ParamTypes";
+import { useMusicalDataStore } from "@/stores/musicalData";
 
 export const useParamsStore = defineStore("params", () => {
+  const musicalDataStore = useMusicalDataStore();
+
+  const currentKey = computed(() => musicalDataStore.notes[2]);
+  const currentSelectedFings = computed(() => {
+    return musicalDataStore.fingerings.filter(fing => fing.type === "standard");
+  });
+
   const generalParams = useLocalStorage<IGenParams>(
     "general_params", {
-      key: { positionId: 3, names: ["d"] },
+      key: currentKey.value,
       frNotation: false,
       showOctave: "low",
       groupHomophones: false,
-      instrument: "low"
+      instrument: "low",
+      selectedFingerings: currentSelectedFings.value
     }
   );
   const fingTableParams = useLocalStorage<IFingTableParams>(
