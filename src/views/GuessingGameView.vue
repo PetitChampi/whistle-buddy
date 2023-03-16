@@ -63,7 +63,7 @@ import Timer from "@/components/molecules/Timer.vue";
 import Card from "@/components/molecules/Card.vue";
 import ChoiceGrid from "@/components/ChoiceGrid.vue";
 import CustomButton from "@/components/molecules/CustomButton.vue";
-import type { ICard } from "@/types/UiElements";
+import type { ICard } from "@/types/MusicalDataTypes";
 import { watch } from "vue";
 
 const gameStarted = ref<boolean>(false);

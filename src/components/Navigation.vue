@@ -41,7 +41,7 @@ import ListDropdown from "@/components/molecules/ListDropdown.vue";
 import SettingsDropdown from "@/components/molecules/SettingsDropdown.vue";
 import NonMusicalControls from "@/components/NonMusicalControls.vue";
 import { ref } from "@vue/reactivity";
-import type { IOption } from "@/types/UiElements";
+import type { IOption } from "@/types/MusicalDataTypes";
 import { watch } from "vue";
 import { useRoute } from "vue-router";
 

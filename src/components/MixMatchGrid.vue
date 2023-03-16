@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import Card from "@/components/molecules/Card.vue";
-import type { ICard } from "@/types/UiElements";
+import type { ICard } from "@/types/MusicalDataTypes";
 import { computed } from "vue";
 import { ref } from "@vue/reactivity";
 

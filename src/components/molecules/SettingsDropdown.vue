@@ -66,7 +66,7 @@ import Dropdown from "@/components/molecules/Dropdown.vue";
 import SettingsGroup from "@/components/SettingsGroup.vue";
 import RadioInput from "@/components/molecules/RadioInput.vue";
 import ListDropdown from "./ListDropdown.vue";
-import type { IOption } from "@/types/UiElements";
+import type { IOption } from "@/types/MusicalDataTypes";
 import { ref } from "@vue/reactivity";
 import { useRoute } from "vue-router";
 import { useParamsStore } from "@/stores/params";

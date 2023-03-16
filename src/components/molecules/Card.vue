@@ -5,13 +5,21 @@
       :class="{ flipped: flashcard && isFlipped, selected: isSelected, error, success, fixed: fixedHeight }"
     >
       <div class="front">
-        <div v-if="!noteOnly" class="card-fingering" :class="{ oct2: note.octave === 2 }">
-          <span
-            class="card-fingering-hole"
-            v-for="(hole, index) in note.fingering"
-            :key="index"
-            :class="{ full: hole === 2, half: hole === 1 }"
-          ></span>
+        <div class="card-fingerings">
+          <div
+            v-if="!noteOnly"
+            v-for="fing in note.fingerings"
+            :key="fing.id"
+            class="card-fingerings-item"
+            :class="{ oct2: note.octave === 2 }"
+          >
+            <span
+              class="card-fingerings-item-hole"
+              v-for="(hole, index) in fing.holes"
+              :key="index"
+              :class="{ full: hole === 2, half: hole === 1 }"
+            ></span>
+          </div>
         </div>
         <div class="card-note" v-if="
           ((route.name === 'fingeringTable' && !flashcard) ||
@@ -19,28 +27,28 @@
           !fingeringOnly
         ">
           <div class="card-note-title">
-            <p class="card-note-en">{{ note.name.en }}</p>
+            <p class="card-note-en">{{ formattedNameEn }}</p>
             <span
               class="icon-volume"
               v-if="route.name === 'fingeringTable'"
               @click.stop="playSound"
             ></span>
           </div>
-          <p class="card-note-fr" v-if="generalParams.frNotation">{{ note.name.fr }}</p>
+          <p class="card-note-fr" v-if="generalParams.frNotation">{{ formattedNameFr }}</p>
         </div>
       </div>
 
       <div class="back">
         <div class="card-note" v-if="route.name === 'fingeringTable'">
           <div class="card-note-title">
-            <p class="card-note-en">{{ note.name.en }}</p>
+            <p class="card-note-en">{{ formattedNameEn }}</p>
             <span
               class="icon-volume"
               v-if="route.name === 'fingeringTable'"
               @click.stop="playSound"
             ></span>
           </div>
-          <p class="card-note-fr" v-if="generalParams.frNotation">{{ note.name.fr }}</p>
+          <p class="card-note-fr" v-if="generalParams.frNotation">{{ formattedNameFr }}</p>
         </div>
         <div v-else>back of the card</div>
       </div>
@@ -52,9 +60,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import { useRoute } from "vue-router";
-import type { ICard } from "@/types/UiElements";
+import type { ICard } from "@/types/MusicalDataTypes";
 import { useParamsStore } from "@/stores/params";
 import { storeToRefs } from "pinia";
 
@@ -88,6 +96,13 @@ const emit = defineEmits(["@cardClicked"]);
 
 const isFlipped = ref<boolean>(props.flipped);
 const isSelected = ref<boolean>(props.selected);
+
+const formattedNameEn = computed(() => (
+  props.note.name.en.charAt(0).toUpperCase() + props.note.name.en.slice(1)
+));
+const formattedNameFr = computed(() => (
+  props.note.name.fr.charAt(0).toUpperCase() + props.note.name.fr.slice(1)
+));
 
 function handleCardClick(card: ICard) {
   if (props.flashcard) isFlipped.value = !isFlipped.value;
@@ -193,43 +208,52 @@ watch(() => props.flashcard, (newVal) => {
     }
   }
 
-  &-fingering {
+  &-fingerings {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
-    align-items: center;
-    position: relative;
-
-    &.oct2::after {
-      content: "+";
-      font-size: .875rem;
-      position: absolute;
-      bottom: -14px;
-      @media screen and (max-width: $mobile) {
-        font-size: .75rem;
-        bottom: -12px;
-      }
+    gap: 20px;
+    justify-content: center;
+    @media screen and (max-width: $mobile) {
+      gap: 15px;
     }
 
-    &-hole {
-      height: 12px;
-      width: 12px;
-      border-radius: 50%;
-      border: 1px solid var(--text-standard);
-      overflow: hidden;
+    &-item {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
       position: relative;
-      @media screen and (max-width: $mobile) {
-        height: 9px;
-        width: 9px;
+
+      &.oct2::after {
+        content: "+";
+        font-size: .875rem;
+        position: absolute;
+        bottom: -14px;
+        @media screen and (max-width: $mobile) {
+          font-size: .75rem;
+          bottom: -12px;
+        }
       }
 
-      &.full {background-color: var(--text-standard);}
-      &.half::before {
-        content: "";
-        position: absolute;
-        background-color: var(--text-standard);
-        height: 100%;
-        width: 50%;
+      &-hole {
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        border: 1px solid var(--text-standard);
+        overflow: hidden;
+        position: relative;
+        @media screen and (max-width: $mobile) {
+          height: 9px;
+          width: 9px;
+        }
+
+        &.full {background-color: var(--text-standard);}
+        &.half::before {
+          content: "";
+          position: absolute;
+          background-color: var(--text-standard);
+          height: 100%;
+          width: 50%;
+        }
       }
     }
   }

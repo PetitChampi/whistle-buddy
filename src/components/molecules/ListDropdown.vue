@@ -21,7 +21,7 @@
 import Dropdown from "@/components/molecules/Dropdown.vue";
 import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
-import type { IOption } from "@/types/UiElements";
+import type { IOption } from "@/types/MusicalDataTypes";
 import { useI18n } from "vue-i18n";
 
 export interface IProps {

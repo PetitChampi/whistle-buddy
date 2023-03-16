@@ -1,11 +1,9 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
-import type { IFingering, IFingsPerType, IInstrument, INote } from "@/types/MusicalDataTypes";
+import type { IFingering, IFingsPerType, IInstrument, INote, IKey } from "@/types/MusicalDataTypes";
 import { ref, computed } from "vue";
-import { useParamsStore } from "@/stores/params";
 
 export const useMusicalDataStore = defineStore("musicalData", () => {
-  const paramsStore = useParamsStore();
-
+  // Raw data
   const instruments = ref<IInstrument[]>([
     { value: "low", fullName: "Low / mezzo whistle" },
     { value: "tin", fullName: "Tin whistle" }
@@ -26,28 +24,35 @@ export const useMusicalDataStore = defineStore("musicalData", () => {
   ]);
   const fingerings = ref<IFingering[]>([
     { id: 1, posInScale: 1, holes: [2, 2, 1, 0, 0, 0], type: "halfhole", octaves: [1, 2] },
-    { id: 2, posInScale: 1, holes: [2, 2, 1, 0, 0, 0], type: "standard", octaves: [1, 2] },
-    { id: 3, posInScale: 2, holes: [2, 2, 1, 0, 0, 0], type: "standard", octaves: [1, 2] },
-    { id: 4, posInScale: 2, holes: [2, 2, 1, 0, 0, 0], type: "specific", octaves: [1, 2] }
+    { id: 2, posInScale: 1, holes: [2, 2, 2, 1, 0, 0], type: "standard", octaves: [1] },
+    { id: 3, posInScale: 2, holes: [2, 2, 2, 0, 0, 0], type: "standard", octaves: [2] },
+    { id: 4, posInScale: 2, holes: [2, 2, 2, 2, 1, 0], type: "specific", octaves: [1, 2] },
+    { id: 5, posInScale: 3, holes: [2, 2, 2, 2, 2, 0], type: "halfhole", octaves: [2] },
+    { id: 6, posInScale: 4, holes: [0, 2, 2, 0, 0, 0], type: "standard", octaves: [1, 2] },
+    { id: 7, posInScale: 4, holes: [1, 2, 2, 0, 0, 0], type: "standard", octaves: [1] },
+    { id: 8, posInScale: 5, holes: [2, 2, 1, 0, 0, 0], type: "standard", octaves: [2] },
+    { id: 9, posInScale: 6, holes: [2, 2, 1, 0, 0, 0], type: "specific", octaves: [1, 2] }
   ]);
 
   // Getters
-  const fingsPerType = computed<IFingsPerType>(() => {
+  const defaultKey = computed<IKey>(() => {
+    const defaultNote = notes.value[2];
+    
     return {
-      standard: fingerings.value.filter(fing => fing.type === "standard"),
-      halfhole: fingerings.value.filter(fing => fing.type === "halfhole"),
-      specific: fingerings.value.filter(fing => fing.type === "specific")
+      absolutePos: defaultNote.absolutePos,
+      name: defaultNote.names[0]
     }
   });
-  const currentScale = computed<INote[]>(() => {
-    const firstHalf = notes.value.slice(paramsStore.generalParams.key.absolutePos - 1);
-    const secondHalf = notes.value.slice(0, paramsStore.generalParams.key.absolutePos - 1);
-
-    return [...firstHalf, ...secondHalf];
+  const defaultSelectedFings = computed<IFingering[]>(() => {
+    return fingerings.value.filter(fing => fing.type === "standard");
   });
-  // TODO currentCards
+  const fingsPerType = computed<IFingsPerType>(() => ({
+    standard: fingerings.value.filter(fing => fing.type === "standard"),
+    halfhole: fingerings.value.filter(fing => fing.type === "halfhole"),
+    specific: fingerings.value.filter(fing => fing.type === "specific")
+  }));
 
-  return { instruments, notes, fingerings, fingsPerType, currentScale };
+  return { instruments, notes, fingerings, fingsPerType, defaultKey, defaultSelectedFings };
 });
 
 if (import.meta.hot) {

@@ -59,7 +59,7 @@ import IconButton from "@/components/molecules/IconButton.vue";
 import Timer from "@/components/molecules/Timer.vue";
 import MixMatchGrid from "@/components/MixMatchGrid.vue";
 import CustomButton from "@/components/molecules/CustomButton.vue";
-import type { ICard } from "@/types/UiElements";
+import type { ICard } from "@/types/MusicalDataTypes";
 
 const gameStarted = ref<boolean>(false);
 const gamePaused = ref<boolean>(false);

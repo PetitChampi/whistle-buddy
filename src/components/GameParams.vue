@@ -149,7 +149,7 @@ import GaugeInput from "@/components/molecules/GaugeInput.vue";
 import CustomButton from "@/components/molecules/CustomButton.vue";
 import { computed, ref } from "vue";
 import type { Ref } from "vue";
-import type { IOption } from "@/types/UiElements";
+import type { IOption } from "@/types/MusicalDataTypes";
 import type { IGuessGameParams, IMixMatchParams } from "@/types/ParamTypes";
 import { useParamsStore } from "@/stores/params";
 import { storeToRefs } from "pinia";

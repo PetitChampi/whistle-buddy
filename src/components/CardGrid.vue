@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 import Card from "@/components/molecules/Card.vue";
-import type { ICard } from "@/types/UiElements";
+import type { ICard } from "@/types/MusicalDataTypes";
 import { useParamsStore } from "@/stores/params";
 import { storeToRefs } from "pinia";
 

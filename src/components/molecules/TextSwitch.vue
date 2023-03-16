@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IOption } from "@/types/UiElements";
+import type { IOption } from "@/types/MusicalDataTypes";
 
 export interface IProps {
   options: IOption[],

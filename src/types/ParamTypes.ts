@@ -1,8 +1,7 @@
-import type { IGaugeValues } from "@/types/UiElements";
-import type { INote, IFingering } from "@/types/MusicalDataTypes";
+import type { IKey, IFingering, IGaugeValues } from "@/types/MusicalDataTypes";
 
 interface IGenParams {
-  key: INote,
+  key: IKey,
   frNotation: boolean,
   showOctave: "low" | "high" | "both",
   groupHomophones: boolean,
