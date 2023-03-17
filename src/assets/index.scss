@@ -66,7 +66,6 @@ body {
 .tooltip {
   --tip-height: 10px;
   position: absolute;
-  bottom: calc(100% + var(--tip-height) + 5px);
   left: 50%;
   transform: translateX(-50%);
   width: max-content;
@@ -80,15 +79,27 @@ body {
   visibility: hidden;
   opacity: 0;
   transition: visibility .2s, opacity .2s;
-  &::after {
+  &.top {
+    bottom: calc(100% + var(--tip-height) + 5px);
+  }
+  &.bottom {
+    top: calc(100% + var(--tip-height) + 5px);
+  }
+  &.top::after, &.bottom::after {
     content: "";
     position: absolute;
     border-width: var(--tip-height) 7px;
     border-style: solid;
-    border-color: var(--text-intense) transparent transparent transparent;
-    top: 100%;
     left: 50%;
     transform: translateX(-50%);
+  }
+  &.top::after {
+    border-color: var(--text-intense) transparent transparent transparent;
+    top: 100%;
+  }
+  &.bottom::after {
+    border-color: transparent transparent var(--text-intense) transparent;
+    bottom: 100%;
   }
   &.show {
     visibility: visible;
