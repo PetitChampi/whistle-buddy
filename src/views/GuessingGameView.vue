@@ -71,22 +71,13 @@ const gameFinished = ref<boolean>(false);
 const note = ref<ICard>({
   id: 1,
   name: {en: 'Gb', fr: 'Sol b'},
-  fingering: [2, 2, 1, 0, 0, 0],
+  fingerings: [
+    { id: 1, posInScale: 1, holes: [2, 2, 1, 0, 0, 0], type: "halfhole", octaves: [1, 2] }
+  ],
   octave: 1
 });
 const cards = ref<ICard[]>([
-  { id: 1, name: {en: 'A', fr: 'La'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
-  { id: 2, name: {en: 'B', fr: 'Si'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
-  { id: 3, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
-  { id: 4, name: {en: 'C', fr: 'Do'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
-  { id: 5, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
-  { id: 6, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
-  { id: 7, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
-  { id: 8, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
-  { id: 9, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
-  { id: 10, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
-  { id: 11, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
-  { id: 12, name: {en: 'Gb', fr: 'Sol b'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
+  // TODO get random cards
 ]);
 
 function backToSettings() {

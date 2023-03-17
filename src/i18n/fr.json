@@ -1,6 +1,7 @@
 {
   "GEN_ALL": "Tous",
   "GEN_FINGERINGS": "Doigtés",
+  "GEN_SELECTED_FINGS": "Doigtés sélectionnés",
   "GEN_NOTES": "Notes",
   "GEN_ABOUT_US": "À propos",
   "GEN_CHOOSE": "Choisir...",
@@ -56,6 +57,7 @@
   "G_GUESS_FINISH_BACK_SET": "Retour aux paramètres",
   "G_GUESS_FINISH_REPLAY": "Rejouer cette partie",
 
+  "G_MIXM_FINGS_SUBTITLE": "Seuls les 12 premiers doigtés sélectionnés pourront être dans le jeu.",
   "G_MIXM_INSTRUCTION": "Trouve les paires!",
   "G_MIXM_PAUSED": "Jeu en pause",
   "G_MIXM_RESUME": "Reprendre",

@@ -75,7 +75,12 @@
         </template>
       </SettingsGroup>
 
-      <SettingsGroup :title="$t('GEN_FINGERINGS')" large accordion>
+      <SettingsGroup
+        :title="$t('GEN_SELECTED_FINGS')"
+        :subtitle="gameType === 'mixmatch' ? $t('G_MIXM_FINGS_SUBTITLE') : ''"
+        large
+        accordion
+      >
         <template v-slot:content>
           <div class="settings-item-content">
             <p class="checkbox-grid-label">{{ $t('GEN_STANDARD') }}</p>

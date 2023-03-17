@@ -5,9 +5,8 @@
       :class="{ flipped: flashcard && isFlipped, selected: isSelected, error, success, fixed: fixedHeight }"
     >
       <div class="front">
-        <div class="card-fingerings">
+        <div class="card-fingerings" v-if="!noteOnly">
           <div
-            v-if="!noteOnly"
             v-for="fing in note.fingerings"
             :key="fing.id"
             class="card-fingerings-item"
@@ -27,7 +26,10 @@
           !fingeringOnly
         ">
           <div class="card-note-title">
-            <p class="card-note-en">{{ formattedNameEn }}</p>
+            <p class="card-note-en" :class="{ oct2: note.octave === 2 }">
+              {{ formattedNameEn.charAt(0) }}
+              <span class="alteration">{{ formattedNameEn.slice(1) }}</span>
+            </p>
             <span
               class="icon-volume"
               v-if="route.name === 'fingeringTable'"
@@ -41,7 +43,10 @@
       <div class="back">
         <div class="card-note" v-if="route.name === 'fingeringTable'">
           <div class="card-note-title">
-            <p class="card-note-en">{{ formattedNameEn }}</p>
+            <p class="card-note-en" :class="{ oct2: note.octave === 2 }">
+              {{ formattedNameEn.charAt(0) }}
+              <span class="alteration">{{ formattedNameEn.slice(1) }}</span>
+            </p>
             <span
               class="icon-volume"
               v-if="route.name === 'fingeringTable'"
@@ -188,7 +193,7 @@ watch(() => props.flashcard, (newVal) => {
     &-title {
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 5px;
 
       .icon-volume {
         color: var(--text-standard-half-transparent);
@@ -199,12 +204,22 @@ watch(() => props.flashcard, (newVal) => {
     &-en {
       font-size: 1.5rem;
       font-weight: 700;
+      display: flex;
       @media screen and (max-width: $mobile) {
         font-size: 1.25rem;
+      }
+      & .alteration {
+        font-size: .7em;
       }
     }
     &-fr {
       font-size: .875rem;
+    }
+    & .oct2::after {
+      content: "+";
+      font-size: .6em;
+      font-weight: normal;
+      align-self: center;
     }
   }
 
@@ -222,6 +237,9 @@ watch(() => props.flashcard, (newVal) => {
       gap: 5px;
       align-items: center;
       position: relative;
+      @media screen and (max-width: $mobile) {
+        gap: 3px;
+      }
 
       &.oct2::after {
         content: "+";

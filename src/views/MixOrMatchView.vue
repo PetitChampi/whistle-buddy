@@ -53,13 +53,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "@vue/reactivity";
+import { ref, computed } from "@vue/reactivity";
 import GameParams from "@/components/GameParams.vue";
 import IconButton from "@/components/molecules/IconButton.vue";
 import Timer from "@/components/molecules/Timer.vue";
 import MixMatchGrid from "@/components/MixMatchGrid.vue";
 import CustomButton from "@/components/molecules/CustomButton.vue";
 import type { ICard } from "@/types/MusicalDataTypes";
+import { useParamsStore } from "@/stores/params";
+import { storeToRefs } from "pinia";
 
 const gameStarted = ref<boolean>(false);
 const gamePaused = ref<boolean>(false);
@@ -68,16 +70,11 @@ const gameFinished = ref<boolean>(false);
 const showOverlay = ref<boolean>(false);
 const victory = ref<boolean>(false);
 
-const cards = ref<ICard[]>([
-  { id: 1, name: {en: 'A', fr: 'La'}, fingering: [2, 2, 2, 2, 2, 2], octave: 1 },
-  { id: 2, name: {en: 'B', fr: 'Si'}, fingering: [2, 2, 2, 2, 2, 0], octave: 1 },
-  { id: 3, name: {en: 'C', fr: 'Do'}, fingering: [2, 2, 2, 2, 0, 0], octave: 1 },
-  { id: 4, name: {en: 'D', fr: 'Ré'}, fingering: [2, 2, 2, 0, 0, 0], octave: 1 },
-  { id: 5, name: {en: 'E', fr: 'Mi'}, fingering: [2, 2, 0, 0, 0, 0], octave: 1 },
-  { id: 6, name: {en: 'F', fr: 'Fa'}, fingering: [2, 0, 0, 0, 0, 0], octave: 1 },
-  { id: 7, name: {en: 'G', fr: 'Sol'}, fingering: [2, 2, 1, 0, 0, 0], octave: 1 },
-  { id: 8, name: {en: 'G#', fr: 'Sol #'}, fingering: [0, 2, 2, 0, 0, 0], octave: 1 },
-]);
+const cards = computed<ICard[]>(() => {
+  const params = useParamsStore();
+  const { currentCardsPerFings, mixMatchParams } = storeToRefs(params);
+  return currentCardsPerFings.value.slice(0, mixMatchParams.value.nbOfPairs.current);
+});
 
 function startGame() {
   window.scrollTo(0, 0);

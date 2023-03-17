@@ -41,7 +41,7 @@ export const useParamsStore = defineStore("params", () => {
   );
   const mixMatchParams = useLocalStorage<IMixMatchParams>(
     "mix_match_params", {
-      nbOfPairs: { unit: "", min: 2, max: 12, current: 3 },
+      nbOfPairs: { unit: "", min: 3, max: 16, current: 9 },
       timer: false,
       timerValues: { unit: "m", min: 1, max: 5, current: 3 }
     }
