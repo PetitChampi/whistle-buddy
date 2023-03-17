@@ -24,21 +24,21 @@ export const useMusicalDataStore = defineStore("musicalData", () => {
   ]);
   const fingerings = ref<IFingering[]>([
     { id: 1, posInScale: 1, holes: [2, 2, 2, 2, 2, 2], type: "standard", octaves: [1] },
-    { id: 2, posInScale: 3, holes: [2, 2, 2, 2, 2, 0], type: "standard", octaves: [1, 2] },
-    { id: 3, posInScale: 5, holes: [2, 2, 2, 2, 0, 0], type: "standard", octaves: [1, 2] },
-    { id: 4, posInScale: 6, holes: [2, 2, 2, 0, 0, 0], type: "standard", octaves: [1, 2] },
-    { id: 5, posInScale: 8, holes: [2, 2, 0, 0, 0, 0], type: "standard", octaves: [1, 2] },
-    { id: 6, posInScale: 10, holes: [2, 0, 0, 0, 0, 0], type: "standard", octaves: [1, 2] },
-    { id: 7, posInScale: 12, holes: [0, 0, 0, 0, 0, 0], type: "standard", octaves: [1, 2] },
     { id: 8, posInScale: 1, holes: [0, 2, 2, 2, 2, 2], type: "standard", octaves: [2] },
     { id: 9, posInScale: 2, holes: [2, 2, 2, 2, 2, 1], type: "halfhole", octaves: [1, 2] },
+    { id: 2, posInScale: 3, holes: [2, 2, 2, 2, 2, 0], type: "standard", octaves: [1, 2] },
     { id: 10, posInScale: 4, holes: [2, 2, 2, 2, 1, 0], type: "halfhole", octaves: [1, 2] },
+    { id: 3, posInScale: 5, holes: [2, 2, 2, 2, 0, 0], type: "standard", octaves: [1, 2] },
+    { id: 4, posInScale: 6, holes: [2, 2, 2, 0, 0, 0], type: "standard", octaves: [1, 2] },
     { id: 11, posInScale: 7, holes: [2, 2, 1, 0, 0, 0], type: "halfhole", octaves: [1, 2] },
+    { id: 16, posInScale: 7, holes: [2, 2, 0, 2, 2, 2], type: "specific", octaves: [1, 2] },
+    { id: 5, posInScale: 8, holes: [2, 2, 0, 0, 0, 0], type: "standard", octaves: [1, 2] },
     { id: 12, posInScale: 9, holes: [2, 1, 0, 0, 0, 0], type: "halfhole", octaves: [1, 2] },
+    { id: 15, posInScale: 9, holes: [2, 0, 2, 2, 2, 2], type: "specific", octaves: [1, 2] },
+    { id: 6, posInScale: 10, holes: [2, 0, 0, 0, 0, 0], type: "standard", octaves: [1, 2] },
     { id: 13, posInScale: 11, holes: [1, 0, 0, 0, 0, 0], type: "halfhole", octaves: [1, 2] },
     { id: 14, posInScale: 11, holes: [0, 2, 2, 0, 0, 0], type: "specific", octaves: [1] },
-    { id: 15, posInScale: 9, holes: [2, 0, 2, 2, 2, 2], type: "specific", octaves: [1, 2] },
-    { id: 16, posInScale: 7, holes: [2, 2, 0, 2, 2, 2], type: "specific", octaves: [1, 2] },
+    { id: 7, posInScale: 12, holes: [0, 0, 0, 0, 0, 0], type: "standard", octaves: [1, 2] },
   ]);
 
   // Getters

@@ -1,6 +1,6 @@
 <template>
   <div class="controls">
-    <ModeToggle />
+    <ModeToggle v-tooltip="$t('GEN_SWITCH_MODE')" />
     <ListDropdown
       :options="langOptions"
       :defaultSelectedOption="$i18n.locale"

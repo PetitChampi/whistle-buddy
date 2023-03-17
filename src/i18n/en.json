@@ -1,5 +1,7 @@
 {
   "GEN_ALL": "All",
+  "GEN_SWITCH_MODE": "Switch mode",
+  "GEN_PLAY_NOTE": "Play note",
   "GEN_FINGERINGS": "Fingerings",
   "GEN_SELECTED_FINGS": "Selected fingerings",
   "GEN_NOTES": "Notes",

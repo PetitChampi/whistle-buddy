@@ -33,6 +33,7 @@
             <span
               class="icon-volume"
               v-if="route.name === 'fingeringTable'"
+              v-tooltip="$t('GEN_PLAY_NOTE')"
               @click.stop="playSound"
             ></span>
           </div>

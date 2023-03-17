@@ -6,6 +6,7 @@ import App from "./App.vue";
 import router from "./router";
 import en from "./i18n/en.json";
 import fr from "./i18n/fr.json";
+import tooltip from "./directives/tooltip";
 
 import "./assets/index.scss";
 
@@ -27,5 +28,7 @@ const app = createApp(App);
 app.use(createPinia());
 app.use(router);
 app.use(i18n);
+
+app.directive("tooltip", tooltip);
 
 app.mount("#app");

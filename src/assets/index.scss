@@ -63,6 +63,38 @@ body {
     }
   }
 }
+.tooltip {
+  --tip-height: 10px;
+  position: absolute;
+  bottom: calc(100% + var(--tip-height) + 5px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  font-family: $main-font;
+  font-size: .75rem;
+  font-weight: 600;
+  background-color: var(--text-intense);
+  color: var(--accent-contraster);
+  padding: 8px 10px;
+  border-radius: 5px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility .2s, opacity .2s;
+  &::after {
+    content: "";
+    position: absolute;
+    border-width: var(--tip-height) 7px;
+    border-style: solid;
+    border-color: var(--text-intense) transparent transparent transparent;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  &.show {
+    visibility: visible;
+    opacity: 1;
+  }
+}
 
 :root {
   --text-intense: #{$light-text-intense};

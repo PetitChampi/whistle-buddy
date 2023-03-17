@@ -69,7 +69,9 @@ export const useParamsStore = defineStore("params", () => {
       }));
     });
 
-    return noHomo;
+    return noHomo.sort((a, b) => { 
+      return a.octave - b.octave;
+    });
   });
   const currentCardsPerNote = computed<ICard[]>(() => {
     const selectedFings = generalParams.value.selectedFingerings;
@@ -102,7 +104,9 @@ export const useParamsStore = defineStore("params", () => {
       });
     }).flat();
 
-    return yesHomo;
+    return yesHomo.sort((a, b) => { 
+      return a.octave - b.octave;
+    });
   });
 
   // Actions
