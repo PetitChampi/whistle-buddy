@@ -52,6 +52,7 @@
               class="icon-volume"
               v-if="route.name === 'fingeringTable'"
               @click.stop="playSound"
+              v-tooltip="{ text: $t('GEN_PLAY_NOTE') }"
             ></span>
           </div>
           <p class="card-note-fr" v-if="generalParams.frNotation">{{ formattedNameFr }}</p>

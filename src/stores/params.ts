@@ -109,10 +109,14 @@ export const useParamsStore = defineStore("params", () => {
     });
   });
 
+  const currentCardsDynamic = computed<ICard[]>(() => {
+    return generalParams.value.groupHomophones ? currentCardsPerNote.value : currentCardsPerFings.value;
+  });
+
   // Actions
   // TODO function getRandomCards(nb: number) ===> w/ currentCardsPerNote (no homophones in this game)
 
-  return { generalParams, fingTableParams, guessGameParams, mixMatchParams, currentScale, currentCardsPerFings, currentCardsPerNote };
+  return { generalParams, fingTableParams, guessGameParams, mixMatchParams, currentScale, currentCardsPerFings, currentCardsPerNote, currentCardsDynamic };
 });
 
 if (import.meta.hot) {

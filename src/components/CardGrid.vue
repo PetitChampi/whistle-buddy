@@ -3,17 +3,17 @@
     class="grid"
     :class="{
       // desktop
-      'grid-3': (cards.length <= 6 && cards.length !== 4),
-      'grid-4': (cards.length === 4 || cards.length >= 7),
-      'grid-5': cards.length >= 9,
-      'grid-6': cards.length >= 11,
+      'grid-3': (paginatedCards.length <= 6 && paginatedCards.length !== 4),
+      'grid-4': (paginatedCards.length === 4 || paginatedCards.length >= 7),
+      'grid-5': paginatedCards.length >= 9,
+      'grid-6': paginatedCards.length >= 11,
       // mobile
-      'grid-mob-2': [1, 2].includes(cards.length),
-      'grid-mob-3': [3, 5, 6, 9].includes(cards.length)
+      'grid-mob-2': [1, 2].includes(paginatedCards.length),
+      'grid-mob-3': [3, 5, 6, 9].includes(paginatedCards.length)
     }"
   >
     <Card
-      v-for="note in cards"
+      v-for="note in paginatedCards"
       :key="note.id"
       :note="note"
       class="grid-item"
@@ -25,7 +25,7 @@
     <div class="pagination-prev" @click="prev">
       <span class="icon-arrow_left"></span>
     </div>
-    <div class="pagination-page">99 <span class="separator">/</span> 99</div>
+    <div class="pagination-page">{{ currentPage }} <span class="separator">/</span> {{ lastPage }}</div>
     <div class="pagination-next" @click="next">
       <span class="icon-arrow_right"></span>
     </div>
@@ -37,6 +37,7 @@ import Card from "@/components/molecules/Card.vue";
 import type { ICard } from "@/types/MusicalDataTypes";
 import { useParamsStore } from "@/stores/params";
 import { storeToRefs } from "pinia";
+import { ref, computed } from "vue";
 
 const props = defineProps<{
   cards: ICard[],
@@ -46,12 +47,24 @@ const props = defineProps<{
 const paramsStore = useParamsStore();
 const { fingTableParams } = storeToRefs(paramsStore);
 
-// todo implement page navigation
+const cards = ref<ICard[]>(props.cards);
+const currentPage = ref<number>(1);
+const cardsPerPage = computed<number>(() => fingTableParams.value.fingsPerPage);
+const lastPage = computed<number>(() => Math.ceil(props.cards.length / cardsPerPage.value));
+
+const paginatedCards = computed(() => {
+  const start = (currentPage.value - 1) * cardsPerPage.value;
+  const end = start + cardsPerPage.value;
+  return cards.value.slice(start, end);
+});
+
 function prev() {
-  console.log("go prev");
+  if (currentPage.value > 1) currentPage.value--;
+  else currentPage.value = lastPage.value;
 }
 function next() {
-  console.log("go next");
+  if (currentPage.value < lastPage.value) currentPage.value++;
+  else currentPage.value = 1;
 }
 </script>
 

@@ -77,7 +77,6 @@
 
       <SettingsGroup
         :title="$t('GEN_SELECTED_FINGS')"
-        :subtitle="gameType === 'mixmatch' ? $t('G_MIXM_FINGS_SUBTITLE') : ''"
         large
         accordion
       >

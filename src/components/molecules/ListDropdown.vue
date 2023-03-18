@@ -4,15 +4,17 @@
       <span class="select-title">{{ buttonText }}</span>
     </template>
     <template v-slot:dropdown-content>
-      <span
-        class="select-option"
-        :class="option.value === selectedOption && 'selected'"
-        @click="selectOption(option)"
-        v-for="option in options"
-        :key="option.value"
-      >
-        {{ option.displayValue }}
-      </span>
+      <div class="list-container">
+        <span
+          class="select-option"
+          :class="option.value === selectedOption && 'selected'"
+          @click="selectOption(option)"
+          v-for="option in options"
+          :key="option.value"
+        >
+          {{ option.displayValue }}
+        </span>
+      </div>
     </template>
   </Dropdown>
 </template>
@@ -48,7 +50,6 @@ function selectOption(opt: IOption | undefined) {
 onMounted(() => {
   if (props.defaultSelectedOption) {
     const defaultOpt = props.options.find(opt => opt.value === props.defaultSelectedOption);
-    selectedOption.value = defaultOpt?.value;
     buttonText.value = defaultOpt?.displayValue;
   }
 });
@@ -57,6 +58,11 @@ onMounted(() => {
 <style lang="scss" scoped>
 .select-title {
   user-select: none;
+}
+.list-container {
+  border-radius: 10px;
+  max-height: 150px;
+  overflow-y: auto;
 }
 
 .select-option {

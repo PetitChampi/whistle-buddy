@@ -1,5 +1,6 @@
 {
   "GEN_ALL": "Tous",
+  "GEN_SHUFFLE": "Mélanger",
   "GEN_SWITCH_MODE": "Mode de couleur",
   "GEN_PLAY_NOTE": "Jouer la note",
   "GEN_FINGERINGS": "Doigtés",
@@ -59,9 +60,9 @@
   "G_GUESS_FINISH_BACK_SET": "Retour aux paramètres",
   "G_GUESS_FINISH_REPLAY": "Rejouer cette partie",
 
-  "G_MIXM_FINGS_SUBTITLE": "Seuls les 12 premiers doigtés sélectionnés pourront être dans le jeu.",
   "G_MIXM_INSTRUCTION": "Trouve les paires!",
   "G_MIXM_PAUSED": "Jeu en pause",
+  "G_MIXM_PAUSE_GAME": "Mettre en pause",
   "G_MIXM_RESUME": "Reprendre",
   "G_MIXM_VICTORY": "Victoire !",
   "G_MIXM_LOSE": "Temps écoulé !",

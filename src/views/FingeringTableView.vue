@@ -2,7 +2,10 @@
   <div class="fingering-table-view">
     <FingeringTableControls />
     <div class="card-grid">
-      <CardGrid :cards="cards" pagination />
+      <CardGrid
+        :cards="currentCardsDynamic"
+        :pagination="currentCardsDynamic.length > fingTableParams.fingsPerPage"
+      />
     </div>
   </div>
 </template>
@@ -15,11 +18,8 @@ import { storeToRefs } from "pinia";
 import { computed } from "vue";
 import type { ICard } from "@/types/MusicalDataTypes";
 
-const cards = computed<ICard[]>(() => {
-  const params = useParamsStore();
-  const { currentCardsPerFings, currentCardsPerNote, generalParams } = storeToRefs(params);
-  return generalParams.value.groupHomophones ? currentCardsPerNote.value : currentCardsPerFings.value;
-});
+const params = useParamsStore();
+const { currentCardsDynamic, fingTableParams } = storeToRefs(params);
 </script>
 
 <style lang="scss" scoped>

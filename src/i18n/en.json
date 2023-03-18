@@ -1,5 +1,6 @@
 {
   "GEN_ALL": "All",
+  "GEN_SHUFFLE": "Shuffle",
   "GEN_SWITCH_MODE": "Switch mode",
   "GEN_PLAY_NOTE": "Play note",
   "GEN_FINGERINGS": "Fingerings",
@@ -59,9 +60,9 @@
   "G_GUESS_FINISH_BACK_SET": "Back to game settings",
   "G_GUESS_FINISH_REPLAY": "Replay this round",
 
-  "G_MIXM_FINGS_SUBTITLE": "Only the first 12 selected fingerings can be used in the game.",
   "G_MIXM_INSTRUCTION": "Find the pairs!",
   "G_MIXM_PAUSED": "Game paused",
+  "G_MIXM_PAUSE_GAME": "Pause game",
   "G_MIXM_RESUME": "Resume",
   "G_MIXM_VICTORY": "Victory !",
   "G_MIXM_LOSE": "Time's up!",

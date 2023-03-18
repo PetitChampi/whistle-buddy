@@ -11,7 +11,11 @@
       <div class="game-action">
         <h1 class="game-action-title">{{ $t("G_MIXM_INSTRUCTION") }}</h1>
         <div class="game-action-controls">
-          <IconButton :icon="gamePaused ? 'play' : 'pause'" @click="togglePause" />
+          <IconButton
+            :icon="gamePaused ? 'play' : 'pause'"
+            @click="togglePause"
+            v-tooltip="{ text: tooltipText }"
+          />
           <Timer />
         </div>
       </div>
@@ -60,8 +64,11 @@ import Timer from "@/components/molecules/Timer.vue";
 import MixMatchGrid from "@/components/MixMatchGrid.vue";
 import CustomButton from "@/components/molecules/CustomButton.vue";
 import type { ICard } from "@/types/MusicalDataTypes";
+import { useI18n } from "vue-i18n";
 import { useParamsStore } from "@/stores/params";
 import { storeToRefs } from "pinia";
+
+const { t } = useI18n({ useScope: "global" });
 
 const gameStarted = ref<boolean>(false);
 const gamePaused = ref<boolean>(false);
@@ -69,6 +76,10 @@ const gameFinished = ref<boolean>(false);
 
 const showOverlay = ref<boolean>(false);
 const victory = ref<boolean>(false);
+
+const tooltipText = computed<string>(() => {
+  return gamePaused.value ? t('G_MIXM_RESUME') : t('G_MIXM_PAUSE_GAME');
+});
 
 const cards = computed<ICard[]>(() => {
   const params = useParamsStore();

@@ -5,6 +5,9 @@
       <ListDropdown
         class="block"
         :options="fppOptions"
+        :defaultSelectedOption="`${fingTableParams.fingsPerPage}`"
+        closeOnInteraction
+        @@optionSelected="fingTableParams.fingsPerPage = Number($event.value)"
       />
     </div>
     <div class="controls-item">
@@ -83,7 +86,12 @@
         </div>
       </div>
       <div class="controls-button">
-        <IconButton icon="shuffle" activateOnClick @@activateBtn="fingTableParams.shuffle = !fingTableParams.shuffle" />
+        <IconButton
+          icon="shuffle"
+          activateOnClick
+          @@activateBtn="fingTableParams.shuffle = !fingTableParams.shuffle"
+          v-tooltip="{ text: $t('GEN_SHUFFLE') }"
+        />
       </div>
     </div>
   </div>
@@ -97,7 +105,7 @@ import ListDropdown from "@/components/molecules/ListDropdown.vue";
 import TextSwitch from "@/components/molecules/TextSwitch.vue";
 import SettingsGroup from "@/components/SettingsGroup.vue";
 import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
-import { ref } from "@vue/reactivity";
+import { ref, computed } from "vue";
 import type { IOption } from "@/types/MusicalDataTypes";
 import { useI18n } from "vue-i18n";
 import { useParamsStore } from "@/stores/params";
@@ -106,15 +114,20 @@ import { storeToRefs } from "pinia";
 const { t } = useI18n({ useScope: "global" });
 
 const paramsStore = useParamsStore();
-const { fingTableParams } = storeToRefs(paramsStore);
+const { fingTableParams, currentCardsDynamic } = storeToRefs(paramsStore);
 
-const fppOptions = ref<IOption[]>([
-  { value: "6", displayValue: "6" },
-  { value: "10", displayValue: "10" },
-  { value: "12", displayValue: "12" },
-  { value: "14", displayValue: "All (14)" },
-]);
-const flashcardOptions = ref<IOption[]>([
+const fppOptions = computed<IOption[]>(() => {
+  const options: IOption[] = [];
+  options.push({
+    value: `${currentCardsDynamic.value.length}`,
+    displayValue: `${t("GEN_ALL")} (${currentCardsDynamic.value.length})`,
+  });
+  for (let i = 1; i <= 12; i++) {
+    if (i !== currentCardsDynamic.value.length) options.push({ value: `${i}`, displayValue: `${i}` });
+  }
+  return options;
+});
+const flashcardOptions = computed<IOption[]>(() => [
   { value: "fing", displayValue: t("GEN_FINGERINGS") },
   { value: "notes", displayValue: t("GEN_NOTES") },
 ]);
