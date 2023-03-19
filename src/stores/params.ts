@@ -54,6 +54,7 @@ export const useParamsStore = defineStore("params", () => {
 
     return [...firstHalf, ...secondHalf];
   });
+  
   const currentCardsPerFings = computed<ICard[]>(() => {
     const selectedFings = generalParams.value.selectedFingerings;
     const currentScaleValue = currentScale.value;
@@ -73,6 +74,7 @@ export const useParamsStore = defineStore("params", () => {
       return a.octave - b.octave;
     });
   });
+
   const currentCardsPerNote = computed<ICard[]>(() => {
     const selectedFings = generalParams.value.selectedFingerings;
     const currKey = generalParams.value.key;
@@ -116,7 +118,16 @@ export const useParamsStore = defineStore("params", () => {
   // Actions
   // TODO function getRandomCards(nb: number) ===> w/ currentCardsPerNote (no homophones in this game)
 
-  return { generalParams, fingTableParams, guessGameParams, mixMatchParams, currentScale, currentCardsPerFings, currentCardsPerNote, currentCardsDynamic };
+  return {
+    generalParams,
+    fingTableParams,
+    guessGameParams,
+    mixMatchParams,
+    currentScale,
+    currentCardsPerFings,
+    currentCardsPerNote,
+    currentCardsDynamic
+  };
 });
 
 if (import.meta.hot) {

@@ -122,14 +122,10 @@ function playSound() {
   console.log(`${props.note.name.en} played`);
 }
 
-watch(() => props.selected, (newVal) => {
-  isSelected.value = newVal;
-});
-watch(() => props.flipped, (newVal) => {
-  isFlipped.value = newVal;
-});
+watch(() => props.selected, (newVal) => isSelected.value = newVal);
+watch(() => props.flipped, (newVal) => isFlipped.value = newVal);
 watch(() => props.flashcard, (newVal) => {
-  if (!newVal) isFlipped.value = newVal;
+  if (!newVal) isFlipped.value = newVal
 });
 </script>
 

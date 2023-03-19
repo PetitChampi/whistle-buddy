@@ -9,23 +9,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "@vue/reactivity";
+import { ref, watch } from "vue";
 
-const props = defineProps<{
+export interface IProps {
   activateOnClick?: boolean,
-  icon: string,
-}>();
+  active?: boolean,
+  icon: string
+}
+const props = withDefaults(defineProps<IProps>(), {
+  active: false,
+});
 
 const emit = defineEmits(["@activateBtn"]);
 
-const isActive = ref<Boolean>(false);
-const isPlay = ref<Boolean>(props.icon === "play");
+const isActive = ref<boolean>(props.active);
+const isPlay = ref<boolean>(props.icon === "play");
 
 function toggleActivate() {
   if (!props.activateOnClick) return;
   isActive.value = !isActive.value;
   emit("@activateBtn");
 }
+
+watch(() => props.active, (newVal) => isActive.value = newVal);
 </script>
 
 <style lang="scss" scoped>

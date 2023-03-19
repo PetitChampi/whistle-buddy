@@ -3,7 +3,7 @@
     <FingeringTableControls />
     <div class="card-grid">
       <CardGrid
-        :cards="currentCardsDynamic"
+        :cards="reactiveToShuffleCards"
         :pagination="currentCardsDynamic.length > fingTableParams.fingsPerPage"
       />
     </div>
@@ -18,8 +18,15 @@ import { storeToRefs } from "pinia";
 import { computed } from "vue";
 import type { ICard } from "@/types/MusicalDataTypes";
 
-const params = useParamsStore();
-const { currentCardsDynamic, fingTableParams } = storeToRefs(params);
+const paramsStore = useParamsStore();
+const { fingTableParams, currentCardsDynamic } = storeToRefs(paramsStore);
+
+const reactiveToShuffleCards = computed<ICard[]>(() => {
+  const cardsToShuffle = currentCardsDynamic.value.slice();
+  return fingTableParams.value.shuffle ?
+    cardsToShuffle.sort(() => Math.random() - 0.5) :
+    currentCardsDynamic.value;
+});
 </script>
 
 <style lang="scss" scoped>

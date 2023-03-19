@@ -89,6 +89,7 @@
         <IconButton
           icon="shuffle"
           activateOnClick
+          :active="fingTableParams.shuffle"
           @@activateBtn="fingTableParams.shuffle = !fingTableParams.shuffle"
           v-tooltip="{ text: $t('GEN_SHUFFLE') }"
         />
@@ -116,6 +117,8 @@ const { t } = useI18n({ useScope: "global" });
 const paramsStore = useParamsStore();
 const { fingTableParams, currentCardsDynamic } = storeToRefs(paramsStore);
 
+const selectedFingerings = ref<string[]>([]);
+
 const fppOptions = computed<IOption[]>(() => {
   const options: IOption[] = [];
   options.push({
@@ -127,11 +130,11 @@ const fppOptions = computed<IOption[]>(() => {
   }
   return options;
 });
+
 const flashcardOptions = computed<IOption[]>(() => [
   { value: "fing", displayValue: t("GEN_FINGERINGS") },
   { value: "notes", displayValue: t("GEN_NOTES") },
 ]);
-const selectedFingerings = ref<string[]>([]);
 </script>
 
 <style lang="scss" scoped>
