@@ -31,9 +31,16 @@ function changeLanguage(lang: IOption): void {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/variables.scss";
+
 .controls {
   display: flex;
   align-items: center;
   gap: 20px;
+  @media screen and (max-width: $mobile) {
+    width: 100%;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
 }
 </style>
