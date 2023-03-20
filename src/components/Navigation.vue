@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky-container">
+  <div class="sticky-container" ref="navEl">
     <nav class="navigation" :class="{ open }">
       <div class="navigation-controls">
         <KeySelector />
@@ -36,17 +36,33 @@
 import KeySelector from "@/components/molecules/KeySelector.vue";
 import SettingsDropdown from "@/components/molecules/SettingsDropdown.vue";
 import NonMusicalControls from "@/components/NonMusicalControls.vue";
-import { ref } from "@vue/reactivity";
+import { ref, onMounted, onBeforeUnmount } from "vue";
 import { watch } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
 
+const navEl = ref<any>(null);
 const open = ref<boolean>(false);
 
 function toggleOpen() {
   open.value = !open.value;
 }
+
+function checkClickTarget(e: MouseEvent) {
+  if (!open.value) return;
+  if (!e.composedPath().includes((navEl.value as EventTarget))) {
+    open.value = false;
+  }
+}
+
+onMounted(() => {
+  document.body.addEventListener("click", checkClickTarget);
+});
+
+onBeforeUnmount(() => {
+  document.body.removeEventListener("click", checkClickTarget)
+});
 
 watch(() => route.name, () => {
   open.value && toggleOpen();

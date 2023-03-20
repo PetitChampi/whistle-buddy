@@ -222,6 +222,7 @@ function startGame() {
   .radio-group {
     display: flex;
     flex-direction: column;
+    align-items: baseline;
     gap: 15px;
   }
 

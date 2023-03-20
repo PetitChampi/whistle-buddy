@@ -103,6 +103,7 @@ const { darkMode } = storeToRefs(darkModeStore);
       padding: 10px 20px;
     }
     &-items {
+      padding-bottom: 100px;
       &-title {
         font-size: 3rem;
         text-align: center;

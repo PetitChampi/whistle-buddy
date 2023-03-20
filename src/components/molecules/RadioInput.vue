@@ -11,7 +11,10 @@
       :checked="modelValue === value"
       :value="value"
     >
-    <label :for="value">{{ label }}</label>
+    <label :for="value">
+      <span class="circle"></span>
+      {{ label }}
+    </label>
   </div>
 </template>
 
@@ -38,45 +41,59 @@ function toggle() {
   input {
     display: none;
 
-    &:checked + label::before {
-      border: 2px solid var(--intensified-bg);
+    &:checked + label .circle {
       background-color: var(--accent);
-      outline-color: var(--accent);
+      &::before {
+        border-color: var(--accent);
+      }
     }
   }
 
   label {
-    display: flex;
-    gap: 10px;
+    display: inline-flex;
+    gap: 15px;
     align-items: center;
     cursor: pointer;
     user-select: none;
     font-weight: 400;
 
-    &::before {
-      content: "";
+    & .circle {
+      position: relative;
+      border: 2px solid var(--intensified-bg);
       display: inline-block;
-      box-sizing: border-box;
-      height: 15px;
-      width: 15px;
+      height: 16px;
+      width: 16px;
       background-color: var(--intensified-bg);
-      outline: 2px solid var(--text-standard);
       border-radius: 50px;
-      margin: 2px;
+      &::before {
+        content: "";
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        bottom: -4px;
+        left: -4px;
+        border: 2px solid var(--text-standard);
+        border-radius: 50px;
+      }
     }
   }
 
   &.small {
     label {
       font-size: .875rem;
-      gap: 7px;
+      gap: 8px;
       font-weight: unset;
-
-      &::before {
-        height: 13px;
-        width: 13px;
-        outline: 1px solid var(--text-standard);
+      & .circle {
+        height: 14px;
+        width: 14px;
         margin: 1px;
+        &::before {
+          top: -3px;
+          right: -3px;
+          bottom: -3px;
+          left: -3px;
+          border-width: 1px;
+        }
       }
     }
   }

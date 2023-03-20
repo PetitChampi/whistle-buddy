@@ -14,10 +14,12 @@ const tooltip: Directive = {
     el.style.position = "relative";
     el.appendChild(tooltip);
 
+    el.addEventListener("touchstart", (e) => {
+      e.stopImmediatePropagation();
+    });
     el.addEventListener("mouseenter", () => {
       tooltip.classList.add("show");
     });
-
     el.addEventListener("mouseleave", () => {
       tooltip.classList.remove("show");
     });

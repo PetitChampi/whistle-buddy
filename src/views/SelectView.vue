@@ -12,19 +12,19 @@
         <FeatureCard
           :cardTitle="$t('GEN_FINGERING_TABLE')"
           toPageName="fingeringTable"
-          :imgSrc="`../src/assets/img/table_${imgSuffix}.png`"
+          :imgSrc="`${baseUrl}img/table_${imgSuffix}.png`"
           class="main-cards-item"
         />
         <FeatureCard
           :cardTitle="$t('GEN_GUESSING_GAME')"
           toPageName="guessingGame"
-          :imgSrc="`../src/assets/img/qcm_${imgSuffix}.png`"
+          :imgSrc="`${baseUrl}img/qcm_${imgSuffix}.png`"
           class="main-cards-item"
         />
         <FeatureCard
           :cardTitle="$t('GEN_MIX_OR_MATCH')"
           toPageName="mixOrMatch"
-          :imgSrc="`../src/assets/img/mixm_${imgSuffix}.png`"
+          :imgSrc="`${baseUrl}img/mixm_${imgSuffix}.png`"
           class="main-cards-item"
         />
       </div>
@@ -42,6 +42,7 @@ import { computed } from "vue";
 const darkModeStore = useDarkModeStore();
 const { darkMode } = storeToRefs(darkModeStore);
 
+const baseUrl = import.meta.env.BASE_URL;
 const imgSuffix = computed(() => darkMode.value ? "dark" : "light");
 </script>
 
