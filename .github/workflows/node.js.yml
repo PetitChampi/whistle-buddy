@@ -28,6 +28,7 @@ jobs:
     # - run: npm run test:unit
     - name: Build and deploy to Github Pages
       run: |
+        PATH="$PATH:/usr/local/bin"
         npm run build
         gh-pages -d dist
       env:
