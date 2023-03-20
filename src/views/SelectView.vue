@@ -12,16 +12,19 @@
         <FeatureCard
           :cardTitle="$t('GEN_FINGERING_TABLE')"
           toPageName="fingeringTable"
+          :imgSrc="`../src/assets/img/table_${imgSuffix}.png`"
           class="main-cards-item"
         />
         <FeatureCard
           :cardTitle="$t('GEN_GUESSING_GAME')"
           toPageName="guessingGame"
+          :imgSrc="`../src/assets/img/qcm_${imgSuffix}.png`"
           class="main-cards-item"
         />
         <FeatureCard
           :cardTitle="$t('GEN_MIX_OR_MATCH')"
           toPageName="mixOrMatch"
+          :imgSrc="`../src/assets/img/mixm_${imgSuffix}.png`"
           class="main-cards-item"
         />
       </div>
@@ -32,6 +35,14 @@
 <script setup lang="ts">
 import NonMusicalControls from "@/components/NonMusicalControls.vue";
 import FeatureCard from "@/components/molecules/FeatureCard.vue";
+import { useDarkModeStore } from "@/stores/darkMode";
+import { storeToRefs } from "pinia";
+import { computed } from "vue";
+
+const darkModeStore = useDarkModeStore();
+const { darkMode } = storeToRefs(darkModeStore);
+
+const imgSuffix = computed(() => darkMode.value ? "dark" : "light");
 </script>
 
 <style lang="scss" scoped>

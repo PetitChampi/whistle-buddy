@@ -1,7 +1,7 @@
 <template>
   <div class="card" @click="goToLink">
     <div class="card-image">
-      <img src="https://via.placeholder.com/500" alt="" class="placeholder-contain">
+      <img :src="imgSrc" alt="" class="placeholder-contain">
     </div>
     <h2 class="card-title">{{ props.cardTitle }}</h2>
   </div>
@@ -12,7 +12,8 @@ import { useRouter } from "vue-router";
 
 export interface IProps {
   cardTitle?: string,
-  toPageName: string
+  toPageName: string,
+  imgSrc: string
 }
 const props = withDefaults(defineProps<IProps>(), {
   cardTitle: "Card title"
@@ -34,7 +35,7 @@ function goToLink() {
   padding: 30px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
   background-color: var(--intensified-bg);
   transition: transform ease .2s;
   cursor: pointer;
