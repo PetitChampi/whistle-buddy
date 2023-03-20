@@ -15,8 +15,8 @@ jobs:
       matrix:
         node-version: [14.x, 16.x, 18.x]
     steps:
-    - name: Install github-pages package
-      run: npm install -g github-pages
+    - name: Install gh-pages-deploy package
+      run: npm install -g gh-pages-deploy
     - name: Check if gh-pages is installed
       run: which gh-pages
     - uses: actions/checkout@v3
@@ -30,9 +30,8 @@ jobs:
     # - run: npm run test:unit
     - name: Build and deploy to Github Pages
       run: |
-        PATH="$PATH:/usr/local/bin"
         npm run build
-        gh-pages -d dist
+        gh-pages-deploy --dist dist --branch master --commit-message "Deploy to Github Pages"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   # deploy:
