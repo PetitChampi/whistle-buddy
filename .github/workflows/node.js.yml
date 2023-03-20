@@ -22,19 +22,27 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    # - run: npm run build
+    - run: npm run build
     # - run: npm run test:unit
-  deploy:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x, 18.x]
-    steps:
-      - name: Install github-pages package
-        run: npm install -g github-pages
-      - name: Build and deploy to Github Pages
-        run: |
-          npm run build
-          master -d dist
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Install github-pages package
+      run: npm install -g github-pages
+    - name: Build and deploy to Github Pages
+      run: |
+        npm run build
+        master -d dist
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       node-version: [14.x, 16.x, 18.x]
+  #   steps:
+  #     - name: Install github-pages package
+  #       run: npm install -g github-pages
+  #     - name: Build and deploy to Github Pages
+  #       run: |
+  #         npm run build
+  #         master -d dist
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
