@@ -17,6 +17,8 @@ jobs:
     steps:
     - name: Install github-pages package
       run: npm install -g github-pages
+    - name: Check if gh-pages is installed
+      run: which gh-pages
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
