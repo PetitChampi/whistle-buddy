@@ -68,7 +68,9 @@ function next() {
 }
 
 watch(() => lastPage.value, (newLastPage, oldLastPage) => {
-  if (oldLastPage > newLastPage) currentPage.value = newLastPage;
+  if (
+    currentPage.value > newLastPage && oldLastPage > newLastPage
+  ) currentPage.value = newLastPage;
 });
 </script>
 
