@@ -17,8 +17,6 @@ jobs:
     steps:
     - name: Install gh-pages-deploy package
       run: npm install -g gh-pages-deploy
-    - name: Check if gh-pages is installed
-      run: which gh-pages
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
