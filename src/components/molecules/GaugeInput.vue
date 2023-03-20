@@ -128,12 +128,18 @@ onMounted(() => {
   &-slider {
     -webkit-appearance: none;
     appearance: none;
+    border-radius: 0;
     width: 100%;
     height: 20px;
     background: var(--faint);
     outline: none;
     cursor: pointer;
 
+    // For Safari mobile
+    input[type="range"]::-webkit-slider-runnable-track {
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
     &::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;

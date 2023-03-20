@@ -78,6 +78,8 @@ onBeforeUnmount(() => {
     align-items: center;
     justify-content: space-between;
     padding: 10px 15px;
+    // max-height for Safari that adds 1px when the trigger contains text
+    max-height: 40px;
     border-radius: $button-radius-desktop;
     background: var(--intensified-bg);
     box-shadow: var(--button-shadow);
@@ -88,6 +90,8 @@ onBeforeUnmount(() => {
       border-radius: $button-radius-mobile;
       font-weight: normal;
       padding: 8px 12px;
+      // max-height for Safari that adds 1px when the trigger contains text
+      max-height: 36px;
     }
 
     &:hover {

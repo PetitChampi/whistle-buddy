@@ -151,7 +151,7 @@ watch(() => route.name, () => {
       position: unset;
       transform: unset;
       flex-direction: column;
-      gap: 20px;
+      gap: 30px;
       align-items: start;
     }
     &-controls {

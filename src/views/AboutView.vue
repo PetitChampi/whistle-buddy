@@ -7,11 +7,23 @@
       <p>Velit officia consequat duis about us enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis mollit non deserunt ullamco. Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Consequat duis mollit non deserunt ullamco. Velit officia consequat duis about us enim velit mollit.</p>
     </div>
     <div class="about-image">
-      <img src="https://via.placeholder.com/500" alt="" class="placeholder-contain">
+      <img :src="`${baseUrl}img/merci_${imgSuffix}.png`" alt="" class="placeholder-contain">
     </div>
     <p class="about-thanks">{{ $t('GEN_THANKS') }}</p>
   </div>
 </template>
+
+<script setup lang="ts">
+import { useDarkModeStore } from "@/stores/darkMode";
+import { storeToRefs } from "pinia";
+import { computed } from "vue";
+
+const darkModeStore = useDarkModeStore();
+const { darkMode } = storeToRefs(darkModeStore);
+
+const baseUrl = import.meta.env.BASE_URL;
+const imgSuffix = computed(() => darkMode.value ? "dark" : "light");
+</script>
 
 <style lang="scss" scoped>
 .about {

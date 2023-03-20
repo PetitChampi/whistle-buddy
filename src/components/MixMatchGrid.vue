@@ -73,13 +73,12 @@ function selectCard(card: IPairItem) {
   margin: 0 -10px;
   @media screen and (max-width: $mobile) {
     gap: 10px;
-    margin: 0;
+    margin: -5px;
   }
   .grid-item {
     flex-basis: calc((100% / 6) - 20px);
     @media screen and (max-width: $mobile) {
       flex-basis: calc((100% / 4) - 10px);
-      flex-grow: 1;
     }
   }
 }
