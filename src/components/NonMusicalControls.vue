@@ -38,6 +38,11 @@ function changeLanguage(lang: IOption): void {
   align-items: center;
   gap: 20px;
   @media screen and (max-width: $mobile) {
+    gap: 30px;
+  }
+}
+@media screen and (max-width: $mobile) {
+  .navigation-controls .controls {
     width: 100%;
     flex-direction: row-reverse;
     justify-content: space-between;
