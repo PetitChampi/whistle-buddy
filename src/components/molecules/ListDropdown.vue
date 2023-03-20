@@ -27,7 +27,7 @@ import { useI18n } from "vue-i18n";
 
 export interface IProps {
   options: IOption[],
-  defaultSelectedOption?: string,
+  defaultSelectedValue?: string,
   defaultButtonText?: string,
   closeOnInteraction?: boolean
 }
@@ -37,7 +37,7 @@ const { t } = useI18n({ useScope: "global" });
 
 const emit = defineEmits(["@optionSelected"]);
 
-const selectedOption = ref<string | undefined>(props.defaultSelectedOption);
+const selectedOption = ref<string | undefined>(props.defaultSelectedValue);
 const buttonText = ref<string | undefined>(props.defaultButtonText || t("GEN_CHOOSE"));
 
 function selectOption(opt: IOption) {
@@ -47,15 +47,16 @@ function selectOption(opt: IOption) {
 }
 
 function refreshSelection() {
-  if (props.defaultSelectedOption) {
-    const defaultOpt = props.options.find(opt => opt.value === props.defaultSelectedOption);
+  if (props.defaultSelectedValue) {
+    const defaultOpt = props.options.find(opt => opt.value === props.defaultSelectedValue);
     buttonText.value = defaultOpt?.displayValue;
   }
 }
 
 onMounted(() => refreshSelection());
 
-watch(() => props.defaultSelectedOption, () => refreshSelection());
+watch(() => props.defaultSelectedValue, () => refreshSelection());
+watch(() => props.options, () => refreshSelection());
 </script>
 
 <style lang="scss" scoped>

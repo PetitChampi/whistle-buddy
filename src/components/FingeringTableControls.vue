@@ -5,7 +5,7 @@
       <ListDropdown
         class="block"
         :options="fppOptions"
-        :defaultSelectedOption="`${fingTableParams.fingsPerPage}`"
+        :defaultSelectedValue="`${fingTableParams.fingsPerPage}`"
         closeOnInteraction
         @@optionSelected="fingTableParams.fingsPerPage = Number($event.value)"
       />
@@ -116,7 +116,7 @@ import ListDropdown from "@/components/molecules/ListDropdown.vue";
 import TextSwitch from "@/components/molecules/TextSwitch.vue";
 import SettingsGroup from "@/components/SettingsGroup.vue";
 import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import type { IFingering, IOption } from "@/types/MusicalDataTypes";
 import { useI18n } from "vue-i18n";
 import { useParamsStore } from "@/stores/params";
@@ -165,6 +165,18 @@ const flashcardOptions = computed<IOption[]>(() => [
   { value: "fing", displayValue: t("GEN_FINGERINGS") },
   { value: "notes", displayValue: t("GEN_NOTES") },
 ]);
+
+watch(() => fppOptions.value, (newOpts, oldOpts) => {
+  const oldAllOpt = oldOpts.find(
+    opt => opt.displayValue.includes("(")
+  ) as IOption;
+  const newAllOpt = newOpts.find(
+    opt => opt.displayValue.includes("(")
+  ) as IOption;
+  const currOptIsAll = fingTableParams.value.fingsPerPage === Number(oldAllOpt.value);
+
+  if (currOptIsAll) fingTableParams.value.fingsPerPage = Number(newAllOpt.value);
+});
 </script>
 
 <style lang="scss" scoped>

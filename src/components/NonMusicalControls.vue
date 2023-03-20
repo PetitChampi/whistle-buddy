@@ -3,7 +3,7 @@
     <ModeToggle v-tooltip="{ text: $t('GEN_SWITCH_MODE'), direction: 'bottom' }" />
     <ListDropdown
       :options="langOptions"
-      :defaultSelectedOption="$i18n.locale"
+      :defaultSelectedValue="$i18n.locale"
       :closeOnInteraction="true"
       @@optionSelected="changeLanguage($event)"
     />

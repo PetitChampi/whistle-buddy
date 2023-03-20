@@ -37,7 +37,7 @@ import Card from "@/components/molecules/Card.vue";
 import type { ICard } from "@/types/MusicalDataTypes";
 import { useParamsStore } from "@/stores/params";
 import { storeToRefs } from "pinia";
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 
 const props = defineProps<{
   cards: ICard[],
@@ -66,6 +66,10 @@ function next() {
   if (currentPage.value < lastPage.value) currentPage.value++;
   else currentPage.value = 1;
 }
+
+watch(() => lastPage.value, (newLastPage, oldLastPage) => {
+  if (oldLastPage > newLastPage) currentPage.value = newLastPage;
+});
 </script>
 
 <style lang="scss" scoped>

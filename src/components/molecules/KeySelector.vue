@@ -1,7 +1,7 @@
 <template>
   <ListDropdown
     :options="keyOptions"
-    :defaultSelectedOption="generalParams.key.name.en"
+    :defaultSelectedValue="generalParams.key.name.en"
     :closeOnInteraction="true"
     @@optionSelected="chooseKey($event)"
   />

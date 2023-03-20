@@ -17,7 +17,7 @@ export const useParamsStore = defineStore("params", () => {
     "general_params", {
       key: defaultKey.value,
       frNotation: false,
-      showOctave: "low",
+      showOctave: "both",
       groupHomophones: false,
       instrument: "low",
       selectedFingerings: defaultSelectedFings.value
@@ -70,9 +70,18 @@ export const useParamsStore = defineStore("params", () => {
       }));
     });
 
-    return noHomo.sort((a, b) => { 
+    noHomo.sort((a, b) => { 
       return a.octave - b.octave;
     });
+
+    switch (generalParams.value.showOctave) {
+      case "low":
+        return noHomo.filter(item => item.octave === 1);
+      case "high":
+        return noHomo.filter(item => item.octave === 2);
+      default:
+        return noHomo;
+    }
   });
 
   const currentCardsPerNote = computed<ICard[]>(() => {
@@ -106,9 +115,18 @@ export const useParamsStore = defineStore("params", () => {
       });
     }).flat();
 
-    return yesHomo.sort((a, b) => { 
+    yesHomo.sort((a, b) => { 
       return a.octave - b.octave;
     });
+
+    switch (generalParams.value.showOctave) {
+      case "low":
+        return yesHomo.filter(item => item.octave === 1);
+      case "high":
+        return yesHomo.filter(item => item.octave === 2);
+      default:
+        return yesHomo;
+    }
   });
 
   const currentCardsDynamic = computed<ICard[]>(() => {

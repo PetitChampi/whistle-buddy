@@ -50,7 +50,7 @@
           <template v-slot:content>
             <ListDropdown
               :options="instrOptions"
-              :defaultSelectedOption="generalParams.instrument"
+              :defaultSelectedValue="generalParams.instrument"
               closeOnInteraction
               @@optionSelected="generalParams.instrument = $event.value"
             />
