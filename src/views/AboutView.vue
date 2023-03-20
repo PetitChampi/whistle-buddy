@@ -7,7 +7,7 @@
       <p>Velit officia consequat duis about us enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis mollit non deserunt ullamco. Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Consequat duis mollit non deserunt ullamco. Velit officia consequat duis about us enim velit mollit.</p>
     </div>
     <div class="about-image">
-      <img :src="`${baseUrl}img/merci_${imgSuffix}.png`" alt="" class="placeholder-contain">
+      <img :src="`${baseUrl}img/merci_${imgSuffix}.png`" alt="Happy mascot">
     </div>
     <p class="about-thanks">{{ $t('GEN_THANKS') }}</p>
   </div>

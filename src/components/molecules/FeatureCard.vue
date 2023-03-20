@@ -1,7 +1,7 @@
 <template>
   <div class="card" @click="goToLink">
     <div class="card-image">
-      <img :src="imgSrc" alt="" class="placeholder-contain">
+      <img :src="imgSrc" :alt="props.cardTitle">
     </div>
     <h2 class="card-title">{{ props.cardTitle }}</h2>
   </div>

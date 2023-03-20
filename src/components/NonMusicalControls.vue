@@ -19,7 +19,6 @@ import { useI18n } from "vue-i18n";
 
 const { locale } = useI18n({ useScope: "global" });
 
-// Todo: replace w/ state
 const langOptions = ref<IOption[]>([
   { value: "en", displayValue: "EN" },
   { value: "fr", displayValue: "FR" }

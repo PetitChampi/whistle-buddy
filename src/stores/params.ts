@@ -105,7 +105,7 @@ export const useParamsStore = defineStore("params", () => {
         return fingsForNote.filter((fingering) => fingering.octaves.includes(oct));
       });
       
-      return fingsGroupedByOctave.map((fingSet: IFingering[], index) => {
+      return fingsGroupedByOctave.map((fingSet: IFingering[], index: number) => {
         return {
           id: ++i,
           name: note.names[alterationIndex || 0],

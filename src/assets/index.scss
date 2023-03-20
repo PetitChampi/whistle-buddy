@@ -26,16 +26,6 @@ body {
   img {
     max-width: 100%;
   }
-  // Todo: remove once illustrations are added
-  img.placeholder {
-    border-radius: 10px;
-    &-contain {
-      object-fit: contain;
-    }
-    &-cover {
-      object-fit: cover;
-    }
-  }
 
   .app-wrapper {
     color: var(--text-standard);
