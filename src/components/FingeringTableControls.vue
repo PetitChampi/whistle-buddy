@@ -27,13 +27,14 @@
             >
               <template v-slot:content>
                 <div class="checkbox-grid">
-                  <CheckboxInput v-model="selectedFingerings" value="a" label="A" size="s" />
-                  <CheckboxInput v-model="selectedFingerings" value="b" label="B" size="s" />
-                  <CheckboxInput v-model="selectedFingerings" value="c" label="C" size="s" />
-                  <CheckboxInput v-model="selectedFingerings" value="d" label="D" size="s" />
-                  <CheckboxInput v-model="selectedFingerings" value="e" label="E" size="s" />
-                  <CheckboxInput v-model="selectedFingerings" value="f" label="F" size="s" />
-                  <CheckboxInput v-model="selectedFingerings" value="g" label="G" size="s" />
+                  <CheckboxInput
+                    v-for="fing in fingsPerType.standard"
+                    :key="fing.id"
+                    v-model="selectedFings"
+                    :value="`${getCheckboxData(fing).value}-st`"
+                    :label="getCheckboxData(fing).displayValue"
+                    size="s"
+                  />
                 </div>
               </template>
             </SettingsGroup>
@@ -46,10 +47,14 @@
             >
               <template v-slot:content>
                 <div class="checkbox-grid">
-                  <CheckboxInput v-model="selectedFingerings" value="d-hh" label="D" size="s" />
-                  <CheckboxInput v-model="selectedFingerings" value="e-hh" label="E" size="s" />
-                  <CheckboxInput v-model="selectedFingerings" value="f-hh" label="F" size="s" />
-                  <CheckboxInput v-model="selectedFingerings" value="g-hh" label="G" size="s" />
+                  <CheckboxInput
+                    v-for="fing in fingsPerType.halfhole"
+                    :key="fing.id"
+                    v-model="selectedFings"
+                    :value="`${getCheckboxData(fing).value}-hh`"
+                    :label="getCheckboxData(fing).displayValue"
+                    size="s"
+                  />
                 </div>
               </template>
             </SettingsGroup>
@@ -63,9 +68,14 @@
             >
               <template v-slot:content>
                 <div class="checkbox-grid">
-                  <CheckboxInput v-model="selectedFingerings" value="d-sp" label="D" size="s" />
-                  <CheckboxInput v-model="selectedFingerings" value="e-sp" label="E" size="s" />
-                  <CheckboxInput v-model="selectedFingerings" value="f-sp" label="F" size="s" />
+                  <CheckboxInput
+                    v-for="fing in fingsPerType.specific"
+                    :key="fing.id"
+                    v-model="selectedFings"
+                    :value="`${getCheckboxData(fing).value}-sp`"
+                    :label="getCheckboxData(fing).displayValue"
+                    size="s"
+                  />
                 </div>
               </template>
             </SettingsGroup>
@@ -107,17 +117,20 @@ import TextSwitch from "@/components/molecules/TextSwitch.vue";
 import SettingsGroup from "@/components/SettingsGroup.vue";
 import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import { ref, computed } from "vue";
-import type { IOption } from "@/types/MusicalDataTypes";
+import type { IFingering, IOption } from "@/types/MusicalDataTypes";
 import { useI18n } from "vue-i18n";
 import { useParamsStore } from "@/stores/params";
+import { useMusicalDataStore } from "@/stores/musicalData";
 import { storeToRefs } from "pinia";
 
 const { t } = useI18n({ useScope: "global" });
 
 const paramsStore = useParamsStore();
-const { fingTableParams, currentCardsDynamic } = storeToRefs(paramsStore);
+const musicalDataStore = useMusicalDataStore();
+const { generalParams, fingTableParams, currentCardsDynamic, currentScale } = storeToRefs(paramsStore);
+const { fingsPerType } = storeToRefs(musicalDataStore);
 
-const selectedFingerings = ref<string[]>([]);
+const selectedFings = ref<string[]>([]);
 
 const fppOptions = computed<IOption[]>(() => {
   const options: IOption[] = [];
@@ -130,6 +143,23 @@ const fppOptions = computed<IOption[]>(() => {
   }
   return options;
 });
+
+function getCheckboxData(fing: IFingering): IOption {
+  const keyNameEn = generalParams.value.key.name.en;
+  const altIndex = (keyNameEn.length === 2 && keyNameEn.endsWith("b")) ? 1 : 0;
+  const noteName = currentScale.value[fing.posInScale - 1].names[altIndex || 0].en;
+
+  return {
+    value: noteName,
+    displayValue: `${
+      noteName.charAt(0).toUpperCase()
+    }${
+      noteName.slice(1)
+    }${
+      fing.octaves[0] === 2 ? "+" : ""
+    }`
+  };
+};
 
 const flashcardOptions = computed<IOption[]>(() => [
   { value: "fing", displayValue: t("GEN_FINGERINGS") },

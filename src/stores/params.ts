@@ -99,7 +99,7 @@ export const useParamsStore = defineStore("params", () => {
       return fingsGroupedByOctave.map((fingSet: IFingering[], index) => {
         return {
           id: ++i,
-          name: note.names[note.names.length > 1 ? alterationIndex : 0],
+          name: note.names[alterationIndex || 0],
           fingerings: fingSet,
           octave: uniqueOctaves[index]
         }

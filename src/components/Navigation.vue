@@ -2,11 +2,7 @@
   <div class="sticky-container">
     <nav class="navigation" :class="{ open }">
       <div class="navigation-controls">
-        <ListDropdown
-          :options="keyOptions"
-          :defaultSelectedOption="'d'"
-          :closeOnInteraction="true"
-        />
+        <KeySelector />
         <SettingsDropdown />
       </div>
 
@@ -37,24 +33,16 @@
 </template>
 
 <script setup lang="ts">
-import ListDropdown from "@/components/molecules/ListDropdown.vue";
+import KeySelector from "@/components/molecules/KeySelector.vue";
 import SettingsDropdown from "@/components/molecules/SettingsDropdown.vue";
 import NonMusicalControls from "@/components/NonMusicalControls.vue";
 import { ref } from "@vue/reactivity";
-import type { IOption } from "@/types/MusicalDataTypes";
 import { watch } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
 
 const open = ref<boolean>(false);
-
-const keyOptions = ref<IOption[]>([
-  { value: "a", displayValue: "A" },
-  { value: "b", displayValue: "B" },
-  { value: "c", displayValue: "C" },
-  { value: "d", displayValue: "D" }
-]);
 
 function toggleOpen() {
   open.value = !open.value;

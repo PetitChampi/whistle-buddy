@@ -4,11 +4,7 @@
     <div class="settings-items">
       <SettingsGroup :title="$t('G_PARAMS_TITLE_KEY')" large>
         <template v-slot:content>
-          <ListDropdown
-            :options="keyOptions"
-            :defaultSelectedOption="'d'"
-            :closeOnInteraction="true"
-          />
+          <KeySelector />
         </template>
       </SettingsGroup>
 
@@ -146,14 +142,13 @@
 
 <script setup lang="ts">
 import SettingsGroup from "@/components/SettingsGroup.vue";
-import ListDropdown from "@/components/molecules/ListDropdown.vue";
+import KeySelector from "./molecules/KeySelector.vue";
 import RadioInput from "@/components/molecules/RadioInput.vue";
 import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import GaugeInput from "@/components/molecules/GaugeInput.vue";
 import CustomButton from "@/components/molecules/CustomButton.vue";
 import { computed, ref } from "vue";
 import type { Ref } from "vue";
-import type { IOption } from "@/types/MusicalDataTypes";
 import type { IGuessGameParams, IMixMatchParams } from "@/types/ParamTypes";
 import { useParamsStore } from "@/stores/params";
 import { storeToRefs } from "pinia";
@@ -187,14 +182,6 @@ const currentGameParams = computed<Ref<IGuessGameParams> | Ref<IMixMatchParams>>
 function startGame() {
   emit("@gameStarted");
 }
-
-// Todo: replace w/ state
-const keyOptions = ref<IOption[]>([
-  { value: "a", displayValue: "A" },
-  { value: "b", displayValue: "B" },
-  { value: "c", displayValue: "C" },
-  { value: "d", displayValue: "D" }
-]);
 </script>
 
 <style lang="scss" scoped>

@@ -21,8 +21,7 @@
 
 <script setup lang="ts">
 import Dropdown from "@/components/molecules/Dropdown.vue";
-import { ref } from "@vue/reactivity";
-import { onMounted } from "@vue/runtime-core";
+import { ref, onMounted, watch } from "vue";
 import type { IOption } from "@/types/MusicalDataTypes";
 import { useI18n } from "vue-i18n";
 
@@ -41,18 +40,22 @@ const emit = defineEmits(["@optionSelected"]);
 const selectedOption = ref<string | undefined>(props.defaultSelectedOption);
 const buttonText = ref<string | undefined>(props.defaultButtonText || t("GEN_CHOOSE"));
 
-function selectOption(opt: IOption | undefined) {
+function selectOption(opt: IOption) {
   selectedOption.value = opt?.value;
   buttonText.value = opt?.displayValue;
   emit("@optionSelected", opt);
 }
 
-onMounted(() => {
+function refreshSelection() {
   if (props.defaultSelectedOption) {
     const defaultOpt = props.options.find(opt => opt.value === props.defaultSelectedOption);
     buttonText.value = defaultOpt?.displayValue;
   }
-});
+}
+
+onMounted(() => refreshSelection());
+
+watch(() => props.defaultSelectedOption, () => refreshSelection());
 </script>
 
 <style lang="scss" scoped>
