@@ -1,6 +1,10 @@
 <template>
   <footer class="footer">
-    <div class="footer-title">Whistle Buddy</div>
+    <div class="footer-title">
+      <RouterLink :to="{ name: 'splashPage' }">
+        Whistle Buddy
+      </RouterLink>
+    </div>
     <div class="footer-credits">
       <span class="footer-credits-link">
         <RouterLink :to="{ name: 'about' }">
@@ -31,9 +35,15 @@
   margin-top: 100px;
 
   &-title {
-    font-weight: 700;
     font-size: 1.25rem;
-    color: var(--text-intense);
+    a {
+      font-weight: 700;
+      color: var(--text-intense);
+      border: none;
+      &:hover {
+        border: none;
+      }
+    }
   }
 
   &-credits {

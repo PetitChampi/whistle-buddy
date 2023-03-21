@@ -1,7 +1,7 @@
 <template>
   <div class="controls">
     <div class="controls-item">
-      <span class="label">{{ $t("F_TABLE_LABEL_FPP") }}</span>
+      <span class="label">{{ $t("F_TABLE_LABEL_CPP") }}</span>
       <ListDropdown
         class="block"
         :options="fppOptions"
@@ -14,7 +14,7 @@
       <span class="label">{{ $t("GEN_FINGERINGS") }}</span>
       <Dropdown type="settings">
         <template v-slot:dropdown-title>
-          fingerings
+          {{ `${generalParams.selectedFingerings.length} ${$t("GEN_SELECTED")}` }}
         </template>
         <template v-slot:dropdown-content>
           <div class="settings-container">
@@ -117,17 +117,18 @@ import TextSwitch from "@/components/molecules/TextSwitch.vue";
 import SettingsGroup from "@/components/SettingsGroup.vue";
 import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import { ref, computed, watch } from "vue";
-import type { IFingering, IOption } from "@/types/MusicalDataTypes";
+import type { IOption } from "@/types/MusicalDataTypes";
 import { useI18n } from "vue-i18n";
 import { useParamsStore } from "@/stores/params";
 import { useMusicalDataStore } from "@/stores/musicalData";
 import { storeToRefs } from "pinia";
+import getCheckboxData from "@/composables/getCheckboxData";
 
 const { t } = useI18n({ useScope: "global" });
 
 const paramsStore = useParamsStore();
 const musicalDataStore = useMusicalDataStore();
-const { generalParams, fingTableParams, currentCardsDynamic, currentScale } = storeToRefs(paramsStore);
+const { generalParams, fingTableParams, currentCardsDynamic } = storeToRefs(paramsStore);
 const { fingsPerType } = storeToRefs(musicalDataStore);
 
 const selectedFings = ref<string[]>([]);
@@ -143,23 +144,6 @@ const fppOptions = computed<IOption[]>(() => {
   }
   return options;
 });
-
-function getCheckboxData(fing: IFingering): IOption {
-  const keyNameEn = generalParams.value.key.name.en;
-  const altIndex = (keyNameEn.length === 2 && keyNameEn.endsWith("b")) ? 1 : 0;
-  const noteName = currentScale.value[fing.posInScale - 1].names[altIndex || 0].en;
-
-  return {
-    value: noteName,
-    displayValue: `${
-      noteName.charAt(0).toUpperCase()
-    }${
-      noteName.slice(1)
-    }${
-      fing.octaves[0] === 2 ? "+" : ""
-    }`
-  };
-};
 
 const flashcardOptions = computed<IOption[]>(() => [
   { value: "fing", displayValue: t("GEN_FINGERINGS") },

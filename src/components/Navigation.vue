@@ -156,6 +156,7 @@ watch(() => route.name, () => {
     }
     &-controls {
       width: 100%;
+      gap: 10px;
     }
   }
   .navigation.open {

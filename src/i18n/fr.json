@@ -1,9 +1,10 @@
 {
-  "GEN_ALL": "Tous",
+  "GEN_ALL": "Tout",
   "GEN_SHUFFLE": "Mélanger",
   "GEN_SWITCH_MODE": "Mode de couleur",
   "GEN_PLAY_NOTE": "Jouer la note",
   "GEN_FINGERINGS": "Doigtés",
+  "GEN_SELECTED": "sélectionnés",
   "GEN_SELECTED_FINGS": "Doigtés sélectionnés",
   "GEN_NOTES": "Notes",
   "GEN_ABOUT_US": "À propos",
@@ -35,7 +36,7 @@
 
   "SPLASH_START": "C'est parti!",
 
-  "F_TABLE_LABEL_FPP": "Doigtés par page",
+  "F_TABLE_LABEL_CPP": "Cartes par page",
   "F_TABLE_LABEL_FLASHCARD_MODE": "Mode flashcards",
 
   "G_PARAMS_HEADING": "Paramètres de jeu",

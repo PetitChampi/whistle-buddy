@@ -80,28 +80,33 @@
           <div class="settings-item-content">
             <p class="checkbox-grid-label">{{ $t('GEN_STANDARD') }}</p>
             <div class="checkbox-grid">
-              <CheckboxInput v-model="selectedFingerings" value="a" label="A" />
-              <CheckboxInput v-model="selectedFingerings" value="b" label="B" />
-              <CheckboxInput v-model="selectedFingerings" value="c" label="C" />
-              <CheckboxInput v-model="selectedFingerings" value="d" label="D" />
-              <CheckboxInput v-model="selectedFingerings" value="e" label="E" />
-              <CheckboxInput v-model="selectedFingerings" value="f" label="F" />
-              <CheckboxInput v-model="selectedFingerings" value="g" label="G" />
+              <CheckboxInput
+                v-for="fing in fingsPerType.standard"
+                :key="fing.id"
+                v-model="selectedFings"
+                :value="`${getCheckboxData(fing).value}-st`"
+                :label="getCheckboxData(fing).displayValue"
+              />
             </div>
             <p class="checkbox-grid-label">{{ $t('GEN_HALFHOLE') }}</p>
             <div class="checkbox-grid">
-              <CheckboxInput v-model="selectedFingerings" value="a-hh" label="A" />
-              <CheckboxInput v-model="selectedFingerings" value="b-hh" label="B" />
-              <CheckboxInput v-model="selectedFingerings" value="c-hh" label="C" />
-              <CheckboxInput v-model="selectedFingerings" value="d-hh" label="D" />
+              <CheckboxInput
+                v-for="fing in fingsPerType.halfhole"
+                :key="fing.id"
+                v-model="selectedFings"
+                :value="`${getCheckboxData(fing).value}-hh`"
+                :label="getCheckboxData(fing).displayValue"
+              />
             </div>
             <p class="checkbox-grid-label">{{ $t('GEN_SPECIFIC') }}</p>
             <div class="checkbox-grid">
-              <CheckboxInput v-model="selectedFingerings" value="a-sp" label="A" />
-              <CheckboxInput v-model="selectedFingerings" value="b-sp" label="B" />
-              <CheckboxInput v-model="selectedFingerings" value="c-sp" label="C" />
-              <CheckboxInput v-model="selectedFingerings" value="d-sp" label="D" />
-              <CheckboxInput v-model="selectedFingerings" value="e-sp" label="E" />
+              <CheckboxInput
+                v-for="fing in fingsPerType.specific"
+                :key="fing.id"
+                v-model="selectedFings"
+                :value="`${getCheckboxData(fing).value}-sp`"
+                :label="getCheckboxData(fing).displayValue"
+              />
             </div>
           </div>
         </template>
@@ -151,18 +156,22 @@ import { computed, ref } from "vue";
 import type { Ref } from "vue";
 import type { IGuessGameParams, IMixMatchParams } from "@/types/ParamTypes";
 import { useParamsStore } from "@/stores/params";
+import { useMusicalDataStore } from "@/stores/musicalData";
 import { storeToRefs } from "pinia";
+import getCheckboxData from "@/composables/getCheckboxData";
 
 const props = defineProps<{
   gameType: string
 }>();
 
 const paramsStore = useParamsStore();
+const musicalDataStore = useMusicalDataStore();
 const { generalParams, guessGameParams, mixMatchParams } = storeToRefs(paramsStore);
+const { fingsPerType } = storeToRefs(musicalDataStore);
 
 const emit = defineEmits(["@gameStarted"]);
 
-const selectedFingerings = ref<string[]>([]);
+const selectedFings = ref<string[]>([]);
 
 const currentGameParams = computed<Ref<IGuessGameParams> | Ref<IMixMatchParams>>(() => {
   let currGameParams: Ref<IGuessGameParams> | Ref<IMixMatchParams> = guessGameParams;

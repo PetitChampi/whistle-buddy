@@ -42,6 +42,9 @@ function goToLink() {
   @media screen and (max-width: $mobile) {
     padding: 20px;
     box-shadow: var(--card-shadow-mobile);
+    &:hover {
+      transform: unset;
+    }
   }
 
   &:hover {

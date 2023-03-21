@@ -50,7 +50,6 @@ const props = withDefaults(defineProps<IProps>(), {
       background-color: var(--faint);
       border-radius: 50px;
       padding: 2px 5px;
-      box-shadow: 0 0 10px 5px var(--body-bg);
     }
   }
 
