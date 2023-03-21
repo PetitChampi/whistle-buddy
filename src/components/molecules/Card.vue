@@ -139,21 +139,10 @@ watch(() => props.flashcard, (newVal) => {
   transition: transform ease .2s;
 
   &-inner {
-    background-color: var(--intensified-bg);
     border-radius: 10px;
-    box-shadow: var(--card-shadow-desktop);
-    padding: 18px;
-    border: 2px solid transparent;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     transition: border ease .2s, transform ease .3s;
     transform-style: preserve-3d;
-    @media screen and (max-width: $mobile) {
-      padding: 15px 5px;
-      box-shadow: var(--card-shadow-mobile);
-    }
+    backface-visibility: hidden;
 
     &.flipped {
       transform: rotateY(180deg);
@@ -169,19 +158,35 @@ watch(() => props.flashcard, (newVal) => {
     }
     &.fixed {
       height: 140px;
+      @media screen and (max-width: $mobile) {
+        height: 110px;
+      }
     }
   }
 
   .front {
-    display: flex;
-    flex-direction: column;
     gap: 20px;
   }
   .front, .back {
+    width: 100%;
+    height: 100%;
+    background-color: var(--intensified-bg);
+    border-radius: 8px;
+    box-shadow: var(--card-shadow-desktop);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     backface-visibility: hidden;
+    @media screen and (max-width: $mobile) {
+      padding: 15px 5px;
+      box-shadow: var(--card-shadow-mobile);
+    }
   }
   .back {
     position: absolute;
+    top: 0;
     transform: rotateY(180deg);
   }
 
