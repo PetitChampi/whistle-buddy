@@ -40,7 +40,9 @@
           <p class="popup-subtitle">{{ $t("G_MIXM_LOSE_SUBTITLE") }}</p>
         </div>
 
-        <img src="" alt="Mascot">
+        <img v-if="victory" v-imgpreload="`${baseUrl}img/flann-happy.png`" alt="Mascot">
+        <img v-else v-imgpreload="`${baseUrl}img/flann-think.png`" alt="Mascot">
+
         <div class="btn-container">
           <CustomButton :btnText="$t('G_MIXM_FINISH_BACK_SET')" btnType="secondary" @click="backToSettings" />
           <CustomButton :btnText="$t('G_MIXM_FINISH_REPLAY')" @click="replay" />
@@ -69,6 +71,8 @@ import { useParamsStore } from "@/stores/params";
 import { storeToRefs } from "pinia";
 
 const { t } = useI18n({ useScope: "global" });
+
+const baseUrl = import.meta.env.BASE_URL;
 
 const gameStarted = ref<boolean>(false);
 const gamePaused = ref<boolean>(false);
@@ -269,6 +273,8 @@ function replay() {
     }
   }
   img {
+    max-width: 100px;
+    display: block;
     margin: 30px auto;
   }
   .btn-container {

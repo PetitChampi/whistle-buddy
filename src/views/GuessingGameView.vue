@@ -40,7 +40,7 @@
       {{ $t("G_GUESS_FINISH_SUB_INTRO") }}
       <span class="score" :class="{ green: false }">{{ $t("G_GUESS_FINISH_SUB_NUMS", {score: 13, total: 14}) }}</span>
     </p>
-    <img src="" alt="Happy mascot">
+    <img v-imgpreload="`${baseUrl}img/flann-happy.png`" alt="Happy mascot">
     <div class="finish-links">
       <div class="btn-container">
         <CustomButton :btnText="$t('G_GUESS_FINISH_BACK_SET')" btnType="secondary" @click="backToSettings" />
@@ -66,8 +66,11 @@ import CustomButton from "@/components/molecules/CustomButton.vue";
 import type { ICard } from "@/types/MusicalDataTypes";
 import { watch } from "vue";
 
+const baseUrl = import.meta.env.BASE_URL;
+
 const gameStarted = ref<boolean>(false);
 const gameFinished = ref<boolean>(false);
+
 const note = ref<ICard>({
   id: 1,
   name: {en: 'Gb', fr: 'Sol b'},
@@ -76,6 +79,7 @@ const note = ref<ICard>({
   ],
   octave: 1
 });
+
 const cards = ref<ICard[]>([
   // TODO get random cards
 ]);
@@ -232,9 +236,9 @@ watch(gameFinished, () => {
   }
 
   img {
-    width: 200px;
+    max-width: 200px;
     display: block;
-    margin: 30px auto;
+    margin: 40px auto;
   }
   .btn-container {
     justify-content: space-between;

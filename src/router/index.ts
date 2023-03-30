@@ -7,12 +7,12 @@ const router = createRouter({
   scrollBehavior() {
     // scroll to top on route change
 
-    // return new Promise((resolve, reject) => {
-    //   setTimeout(() => {
-    //     resolve({ top: 0 })
-    //   }, 300)
-    // });
-    return { top: 0 };
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({ top: 0 })
+      }, 300)
+    });
+    // return { top: 0 };
   },
   routes: [
     {
