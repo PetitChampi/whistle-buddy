@@ -1,5 +1,5 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
-import { computed } from "vue";
+import { computed, watch } from "vue";
 import { useLocalStorage } from "@vueuse/core";
 import type { IGenParams, IFingTableParams, IGuessGameParams, IMixMatchParams } from "@/types/ParamTypes";
 import type { IFingering, INote, ICard, Octave } from "@/types/MusicalDataTypes";
@@ -25,7 +25,7 @@ export const useParamsStore = defineStore("params", () => {
   );
   const fingTableParams = useLocalStorage<IFingTableParams>(
     "fing_table_params", {
-      fingsPerPage: 12,
+      cardsPerPage: 12,
       flashcardMode: false,
       flashcardSide: "fing",
       shuffle: false
@@ -57,11 +57,10 @@ export const useParamsStore = defineStore("params", () => {
   
   const currentCardsPerFings = computed<ICard[]>(() => {
     const selectedFings = generalParams.value.selectedFingerings;
-    const currentScaleValue = currentScale.value;
     let i = 0;
 
     const noHomo = selectedFings.flatMap((fing: IFingering) => {
-      const note = currentScaleValue[fing.posInScale - 1];
+      const note = currentScale.value[fing.posInScale - 1];
       return fing.octaves.map((oct: Octave) => ({
         id: ++i,
         name: note.names[0],
@@ -70,6 +69,9 @@ export const useParamsStore = defineStore("params", () => {
       }));
     });
 
+    noHomo.sort((a, b) => { 
+      return a.fingerings[0].posInScale - b.fingerings[0].posInScale;
+    });
     noHomo.sort((a, b) => { 
       return a.octave - b.octave;
     });
@@ -87,11 +89,10 @@ export const useParamsStore = defineStore("params", () => {
   const currentCardsPerNote = computed<ICard[]>(() => {
     const selectedFings = generalParams.value.selectedFingerings;
     const currKey = generalParams.value.key;
-    const currentScaleValue = currentScale.value;
     const alterationIndex = (currKey.name.en.length === 2 && currKey.name.en.endsWith("b")) ? 1 : 0;
     let i = 0;
 
-    const yesHomo: ICard[] = currentScaleValue.map((note: INote, index) => {
+    const yesHomo: ICard[] = currentScale.value.map((note: INote, index) => {
       // Get all fings that have the same posInScale as the note's index + 1
       const fingsForNote = selectedFings.filter((fing) => fing.posInScale === index + 1);
       // Flatten octaves from all those fings into a single array
@@ -131,6 +132,12 @@ export const useParamsStore = defineStore("params", () => {
 
   const currentCardsDynamic = computed<ICard[]>(() => {
     return generalParams.value.groupHomophones ? currentCardsPerNote.value : currentCardsPerFings.value;
+  });
+
+  watch(() => currentCardsDynamic.value, (newCards, oldCards) => {
+    if (fingTableParams.value.cardsPerPage === oldCards.length) {
+      fingTableParams.value.cardsPerPage = newCards.length;
+    }
   });
 
   // Actions

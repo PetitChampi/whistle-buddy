@@ -4,7 +4,7 @@
     <div class="card-grid">
       <CardGrid
         :cards="reactiveToShuffleCards"
-        :pagination="currentCardsDynamic.length > fingTableParams.fingsPerPage"
+        :pagination="currentCardsDynamic.length > fingTableParams.cardsPerPage"
       />
     </div>
   </div>

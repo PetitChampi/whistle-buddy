@@ -11,7 +11,7 @@ export default function getCheckboxData(fing: IFingering): IOption {
   const noteName = currentScale.value[fing.posInScale - 1].names[altIndex || 0].en;
 
   return {
-    value: `${noteName}${fing.octaves[0] === 2 ? "+" : ""}`,
+    value: `${fing.id}`,
     displayValue: `${
       noteName.charAt(0).toUpperCase()
     }${

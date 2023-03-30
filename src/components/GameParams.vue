@@ -83,8 +83,8 @@
               <CheckboxInput
                 v-for="fing in fingsPerType.standard"
                 :key="fing.id"
-                v-model="selectedFings"
-                :value="`${getCheckboxData(fing).value}-st`"
+                v-model="selectedFingStrings"
+                :value="`${getCheckboxData(fing).value}`"
                 :label="getCheckboxData(fing).displayValue"
               />
             </div>
@@ -93,8 +93,8 @@
               <CheckboxInput
                 v-for="fing in fingsPerType.halfhole"
                 :key="fing.id"
-                v-model="selectedFings"
-                :value="`${getCheckboxData(fing).value}-hh`"
+                v-model="selectedFingStrings"
+                :value="`${getCheckboxData(fing).value}`"
                 :label="getCheckboxData(fing).displayValue"
               />
             </div>
@@ -103,8 +103,8 @@
               <CheckboxInput
                 v-for="fing in fingsPerType.specific"
                 :key="fing.id"
-                v-model="selectedFings"
-                :value="`${getCheckboxData(fing).value}-sp`"
+                v-model="selectedFingStrings"
+                :value="`${getCheckboxData(fing).value}`"
                 :label="getCheckboxData(fing).displayValue"
               />
             </div>
@@ -152,9 +152,10 @@ import RadioInput from "@/components/molecules/RadioInput.vue";
 import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import GaugeInput from "@/components/molecules/GaugeInput.vue";
 import CustomButton from "@/components/molecules/CustomButton.vue";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import type { Ref } from "vue";
 import type { IGuessGameParams, IMixMatchParams } from "@/types/ParamTypes";
+import type { IFingering } from "@/types/MusicalDataTypes";
 import { useParamsStore } from "@/stores/params";
 import { useMusicalDataStore } from "@/stores/musicalData";
 import { storeToRefs } from "pinia";
@@ -167,11 +168,13 @@ const props = defineProps<{
 const paramsStore = useParamsStore();
 const musicalDataStore = useMusicalDataStore();
 const { generalParams, guessGameParams, mixMatchParams } = storeToRefs(paramsStore);
-const { fingsPerType } = storeToRefs(musicalDataStore);
+const { fingsPerType, fingerings } = storeToRefs(musicalDataStore);
 
 const emit = defineEmits(["@gameStarted"]);
 
-const selectedFings = ref<string[]>([]);
+const selectedFingStrings = ref<string[]>(
+  generalParams.value.selectedFingerings.map(fing => fing.id.toString())
+);
 
 const currentGameParams = computed<Ref<IGuessGameParams> | Ref<IMixMatchParams>>(() => {
   let currGameParams: Ref<IGuessGameParams> | Ref<IMixMatchParams> = guessGameParams;
@@ -191,6 +194,15 @@ const currentGameParams = computed<Ref<IGuessGameParams> | Ref<IMixMatchParams>>
 function startGame() {
   emit("@gameStarted");
 }
+
+watch(() => selectedFingStrings.value, (newFings) => {
+  generalParams.value.selectedFingerings = [];
+  newFings.forEach(fingId => {
+    generalParams.value.selectedFingerings.push(
+      fingerings.value.find(fing => fing.id === Number(fingId)) as IFingering
+    );
+  })
+});
 </script>
 
 <style lang="scss" scoped>

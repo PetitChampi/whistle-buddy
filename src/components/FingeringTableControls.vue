@@ -4,10 +4,10 @@
       <span class="label">{{ $t("F_TABLE_LABEL_CPP") }}</span>
       <ListDropdown
         class="block"
-        :options="fppOptions"
-        :defaultSelectedValue="`${fingTableParams.fingsPerPage}`"
+        :options="cppOptions"
+        :defaultSelectedValue="`${fingTableParams.cardsPerPage}`"
         closeOnInteraction
-        @@optionSelected="fingTableParams.fingsPerPage = Number($event.value)"
+        @@optionSelected="fingTableParams.cardsPerPage = Number($event.value)"
       />
     </div>
     <div class="controls-item">
@@ -22,16 +22,18 @@
               :title="$t('GEN_STANDARD_L')"
               hasCheckbox
               :checkboxLabel="$t('GEN_ALL')"
+              :checkboxModelValue="selectAll.standard"
+              @@updateCheckbox="selectAll.standard = !selectAll.standard"
               accordion
               openByDefault
             >
               <template v-slot:content>
-                <div class="checkbox-grid">
+                <div class="checkbox-grid" :class="{ disabled: selectAll.standard }">
                   <CheckboxInput
                     v-for="fing in fingsPerType.standard"
                     :key="fing.id"
-                    v-model="selectedFings"
-                    :value="`${getCheckboxData(fing).value}-st`"
+                    v-model="selectedFingStrings"
+                    :value="`${getCheckboxData(fing).value}`"
                     :label="getCheckboxData(fing).displayValue"
                     size="s"
                   />
@@ -43,15 +45,17 @@
               :title="$t('GEN_HALFHOLE')"
               hasCheckbox
               :checkboxLabel="$t('GEN_ALL')"
+              :checkboxModelValue="selectAll.halfhole"
+              @@updateCheckbox="selectAll.halfhole = !selectAll.halfhole"
               accordion
             >
               <template v-slot:content>
-                <div class="checkbox-grid">
+                <div class="checkbox-grid" :class="{ disabled: selectAll.halfhole }">
                   <CheckboxInput
                     v-for="fing in fingsPerType.halfhole"
                     :key="fing.id"
-                    v-model="selectedFings"
-                    :value="`${getCheckboxData(fing).value}-hh`"
+                    v-model="selectedFingStrings"
+                    :value="`${getCheckboxData(fing).value}`"
                     :label="getCheckboxData(fing).displayValue"
                     size="s"
                   />
@@ -64,15 +68,17 @@
               :subtitle="$t('GEN_SUBTITLE_SPECIFIC')"
               hasCheckbox
               :checkboxLabel="$t('GEN_ALL')"
+              :checkboxModelValue="selectAll.specific"
+              @@updateCheckbox="selectAll.specific = !selectAll.specific"
               accordion
             >
               <template v-slot:content>
-                <div class="checkbox-grid">
+                <div class="checkbox-grid" :class="{ disabled: selectAll.specific }">
                   <CheckboxInput
                     v-for="fing in fingsPerType.specific"
                     :key="fing.id"
-                    v-model="selectedFings"
-                    :value="`${getCheckboxData(fing).value}-sp`"
+                    v-model="selectedFingStrings"
+                    :value="`${getCheckboxData(fing).value}`"
                     :label="getCheckboxData(fing).displayValue"
                     size="s"
                   />
@@ -116,8 +122,8 @@ import ListDropdown from "@/components/molecules/ListDropdown.vue";
 import TextSwitch from "@/components/molecules/TextSwitch.vue";
 import SettingsGroup from "@/components/SettingsGroup.vue";
 import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
-import { ref, computed, watch } from "vue";
-import type { IOption } from "@/types/MusicalDataTypes";
+import { ref, reactive, computed, onBeforeMount, watch } from "vue";
+import type { IFingering, IOption } from "@/types/MusicalDataTypes";
 import { useI18n } from "vue-i18n";
 import { useParamsStore } from "@/stores/params";
 import { useMusicalDataStore } from "@/stores/musicalData";
@@ -129,11 +135,24 @@ const { t } = useI18n({ useScope: "global" });
 const paramsStore = useParamsStore();
 const musicalDataStore = useMusicalDataStore();
 const { generalParams, fingTableParams, currentCardsDynamic } = storeToRefs(paramsStore);
-const { fingsPerType } = storeToRefs(musicalDataStore);
+const { fingsPerType, fingerings } = storeToRefs(musicalDataStore);
 
-const selectedFings = ref<string[]>([]);
+const selectedFingStrings = ref<string[]>(
+  generalParams.value.selectedFingerings.map(fing => fing.id.toString())
+);
 
-const fppOptions = computed<IOption[]>(() => {
+interface ISelectAll {
+  standard: boolean,
+  halfhole: boolean,
+  specific: boolean
+}
+const selectAll = reactive<ISelectAll>({
+  standard: false,
+  halfhole: false,
+  specific: false
+});
+
+const cppOptions = computed<IOption[]>(() => {
   const options: IOption[] = [];
   options.push({
     value: `${currentCardsDynamic.value.length}`,
@@ -150,16 +169,28 @@ const flashcardOptions = computed<IOption[]>(() => [
   { value: "notes", displayValue: t("GEN_NOTES") },
 ]);
 
-watch(() => fppOptions.value, (newOpts, oldOpts) => {
-  const oldAllOpt = oldOpts.find(
-    opt => opt.displayValue.includes("(")
-  ) as IOption;
-  const newAllOpt = newOpts.find(
-    opt => opt.displayValue.includes("(")
-  ) as IOption;
-  const currOptIsAll = fingTableParams.value.fingsPerPage === Number(oldAllOpt.value);
+watch(() => selectedFingStrings.value, (newFings) => {
+  generalParams.value.selectedFingerings = [];
+  newFings.forEach(fingId => {
+    generalParams.value.selectedFingerings.push(
+      fingerings.value.find(fing => fing.id === Number(fingId)) as IFingering
+    );
+  })
+});
 
-  if (currOptIsAll) fingTableParams.value.fingsPerPage = Number(newAllOpt.value);
+watch(selectAll, (newSelectAll) => {
+  let selFings = generalParams.value.selectedFingerings;
+
+  for (const [key, value] of Object.entries(newSelectAll)) {
+    if (value) {
+      selFings = selFings.filter(fing => fing.type !== key);
+      selFings.push(
+        ...fingsPerType.value[key as keyof typeof fingsPerType.value]
+          .filter((fing: IFingering) => fing.type === key)
+      );
+      selectedFingStrings.value = selFings.map(fing => fing.id.toString());
+    }
+  }
 });
 </script>
 
@@ -217,7 +248,13 @@ watch(() => fppOptions.value, (newOpts, oldOpts) => {
     display: grid;
     grid-template-columns: repeat(3, min-content);
     gap: 10px 30px;
+    transition: opacity ease .2s;
   }
+}
+.disabled {
+  opacity: .5;
+  pointer-events: none;
+  user-select: none;
 }
 
 // transition classes

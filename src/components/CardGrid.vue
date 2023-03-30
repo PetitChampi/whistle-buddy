@@ -49,7 +49,7 @@ const { fingTableParams } = storeToRefs(paramsStore);
 
 const cards = computed<ICard[]>(() => props.cards);
 const currentPage = ref<number>(1);
-const cardsPerPage = computed<number>(() => fingTableParams.value.fingsPerPage);
+const cardsPerPage = computed<number>(() => fingTableParams.value.cardsPerPage);
 const lastPage = computed<number>(() => Math.ceil(props.cards.length / cardsPerPage.value));
 
 const paginatedCards = computed(() => {
