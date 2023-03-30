@@ -7,6 +7,7 @@ import router from "./router";
 import en from "./i18n/en.json";
 import fr from "./i18n/fr.json";
 import tooltip from "./directives/tooltip";
+import imgpreload from "./directives/imgpreload";
 
 import "./assets/index.scss";
 
@@ -30,5 +31,6 @@ app.use(router);
 app.use(i18n);
 
 app.directive("tooltip", tooltip);
+app.directive("imgpreload", imgpreload);
 
 app.mount("#app");
