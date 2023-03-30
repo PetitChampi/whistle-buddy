@@ -3,11 +3,12 @@
     <RouterView name="FullPage" />
     <RouterView name="Navigation" />
     <div class="container">
-      <RouterView name="MainContent" v-slot="{ Component }">
+      <RouterView name="MainContent" />
+      <!-- <RouterView name="MainContent" v-slot="{ Component }">
         <Transition name="fade" mode="out-in">
           <Component :is="Component" />
         </Transition>
-      </RouterView>
+      </RouterView> -->
     </div>
     <RouterView name="Footer" />
   </div>
