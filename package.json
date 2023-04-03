@@ -18,6 +18,7 @@
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
+    "@pinia/testing": "^0.0.15",
     "@types/jsdom": "^20.0.1",
     "@types/node": "^18.11.12",
     "@vitejs/plugin-vue": "^4.0.0",
