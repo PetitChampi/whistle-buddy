@@ -1,6 +1,11 @@
 import type { DirectiveBinding, Directive } from "vue";
 
-const imgpreload: Directive = {
+type ImgpreloadDirective = Directive<HTMLImageElement, string> & {
+  created: (el: HTMLImageElement, binding: DirectiveBinding<string>) => void;
+  beforeMount: (el: HTMLImageElement, binding: DirectiveBinding<string>) => void;
+};
+
+const imgpreload: ImgpreloadDirective = {
   created(el: HTMLImageElement, binding: DirectiveBinding<string>) {
     const image = new Image();
     image.src = binding.value;

@@ -1,37 +1,56 @@
-import type { DirectiveBinding, Directive } from "vue";
+import type { Directive, DirectiveBinding } from "vue";
 
 interface ITooltip {
   text: string,
   direction?: "top" | "bottom"
 }
+
+export function isTouchDevice(): boolean {
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
+
+export function createTooltipElement(
+  document: Document, tooltipText: string, tooltipDirection: "top" | "bottom"
+): HTMLElement {
+  const tooltip = document.createElement("div");
+  tooltip.classList.add("tooltip", tooltipDirection);
+  tooltip.innerHTML = tooltipText;
+  return tooltip;
+}
+
+export function updateTooltipElement(
+  tooltip: HTMLElement, tooltipText: string, tooltipDirection: "top" | "bottom"
+) {
+  tooltip.innerHTML = tooltipText;
+  tooltip.classList.remove("top", "bottom");
+  tooltip.classList.add(tooltipDirection);
+  tooltip.setAttribute('key', tooltipText);
+}
+
 const tooltip: Directive = {
   mounted(el: HTMLElement, binding: DirectiveBinding<ITooltip>) {
-    const tooltipText: string = binding.value.text;
-    const tooltipDirection: "top" | "bottom" = binding.value.direction || "top";
-    const tooltip = document.createElement("div");
-    tooltip.classList.add("tooltip", tooltipDirection);
-    tooltip.innerHTML = tooltipText;
+    const tooltipText = binding.value.text;
+    const tooltipDirection = binding.value.direction || "top";
+    const tooltipElement = createTooltipElement(document, tooltipText, tooltipDirection);
+
     el.style.position = "relative";
-    el.appendChild(tooltip);
+    el.appendChild(tooltipElement);
 
-    let touchDevice = false;
+    const touchDevice = isTouchDevice();
 
-    el.addEventListener("touchstart", () => touchDevice = true);
     el.addEventListener("mouseenter", () => {
-      if (!touchDevice) tooltip.classList.add("show");
+      if (!touchDevice) tooltipElement.classList.add("show");
     });
     el.addEventListener("mouseleave", () => {
-      if (!touchDevice) tooltip.classList.remove("show");
+      if (!touchDevice) tooltipElement.classList.remove("show");
     });
   },
   updated(el: HTMLElement, binding: DirectiveBinding<ITooltip>) {
-    const tooltipText: string = binding.value.text;
-    const tooltipDirection: "top" | "bottom" = binding.value.direction || "top";
-    const tooltip = el.querySelector(".tooltip") as HTMLElement;
-    tooltip.innerHTML = tooltipText;
-    tooltip.classList.remove("top", "bottom");
-    tooltip.classList.add(tooltipDirection);
-    tooltip.setAttribute('key', tooltipText);
+    const tooltipText = binding.value.text;
+    const tooltipDirection = binding.value.direction || "top";
+    const tooltipElement = el.querySelector(".tooltip") as HTMLElement;
+
+    updateTooltipElement(tooltipElement, tooltipText, tooltipDirection);
   }
 }
 
