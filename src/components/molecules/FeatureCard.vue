@@ -42,13 +42,13 @@ function goToLink() {
   @media screen and (max-width: $mobile) {
     padding: 20px;
     box-shadow: var(--card-shadow-mobile);
-    &:hover {
-      transform: unset;
-    }
   }
 
   &:hover {
     transform: translateY(-5px);
+    @media screen and (max-width: $mobile) {
+      transform: unset;
+    }
   }
 
   &-title {
