@@ -12,7 +12,7 @@ export const useParamsStore = defineStore("params", () => {
   const defaultKey = computed(() => musicalDataStore.defaultKey);
   const defaultSelectedFings = computed(() => musicalDataStore.defaultSelectedFings);
 
-  // Schema refs
+  // Initial state
   const generalParams = useLocalStorage<IGenParams>(
     "general_params", {
       key: defaultKey.value,
@@ -57,13 +57,15 @@ export const useParamsStore = defineStore("params", () => {
   
   const currentCardsPerFings = computed<ICard[]>(() => {
     const selectedFings = generalParams.value.selectedFingerings;
+    const currKey = generalParams.value.key;
+    const alterationIndex = (currKey.name.en.length === 2 && currKey.name.en.endsWith("b")) ? 1 : 0;
     let i = 0;
 
     const noHomo = selectedFings.flatMap((fing: IFingering) => {
       const note = currentScale.value[fing.posInScale - 1];
       return fing.octaves.map((oct: Octave) => ({
         id: ++i,
-        name: note.names[0],
+        name: note.names.length > 1 ? note.names[alterationIndex] : note.names[0],
         fingerings: [ fing ],
         octave: oct
       }));
@@ -109,7 +111,7 @@ export const useParamsStore = defineStore("params", () => {
       return fingsGroupedByOctave.map((fingSet: IFingering[], index: number) => {
         return {
           id: ++i,
-          name: note.names[alterationIndex || 0],
+          name: note.names.length > 1 ? note.names[alterationIndex] : note.names[0],
           fingerings: fingSet,
           octave: uniqueOctaves[index]
         }
