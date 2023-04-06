@@ -19,4 +19,9 @@ describe("Directive: imgpreload", () => {
     imgpreload.beforeMount(imgEl, binding);
     expect(imgEl.src).toBe(binding.value);
   });
+
+  test("created hook sets element src to binding value", () => {    
+    imgpreload.updated(imgEl, binding);
+    expect(imgEl.src).toBe(binding.value);
+  });
 });

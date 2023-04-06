@@ -5,9 +5,16 @@
   <main class="main">
     <div class="container">
       <h1 class="main-title">Whistle Buddy</h1>
-      <p class="main-text">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis 
-        <RouterLink :to="{ name: 'about' }">about us</RouterLink> 
-      enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis mollit non deserunt</p>
+      <div class="main-text">
+        <p>{{ $t("SELECT_INTRO_P1") }}</p>
+        <p>{{ $t("SELECT_INTRO_P2") }}</p>
+        <br>
+        <span>{{ $t("SELECT_INTRO_P3L1") }}</span>
+        <RouterLink :to="{ name: 'instructions' }">{{ $t("SELECT_INTRO_INSTR") }}</RouterLink>
+        <span>{{ $t("SELECT_INTRO_P3L2") }}</span>
+        <br><br>
+        <p>{{ $t("SELECT_INTRO_P4") }}</p>
+      </div>
       <div class="main-cards">
         <FeatureCard
           :cardTitle="$t('GEN_FINGERING_TABLE')"
@@ -74,18 +81,8 @@ const imgSuffix = computed(() => darkMode.value ? "dark" : "light");
   &-text {
     font-size: 1.125rem;
     line-height: 160%;
-    margin: 20px 0 60px;
-
-    a {
-      text-decoration: none;
-      display: inline-block;
-      line-height: 140%;
-      transition: border-bottom ease .2s;
-      border-bottom: 1px solid transparent;
-      &:hover {
-        border-bottom: 1px solid var(--accent);
-      }
-    }
+    margin: 20px auto 60px;
+    max-width: 660px;
   }
 
   &-cards {

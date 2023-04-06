@@ -20,7 +20,7 @@ const router = createRouter({
       name: '404',
       components: {
         Navigation,
-        MainContent: () => import('../views/404View.vue'),
+        MainContent: () => import('@/views/404View.vue'),
         Footer
       }
     },
@@ -42,7 +42,7 @@ const router = createRouter({
       name: 'fingeringTable',
       components: {
         Navigation,
-        MainContent: () => import('../views/FingeringTableView.vue'),
+        MainContent: () => import('@/views/FingeringTableView.vue'),
         Footer
       }
     },
@@ -51,7 +51,7 @@ const router = createRouter({
       name: 'guessingGame',
       components: {
         Navigation,
-        MainContent: () => import('../views/GuessingGameView.vue'),
+        MainContent: () => import('@/views/GuessingGameView.vue'),
         Footer
       }
     },
@@ -60,7 +60,7 @@ const router = createRouter({
       name: 'mixOrMatch',
       components: {
         Navigation,
-        MainContent: () => import('../views/MixOrMatchView.vue'),
+        MainContent: () => import('@/views/MixOrMatchView.vue'),
         Footer
       }
     },
@@ -69,7 +69,16 @@ const router = createRouter({
       name: 'about',
       components: {
         Navigation,
-        MainContent: () => import('../views/AboutView.vue'),
+        MainContent: () => import('@/views/AboutView.vue'),
+        Footer
+      }
+    },
+    {
+      path: '/instructions',
+      name: 'instructions',
+      components: {
+        Navigation,
+        MainContent: () => import('@/views/InstructionsView.vue'),
         Footer
       }
     }

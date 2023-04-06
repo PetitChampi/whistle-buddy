@@ -8,6 +8,7 @@
   "GEN_SELECTED_FINGS": "Selected fingerings",
   "GEN_NOTES": "Notes",
   "GEN_ABOUT_US": "About us",
+  "GEN_INSTRUCTIONS": "User's guide",
   "GEN_CHOOSE": "Choose...",
   "GEN_STANDARD": "Standard",
   "GEN_STANDARD_L": "Standard fingerings",
@@ -34,7 +35,14 @@
   "FOOTER_CREDIT_CC": "Co-creator:",
   "FOOTER_CREDIT_I": "Illustrator:",
 
+  "SPLASH_SUBTITLE": "Learning companion for Irish whistle fingerings",
   "SPLASH_START": "Let's go!",
+  "SELECT_INTRO_P1": "So you've set out to learn the Irish whistle. That's great!",
+  "SELECT_INTRO_P2": "This app was created to help you kickstart your learning with 3 interactive tools centred around memorising the fingerings, which is the first step towards playing all of your favourite tunes.",
+  "SELECT_INTRO_P3L1": "For more info about the tools, see the ",
+  "SELECT_INTRO_INSTR": "user's guide",
+  "SELECT_INTRO_P3L2": ". Our mascot Flánn O'Penny will be pleased to show you around!",
+  "SELECT_INTRO_P4": "Happy playing!",
 
   "F_TABLE_LABEL_CPP": "Cards per page",
   "F_TABLE_LABEL_FLASHCARD_MODE": "Flashcard mode",

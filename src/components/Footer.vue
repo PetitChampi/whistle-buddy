@@ -6,11 +6,10 @@
       </RouterLink>
     </div>
     <div class="footer-credits">
-      <span class="footer-credits-link">
-        <RouterLink :to="{ name: 'about' }">
-          {{ $t("GEN_ABOUT_US") }}
-        </RouterLink>
-      </span>
+      <div class="footer-credits-links">
+        <RouterLink :to="{ name: 'instructions' }">{{ $t("GEN_INSTRUCTIONS") }}</RouterLink>
+        <RouterLink :to="{ name: 'about' }">{{ $t("GEN_ABOUT_US") }}</RouterLink>
+      </div>
       <p class="footer-credits-item">
         {{ $t("FOOTER_CREDIT_CCDP") }} <span class="footer-credits-item-name">Esther&nbsp;Bauzou</span>
       </p>
@@ -28,7 +27,7 @@
 .footer {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 25px;
   background-color: var(--faint);
   text-align: center;
   padding: 30px 20px;
@@ -50,9 +49,10 @@
     font-size: .875rem;
     line-height: 160%;
 
-    &-link {
-      display: inline-block;
-      margin-bottom: 10px;
+    &-links {
+      display: inline-flex;
+      gap: 30px;
+      margin-bottom: 15px;
     }
     
     &-item {
