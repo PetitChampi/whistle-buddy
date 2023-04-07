@@ -4,7 +4,14 @@
   </div>
   <main class="main">
     <div class="container">
-      <h1 class="main-title">Whistle Buddy</h1>
+      <div class="main-header">
+        <img
+          v-imgpreload="`${baseUrl}img/flann-greet.png`"
+          alt="Happy mascot"
+          class="main-header-img"
+        >
+        <h1 class="main-title">Whistle Buddy</h1>
+      </div>
       <div class="main-text">
         <p>{{ $t("SELECT_INTRO_P1") }}</p>
         <p>{{ $t("SELECT_INTRO_P2") }}</p>
@@ -68,12 +75,31 @@ const imgSuffix = computed(() => darkMode.value ? "dark" : "light");
   margin-top: 20px;
   text-align: center;
 
+  &-header {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    align-items: baseline;
+    margin-bottom: 30px;
+    @media screen and (max-width: $mobile) {
+      align-items: center;
+    }
+
+    &-img {
+      width: 80px;
+      @media screen and (max-width: $mobile) {
+        width: 50px;
+      }
+    }
+  }
+
   &-title {
     font-size: 4rem;
     font-weight: 800;
     color: var(--text-intense);
+    margin-bottom: 0;
     @media screen and (max-width: $mobile) {
-      font-size: 2.5rem;
+      font-size: 2.25rem;
       margin-top: 20px;
     }
   }

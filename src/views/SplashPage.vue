@@ -4,9 +4,15 @@
       <NonMusicalControls />
     </div>
     <div class="main-items">
-      <h1 class="main-items-title">Whistle Buddy</h1>
+      <div class="main-items-header">
+        <h1 class="main-items-title">Whistle Buddy</h1>
+        <p class="main-items-subtitle">{{ $t("SPLASH_SUBTITLE") }}</p>
+      </div>
       <RouterLink :to="{ name: 'select' }">
-        <button class="start-btn">{{ $t('SPLASH_START') }}</button>
+        <button class="start-btn">
+          <img v-imgpreload="`${baseUrl}img/flann-greet.png`" alt="Happy mascot">
+          {{ $t('SPLASH_START') }}
+        </button>
       </RouterLink>
     </div>
   </main>
@@ -19,6 +25,8 @@ import { storeToRefs } from 'pinia';
 
 const darkModeStore = useDarkModeStore();
 const { darkMode } = storeToRefs(darkModeStore);
+
+const baseUrl = import.meta.env.BASE_URL;
 </script>
 
 <style lang="scss" scoped>
@@ -53,6 +61,11 @@ const { darkMode } = storeToRefs(darkModeStore);
     justify-content: space-between;
     align-items: center;
 
+    &-header {
+      text-align: center;
+      margin: 20px 10px;
+    }
+
     &-title {
       font-size: 6.25rem;
       line-height: 100%;
@@ -63,11 +76,26 @@ const { darkMode } = storeToRefs(darkModeStore);
         var(--accent-contraster) 0 0 20px;
     }
 
+    &-subtitle {
+      font-size: 1.5rem;
+      font-weight: 500;
+      letter-spacing: .5px;
+      text-shadow:
+        var(--accent-contraster) 0 0 5px,
+        var(--accent-contraster) 0 0 10px,
+        var(--accent-contraster) 0 0 15px,
+        var(--accent-contraster) 0 0 20px,
+        var(--accent-contraster) 0 0 25px;
+    }
+
     a {
       border: none;
     }
 
     .start-btn {
+      display: flex;
+      gap: 15px;
+      align-items: center;
       font-family: inherit;
       font-size: 1.5rem;
       font-weight: 700;
@@ -83,6 +111,10 @@ const { darkMode } = storeToRefs(darkModeStore);
 
       &:hover {
         box-shadow: #fff 0 2px 20px 5px;
+      }
+
+      & img {
+        width: 50px;
       }
     }
   }
@@ -107,7 +139,9 @@ const { darkMode } = storeToRefs(darkModeStore);
       &-title {
         font-size: 3rem;
         text-align: center;
-        margin: 20px 10px;
+      }
+      &-subtitle {
+        font-size: 1.125rem;
       }
     }
     .start-btn {
