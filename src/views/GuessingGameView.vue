@@ -77,7 +77,8 @@ const note = ref<ICard>({
   fingerings: [
     { id: 1, posInScale: 1, holes: [2, 2, 1, 0, 0, 0], type: "halfhole", octaves: [1, 2] }
   ],
-  octave: 1
+  octave: 1,
+  soundUrl: "7_f#_gb_1.mp3"
 });
 
 const cards = ref<ICard[]>([
