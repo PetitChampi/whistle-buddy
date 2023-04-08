@@ -1,8 +1,8 @@
 import { test, expect } from "vitest";
-import { useSounds } from "@/composables/useSounds";
+import { getSoundUrl } from "@/composables/getSoundUrl";
 import type { IFingering, IKey, Octave } from "@/types/MusicalDataTypes";
 
-test("useSounds returns the correct sound URL", () => {
+test("getSoundUrl returns the correct sound URL", () => {
   const mockSounds = [
     "sound_0.mp3",
     "sound_1.mp3",
@@ -23,7 +23,7 @@ test("useSounds returns the correct sound URL", () => {
   const oct: Octave = 1;
 
   const expectedSoundUrl = "sound_3.mp3";
-  const result = useSounds(mockSounds, currKey, fing, oct);
+  const result = getSoundUrl(mockSounds, currKey, fing, oct);
 
   expect(result).toBe(expectedSoundUrl);
 });

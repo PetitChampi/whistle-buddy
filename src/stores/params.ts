@@ -4,7 +4,7 @@ import { useLocalStorage } from "@vueuse/core";
 import type { IGenParams, IFingTableParams, IGuessGameParams, IMixMatchParams } from "@/types/ParamTypes";
 import type { IFingering, INote, ICard, Octave } from "@/types/MusicalDataTypes";
 import { useMusicalDataStore } from "@/stores/musicalData";
-import { useSounds } from "@/composables/useSounds";
+import { getSoundUrl } from "@/composables/getSoundUrl";
 import { soundsManifest } from "@/sounds-manifest";
 
 export const useParamsStore = defineStore("params", () => {
@@ -76,7 +76,7 @@ export const useParamsStore = defineStore("params", () => {
         name: noteName,
         fingerings: [ fing ],
         octave: oct,
-        soundUrl: useSounds(currentSounds.value, currKey, fing, oct)
+        soundUrl: getSoundUrl(currentSounds.value, currKey, fing, oct)
       }));
     });
 
@@ -123,7 +123,7 @@ export const useParamsStore = defineStore("params", () => {
           name: note.names.length > 1 ? note.names[alterationIndex] : note.names[0],
           fingerings: fingSet,
           octave: uniqueOctaves[index],
-          soundUrl: useSounds(currentSounds.value, currKey, fingSet[0], uniqueOctaves[index])
+          soundUrl: getSoundUrl(currentSounds.value, currKey, fingSet[0], uniqueOctaves[index])
         }
       });
     }).flat();

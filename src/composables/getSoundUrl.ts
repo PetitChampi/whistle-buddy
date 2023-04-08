@@ -1,6 +1,6 @@
 import type { IFingering, IKey, Octave } from "@/types/MusicalDataTypes";
 
-export function useSounds(
+export function getSoundUrl(
   sounds: string[], currKey: IKey, fing: IFingering, oct: Octave
 ): string {
   return sounds[
