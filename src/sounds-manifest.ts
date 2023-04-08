@@ -1,5 +1,5 @@
-{
-  "low": [
+export const soundsManifest: { low: string[], tin: string[] } = {
+  low: [
     "1_c_1.mp3",
     "2_c#_db_1.mp3",
     "3_d_1.mp3",
@@ -36,7 +36,7 @@
     "34_a_3.mp3",
     "35_a#_bb_3.mp3"
   ],
-  "tin": [
+  tin: [
     "1_c_1.mp3",
     "2_c#_db_1.mp3",
     "3_d_1.mp3",
@@ -73,4 +73,4 @@
     "34_a_3.mp3",
     "35_a#_bb_3.mp3"
   ]
-}
+};

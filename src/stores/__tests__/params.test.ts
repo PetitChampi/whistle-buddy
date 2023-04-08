@@ -72,28 +72,28 @@ describe("Store: params", () => {
         name: { en: "c", fr: "do" },
         fingerings: [ paramsStore.generalParams.selectedFingerings[0] ],
         octave: 1,
-        soundUrl: "./sounds/low/1_c_1.mp3"
+        soundUrl: "1_c_1.mp3"
       },
       {
         id: 3,
         name: { en: "c#", fr: "do#" },
         fingerings: [ paramsStore.generalParams.selectedFingerings[2] ],
         octave: 1,
-        soundUrl: "./sounds/low/2_c#_db_1.mp3"
+        soundUrl: "2_c#_db_1.mp3"
       },
       {
         id: 2,
         name: { en: "c", fr: "do" },
         fingerings: [ paramsStore.generalParams.selectedFingerings[1] ],
         octave: 2,
-        soundUrl: "./sounds/low/13_c_2.mp3"
+        soundUrl: "13_c_2.mp3"
       },
       {
         id: 4,
         name: { en: "c#", fr: "do#" },
         fingerings: [ paramsStore.generalParams.selectedFingerings[2] ],
         octave: 2,
-        soundUrl: "./sounds/low/14_c#_db_2.mp3"
+        soundUrl: "14_c#_db_2.mp3"
       },
     ];
 
@@ -120,7 +120,7 @@ describe("Store: params", () => {
         name: { en: "c", fr: "do" },
         fingerings: [ paramsStore.generalParams.selectedFingerings[0] ],
         octave: 1,
-        soundUrl: "./sounds/low/1_c_1.mp3"
+        soundUrl: "1_c_1.mp3"
       },
       {
         id: 2,
@@ -130,14 +130,14 @@ describe("Store: params", () => {
           paramsStore.generalParams.selectedFingerings[2]
         ],
         octave: 1,
-        soundUrl: "./sounds/low/11_a#_bb_1.mp3"
+        soundUrl: "11_a#_bb_1.mp3"
       },
       {
         id: 3,
         name: { en: "a#", fr: "la#" },
         fingerings: [ paramsStore.generalParams.selectedFingerings[1] ],
         octave: 2,
-        soundUrl: "./sounds/low/23_a#_bb_2.mp3"
+        soundUrl: "23_a#_bb_2.mp3"
       },
     ];
     expect(paramsStore.currentCardsPerNote).toEqual(expectedCardsPerNote);
