@@ -4,6 +4,9 @@ import { useLocalStorage } from "@vueuse/core";
 import type { IGenParams, IFingTableParams, IGuessGameParams, IMixMatchParams } from "@/types/ParamTypes";
 import type { IFingering, INote, ICard, Octave } from "@/types/MusicalDataTypes";
 import { useMusicalDataStore } from "@/stores/musicalData";
+import { loadSounds, getSoundUrl } from "@/composables/useSounds";
+
+const { lowSounds, tinSounds } = await loadSounds();
 
 export const useParamsStore = defineStore("params", () => {
   // Data from musical data store
@@ -54,6 +57,10 @@ export const useParamsStore = defineStore("params", () => {
 
     return [...firstHalf, ...secondHalf];
   });
+
+  const currentSounds = computed<string[]>(() => {
+    return generalParams.value.instrument === "low" ? lowSounds : tinSounds;
+  });
   
   const currentCardsPerFings = computed<ICard[]>(() => {
     const selectedFings = generalParams.value.selectedFingerings;
@@ -63,11 +70,14 @@ export const useParamsStore = defineStore("params", () => {
 
     const noHomo = selectedFings.flatMap((fing: IFingering) => {
       const note = currentScale.value[fing.posInScale - 1];
+      const noteName = note.names.length > 1 ? note.names[alterationIndex] : note.names[0];
+
       return fing.octaves.map((oct: Octave) => ({
         id: ++i,
-        name: note.names.length > 1 ? note.names[alterationIndex] : note.names[0],
+        name: noteName,
         fingerings: [ fing ],
-        octave: oct
+        octave: oct,
+        soundUrl: getSoundUrl(currentSounds.value, currKey, fing, oct)
       }));
     });
 
@@ -113,7 +123,8 @@ export const useParamsStore = defineStore("params", () => {
           id: ++i,
           name: note.names.length > 1 ? note.names[alterationIndex] : note.names[0],
           fingerings: fingSet,
-          octave: uniqueOctaves[index]
+          octave: uniqueOctaves[index],
+          soundUrl: getSoundUrl(currentSounds.value, currKey, fingSet[0], uniqueOctaves[index])
         }
       });
     }).flat();

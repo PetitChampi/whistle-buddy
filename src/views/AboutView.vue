@@ -2,9 +2,7 @@
   <div class="about">
     <h1 class="about-title">{{ $t('GEN_ABOUT_US') }}</h1>
     <div class="about-text">
-      <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis about us enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis mollit non deserunt ullamco. Velit officia consequat duis about us enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis mollit non deserunt ullamco</p>
-      <p>Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis mollit non deserunt ullamco. Velit officia consequat duis about us enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis mollit non deserunt ullamco</p>
-      <p>Velit officia consequat duis about us enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis mollit non deserunt ullamco. Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Consequat duis mollit non deserunt ullamco. Velit officia consequat duis about us enim velit mollit.</p>
+      <p>Hang tight, this page is under development...</p>
     </div>
     <div class="about-image">
       <img

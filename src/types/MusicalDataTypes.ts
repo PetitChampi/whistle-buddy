@@ -10,7 +10,8 @@ interface ICard {
   id: number,
   name: INoteName,
   fingerings: IFingering[],
-  octave: Octave
+  octave: Octave,
+  soundUrl: string
 }
 interface IGaugeValues {
   unit: string,

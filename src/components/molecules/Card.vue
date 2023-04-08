@@ -118,8 +118,10 @@ function handleCardClick(card: ICard) {
 }
 
 function playSound() {
-  // todo replace with actual sound
-  console.log(`${props.note.name.en} played`);
+  let sound = new Audio(
+    `./sounds/${generalParams.value.instrument}/${encodeURIComponent(props.note.soundUrl)}`
+  );
+  sound.play();
 }
 
 watch(() => props.selected, (newVal) => isSelected.value = newVal);
