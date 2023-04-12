@@ -9,7 +9,6 @@ This app was created to help beginner Irish Whistle players kickstart their lear
 ## Table of Contents
 - [Live app](#live-app)
 - [Architecture](#architecture)
-  - [Component Hierarchy Diagram](#component-hierarchy-diagram)
   - [User Flow Diagram](#user-flow-diagram)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
