@@ -1,46 +1,123 @@
-# whistle-buddy
+# Whistle Buddy
 
-This template should help get you started developing with Vue 3 in Vite.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![Vue.js Version](https://img.shields.io/badge/vue.js-3.x-brightgreen.svg)
 
-## Recommended IDE Setup
+This app was created to help beginner Irish Whistle players kickstart their learning with 3 interactive tools centred around memorising the fingerings, which is the first step towards playing all of your favourite tunes.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+![Project Screenshot](./public/wb-screenshot.png)
 
-## Type Support for `.vue` Imports in TS
+## Table of Contents
+- [Live app](#live-app)
+- [Architecture](#architecture)
+  - [Component Hierarchy Diagram](#component-hierarchy-diagram)
+  - [User Flow Diagram](#user-flow-diagram)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Live app
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+You can find the Whistle Buddy app here:
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+- [Live App](http://whistle-buddy.com)
 
-## Customize configuration
+## Architecture
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+### User Flow Diagram
+```mermaid
+graph LR
+home[Landing page]
+sel[Selection screen]
+fingt[Fingering table]
+gues[Guessing game]
+mixm[Matching pairs]
+res[Results screen<br>&#40specific to game&#41]
+doc([User guide])
 
-## Project Setup
+home-->sel
+sel-.->doc
+sel-->fingt
+sel-->gues
+sel-->mixm
+gues-->res
+mixm-->res
+res-->gues
+res-->mixm
+res-->fingt
 
-```sh
-npm install
+style doc stroke:#e28743,fill:#e2874322
 ```
 
-### Compile and Hot-Reload for Development
+## Features
 
-```sh
-npm run dev
-```
+- Interactive card table with playable notes, flashcard mode, granular fingering selection and more
+- Multiple choice quiz game
+- Matching pairs card game
+- Dark mode for late night studying sessions
+- Progressive Web App: you can install this app directly on your computer or phone!
 
-### Type-Check, Compile and Minify for Production
+## Technologies Used
 
-```sh
-npm run build
-```
+- [Vue.js](https://vuejs.org/) - JavaScript framework
+- [Vite](https://vitejs.dev/) - Module bundler / Build tool
+- [TypeScript](https://www.typescriptlang.org/) - Programming language
+- [Vue Router](https://router.vuejs.org/) - Routing library
+- [Pinia](https://pinia.vuejs.org/) - State management library
+- [Vitest](https://vitest.dev/) - Testing framework
+- [Vue i18n](https://kazupon.github.io/vue-i18n/) - Internationalisation plugin
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+## Getting Started
 
-```sh
-npm run test:unit
-```
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) v16.0+ and NPM v8.0+
+
+### Installation
+
+1. Clone the repository
+`git clone https://github.com/petitchampi/whistle-buddy.git`
+2. Change to the project directory
+`cd whistle-buddy`
+3. Install dependencies
+`npm install`
+4. Start the development server
+`npm run dev`
+5. Access the application at `http://127.0.0.1:5173/`
+
+## Usage
+
+Once you've opened the app, our mascot will welcome you and explain how to get around!
+<br>
+<img src="./public/pwa-192x192.png" width="50">
+
+## Testing
+
+For unit and component tests, run `npm run test:unit`
+
+## Contributing
+
+This project is open-source, which means you can submit your own code suggestions. Here's how to do it:
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a pull request
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any questions, bug reports or suggestions:  
+Esther Bauzou (Developer and designer) - esther@whistle-buddy.com
+
+Project Link: https://github.com/petitchampi/whistle-buddy
