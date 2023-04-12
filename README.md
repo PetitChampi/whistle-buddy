@@ -23,7 +23,7 @@ This app was created to help beginner Irish Whistle players kickstart their lear
 
 ## Live app
 
-You can find the Whistle Buddy app here:
+You can find the Whistle Buddy app here (still in Alpha):
 
 - [Live App](http://whistle-buddy.com)
 
