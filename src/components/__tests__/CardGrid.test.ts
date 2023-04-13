@@ -41,37 +41,23 @@ const cards: ICard[] = [
 ];
 
 describe("CardGrid.vue", () => {
+  const pinia = createPinia();
+  const paramsStore = useParamsStore(pinia);
+
+  const wrapper = shallowMount(CardGrid, {
+    global: { plugins: [pinia] },
+    props: {
+      cards,
+      pagination: true,
+    },
+  });
+
   test("renders grid and pagination correctly", () => {
-    const pinia = createPinia();
-    useParamsStore(pinia);
-  
-    const wrapper = shallowMount(CardGrid, {
-      global: {
-        plugins: [pinia],
-      },
-      props: {
-        cards,
-        pagination: true,
-      },
-    });
-  
     expect(wrapper.find(".grid").exists()).toBe(true);
     expect(wrapper.find(".pagination").exists()).toBe(true);
   });
   
   test("pagination controls work correctly", async () => {
-    const pinia = createPinia();
-    const paramsStore = useParamsStore(pinia);
-  
-    const wrapper = shallowMount(CardGrid, {
-      global: {
-        plugins: [pinia],
-      },
-      props: {
-        cards,
-        pagination: true,
-      },
-    });
     const vm = wrapper.vm as CustomCpnInstance;
   
     paramsStore.fingTableParams.cardsPerPage = 1;

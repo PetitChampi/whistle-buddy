@@ -40,15 +40,11 @@ const cards: ICard[] = [
 ];
 
 describe("ChoiceGrid.vue", () => {
-  let wrapper: VueWrapper;
-
   const defaultProps = { cards };
-
-  beforeEach(() => {
-    wrapper = shallowMount(ChoiceGrid, {
-      props: defaultProps,
-    });
+  const wrapper: VueWrapper = shallowMount(ChoiceGrid, {
+    props: defaultProps,
   });
+  const vm = wrapper.vm as CustomCpnInstance;
 
   test("renders correct number of Card components", () => {
     const cardComponents = wrapper.findAllComponents(Card);
@@ -69,7 +65,6 @@ describe("ChoiceGrid.vue", () => {
     const cardComponents = wrapper.findAllComponents(Card);
     const firstCard = cardComponents[0];
     const firstCardId = firstCard.props("note").id;
-    const vm = wrapper.vm as CustomCpnInstance;
 
     await firstCard.vm.$emit("@cardClicked", firstCard.props("note"));
 

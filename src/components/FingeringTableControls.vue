@@ -122,7 +122,7 @@ import ListDropdown from "@/components/molecules/ListDropdown.vue";
 import TextSwitch from "@/components/molecules/TextSwitch.vue";
 import SettingsGroup from "@/components/SettingsGroup.vue";
 import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
-import { ref, reactive, computed, onBeforeMount, watch } from "vue";
+import { ref, reactive, computed, watch } from "vue";
 import type { IFingering, IOption } from "@/types/MusicalDataTypes";
 import { useI18n } from "vue-i18n";
 import { useParamsStore } from "@/stores/params";
