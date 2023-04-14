@@ -33,6 +33,10 @@ const baseUrl = import.meta.env.BASE_URL;
 @import "@/assets/variables.scss";
 
 .main {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
   height: 100vh;
   display: flex;
   flex-direction: column;

@@ -1,16 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Navigation from '@/components/Navigation.vue'
 import Footer from '@/components/Footer.vue'
+import { useTransitionStore } from "@/stores/transition";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior() {
-    // scroll to top on route change
+    const transitionStore = useTransitionStore();
+    const delay = transitionStore.transitionDelay;
 
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve({ top: 0 })
-      }, 300)
+        resolve({ top: 0 });
+        transitionStore.transitionDelay = 0;
+      }, delay)
     });
     // return { top: 0 };
   },

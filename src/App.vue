@@ -4,7 +4,7 @@
     <RouterView name="Navigation" />
     <div class="container">
       <RouterView name="MainContent" v-slot="{ Component }">
-        <Transition name="fade" mode="out-in">
+        <Transition name="fade" mode="out-in" @beforeLeave="transitionStore.transitionDelay = 300">
           <Component :is="Component" />
         </Transition>
       </RouterView>
@@ -16,9 +16,11 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import { useDarkModeStore } from "@/stores/darkMode";
-import { storeToRefs } from 'pinia';
+import { useTransitionStore } from "@/stores/transition";
+import { storeToRefs } from "pinia";
 
 const darkModeStore = useDarkModeStore();
+const transitionStore = useTransitionStore();
 const { darkMode } = storeToRefs(darkModeStore);
 </script>
 
