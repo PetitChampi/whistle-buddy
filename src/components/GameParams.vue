@@ -1,6 +1,16 @@
 <template>
   <div class="game-settings">
-    <h1 class="page-title">{{ $t("G_PARAMS_HEADING") }}</h1>
+    <h1 class="page-title">
+      {{ gameType === 'guessing' ? $t("GEN_GUESSING_GAME") : $t("GEN_MIX_OR_MATCH") }}
+    </h1>
+    <div class="mascot-tip">
+      <img v-imgpreload="`${baseUrl}img/flann-greet.png`" alt="Greeting mascot">
+      <div class="mascot-tip-bubble">
+        {{ gameType === 'guessing' ? $t('G_GUESS_INTRO') : $t('G_MIXM_INTRO') }}
+      </div>
+    </div>
+
+    <h2 class="game-settings-title">{{ $t("G_PARAMS_HEADING") }}</h2>
     <div class="settings-items">
       <SettingsGroup :title="$t('G_PARAMS_TITLE_KEY')" large>
         <template v-slot:content>
@@ -166,6 +176,8 @@ const props = defineProps<{
   gameType: string
 }>();
 
+const baseUrl = import.meta.env.BASE_URL;
+
 const paramsStore = useParamsStore();
 const musicalDataStore = useMusicalDataStore();
 const { generalParams, guessGameParams, mixMatchParams } = storeToRefs(paramsStore);
@@ -216,6 +228,37 @@ watch(() => selectedFingStrings.value, (newFings) => {
     margin-top: 30px;
   }
 
+  &-title {
+    font-size: 2.25rem;
+    border-bottom: 2px solid var(--text-standard-half-transparent);
+    margin: 50px 0 30px;
+  }
+  .mascot-tip {
+    display: flex;
+    gap: 25px;
+    margin-top: 50px;
+
+    img {
+      width: 60px;
+      object-fit: contain;
+      object-position: top;
+    }
+    &-bubble {
+      background-color: var(--faint);
+      border-radius: 10px;
+      padding: 10px 20px 12px;
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        border-width: 7px 15px;
+        border-style: solid;
+        right: 100%;
+        top: 20px;
+        border-color: transparent var(--faint) transparent transparent;
+      }
+    }
+  }
   .settings-items {
     display: flex;
     flex-direction: column;

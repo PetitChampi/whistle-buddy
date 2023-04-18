@@ -56,6 +56,7 @@
   "G_PARAMS_TITLE_NB_PAIRS": "Nombre de paires",
   "G_PARAMS_TITLE_TIMER": "Chronomètre",
 
+  "G_GUESS_INTRO": "Pour une note donnée, sélectionne le bon doigté, et vice-versa. Obtiendras-tu le score parfait?",
   "G_GUESS_HEADING_NTOF": "Sélectionne le doigté pour cette note",
   "G_GUESS_HEADING_FTON": "Sélectionne la note pour ce doigté",
   "G_GUESS_SUBHEADING": "En tonalité de {key}",
@@ -69,6 +70,7 @@
   "G_GUESS_FINISH_BACK_SET": "Retour aux paramètres",
   "G_GUESS_FINISH_REPLAY": "Rejouer cette partie",
 
+  "G_MIXM_INTRO": "Petite variation d'un grand classique du jeu de cartes. Couple les notes avec leurs doigtés. Active le chronomètre pour pimenter le défi!",
   "G_MIXM_INSTRUCTION": "Trouve les paires!",
   "G_MIXM_PAUSED": "Jeu en pause",
   "G_MIXM_PAUSE_GAME": "Mettre en pause",

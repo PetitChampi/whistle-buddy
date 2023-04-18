@@ -56,6 +56,7 @@
   "G_PARAMS_TITLE_NB_PAIRS": "Number of pairs",
   "G_PARAMS_TITLE_TIMER": "Timer",
 
+  "G_GUESS_INTRO": "A fun multiple choice game. You're presented with a fingering, and you have to select the corresponding note, or vice-versa. Can you get a perfect score?",
   "G_GUESS_HEADING_NTOF": "Select the fingering for this note",
   "G_GUESS_HEADING_FTON": "Select the note for this fingering",
   "G_GUESS_SUBHEADING": "In the key of {key}",
@@ -69,6 +70,7 @@
   "G_GUESS_FINISH_BACK_SET": "Back to game settings",
   "G_GUESS_FINISH_REPLAY": "Replay this round",
 
+  "G_MIXM_INTRO": "The classic pair-matching card game, with a little twist. Match the notes with their fingering. Set a timer for an extra challenge!",
   "G_MIXM_INSTRUCTION": "Find the pairs!",
   "G_MIXM_PAUSED": "Game paused",
   "G_MIXM_PAUSE_GAME": "Pause game",
