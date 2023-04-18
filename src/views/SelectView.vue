@@ -1,4 +1,6 @@
 <template>
+<div>
+<!-- Parent div wrapper for eventual transitions -->
   <div class="controls-bar">
     <NonMusicalControls />
   </div>
@@ -44,6 +46,7 @@
       </div>
     </div>
   </main>
+</div>
 </template>
 
 <script setup lang="ts">

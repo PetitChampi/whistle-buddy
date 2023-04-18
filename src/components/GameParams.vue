@@ -75,6 +75,7 @@
         :title="$t('GEN_SELECTED_FINGS')"
         large
         accordion
+        :badgeText="generalParams.selectedFingerings.length.toString()"
       >
         <template v-slot:content>
           <div class="settings-item-content">

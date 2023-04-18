@@ -8,6 +8,9 @@
       >
         <h2 class="group-header-text-title">
           {{ title }}
+          <div class="group-header-badge" v-if="props.badgeText">
+            {{ props.badgeText }}
+          </div>
           <div
             v-if="props.accordion"
             class="group-header-icon"
@@ -47,6 +50,7 @@ export interface IProps {
   subtitle?: string,
   accordion?: boolean,
   openByDefault?: boolean,
+  badgeText?: string,
   hasCheckbox?: boolean,
   checkboxLabel?: string,
   checkboxModelValue?: string[] | boolean,
@@ -118,6 +122,18 @@ onMounted(() => {
         font-size: .875rem;
         line-height: 140%;
       }
+    }
+
+    &-badge {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      background-color: var(--text-standard-half-transparent);
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 50%;
     }
 
     &-checkbox {
