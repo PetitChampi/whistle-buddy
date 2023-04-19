@@ -10,18 +10,27 @@
     <div class="game">
       <div class="game-action">
         <h1 class="game-action-title">{{ $t("G_MIXM_INSTRUCTION") }}</h1>
-        <div class="game-action-controls">
+        <div class="game-action-controls" v-if="mixMatchParams.timer">
           <IconButton
             :icon="gamePaused ? 'play' : 'pause'"
             @click="togglePause"
             v-tooltip="{ text: tooltipText }"
           />
-          <Timer />
+          <Timer
+            :maxValue="mixMatchParams.timerValues.current * 60"
+            :minValue="0"
+            :value="timeCount"
+          />
         </div>
       </div>
 
       <div class="game-grid">
-        <MixMatchGrid :cards="cards" class="cards" :class="{ 'paused-cards': gamePaused }" />
+        <MixMatchGrid
+          :cards="cards"
+          class="cards"
+          :class="{ 'paused-cards': gamePaused }"
+          @@allGuessed="finishGame(true)"
+        />
         <div v-if="gamePaused" class="pause">
           <p class="pause-title">{{ $t("G_MIXM_PAUSED") }}</p>
           <p class="pause-link" @click="togglePause">{{ $t("G_MIXM_RESUME") }}<span class="icon-play"></span></p>
@@ -70,6 +79,9 @@ import { useI18n } from "vue-i18n";
 import { useParamsStore } from "@/stores/params";
 import { storeToRefs } from "pinia";
 
+const params = useParamsStore();
+const { currentCardsPerFings, mixMatchParams } = storeToRefs(params);
+
 const { t } = useI18n({ useScope: "global" });
 
 const baseUrl = import.meta.env.BASE_URL;
@@ -77,39 +89,56 @@ const baseUrl = import.meta.env.BASE_URL;
 const gameStarted = ref<boolean>(false);
 const gamePaused = ref<boolean>(false);
 const gameFinished = ref<boolean>(false);
-
 const showOverlay = ref<boolean>(false);
 const victory = ref<boolean>(false);
+
+let counter: number;
+const timeCount = ref(mixMatchParams.value.timerValues.current * 60);
 
 const tooltipText = computed<string>(() => {
   return gamePaused.value ? t('G_MIXM_RESUME') : t('G_MIXM_PAUSE_GAME');
 });
 
 const cards = computed<ICard[]>(() => {
-  const params = useParamsStore();
-  const { currentCardsPerFings, mixMatchParams } = storeToRefs(params);
   return currentCardsPerFings.value.slice(0, mixMatchParams.value.nbOfPairs.current);
 });
 
 function startGame() {
   window.scrollTo(0, 0);
+  gameFinished.value = false;
+  victory.value = false;
   gameStarted.value = true;
   showOverlay.value = true;
   setTimeout(() => {
     showOverlay.value = false;
+    if (mixMatchParams.value.timer) counter = setInterval(tickTimer, 1000);
   }, 2000)
+}
+
+function tickTimer() {
+  timeCount.value = timeCount.value - 1;
+  if (timeCount.value <= 0) {
+    clearInterval(counter);
+    finishGame(false);
+    return;
+  }
 }
 
 function togglePause() {
   gamePaused.value = !gamePaused.value;
 }
 
+function finishGame(hasWon: boolean) {
+  if (hasWon) victory.value = true;
+  gameFinished.value = true;
+}
 function backToSettings() {
   gameStarted.value = false;
   gameFinished.value = false;
 }
 function replay() {
   gameStarted.value = true;
+  victory.value = false;
   gameFinished.value = false;
 }
 </script>

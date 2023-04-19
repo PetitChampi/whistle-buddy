@@ -53,7 +53,7 @@
   "G_PARAMS_VTG_NOTE": "Guess the note",
   "G_PARAMS_VTG_FING": "Guess the fingering",
   "G_PARAMS_TITLE_NB_CHOICES": "Number of choices",
-  "G_PARAMS_TITLE_NB_PAIRS": "Number of pairs",
+  "G_PARAMS_TITLE_NB_PAIRS": "Max number of pairs",
   "G_PARAMS_TITLE_TIMER": "Timer",
 
   "G_GUESS_INTRO": "A fun multiple choice game. You're presented with a fingering, and you have to select the corresponding note, or vice-versa. Can you get a perfect score?",

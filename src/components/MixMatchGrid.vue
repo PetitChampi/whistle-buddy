@@ -6,7 +6,7 @@
       :note="card.cardData"
       fixedHeight
       :flashcard="!guessedPairs.includes(card)"
-      :flipped="guessedPairs.includes(card)"
+      :flipped="card.isFlipped"
       :success="guessedPairs.includes(card)"
       class="grid-item"
       :noteOnly="card.cardType === 'note'"
@@ -26,22 +26,25 @@ const props = defineProps<{
   cards: ICard[],
 }>();
 
+const emit = defineEmits(["@allGuessed"]);
+
 const selectedCard = ref<IPairItem | null>(null);
 const guessedPairs = ref<IPairItem[]>([]);
 
 interface IPairItem {
   uid: number,
   cardType: string,
+  isFlipped: boolean,
   cardData: ICard
 }
 const pairs = computed<IPairItem[]>(() => {
   let i = 0;
 
   const fingerings = props.cards.map(card => {
-    return { uid: ++i, cardType: "fing", cardData: {...card} }
+    return { uid: ++i, cardType: "fing", isFlipped: false, cardData: {...card} }
   });
   const notes = props.cards.map(card => {
-    return { uid: ++i, cardType: "note", cardData: {...card} }
+    return { uid: ++i, cardType: "note", isFlipped: false, cardData: {...card} }
   });
 
   const dedoubledCards = [...fingerings, ...notes];
@@ -55,6 +58,7 @@ function selectCard(card: IPairItem) {
   else if (selectedCard.value.cardData.id === card.cardData.id) {
     guessedPairs.value.push(selectedCard.value, card);
     selectedCard.value = null;
+    if (guessedPairs.value.length === pairs.value.length) emit("@allGuessed");
   } else {
     // TODO reflip both cards
     selectedCard.value = null;
