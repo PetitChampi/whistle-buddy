@@ -92,7 +92,7 @@ const gameFinished = ref<boolean>(false);
 const showOverlay = ref<boolean>(false);
 const victory = ref<boolean>(false);
 
-let counter: number;
+let counter: ReturnType<typeof setInterval>;
 const timeCount = ref(mixMatchParams.value.timerValues.current * 60);
 
 const tooltipText = computed<string>(() => {
