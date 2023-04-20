@@ -75,15 +75,6 @@ const router = createRouter({
         MainContent: () => import('@/views/AboutView.vue'),
         Footer
       }
-    },
-    {
-      path: '/instructions',
-      name: 'instructions',
-      components: {
-        Navigation,
-        MainContent: () => import('@/views/InstructionsView.vue'),
-        Footer
-      }
     }
   ]
 })

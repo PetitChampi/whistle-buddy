@@ -7,7 +7,6 @@
     </div>
     <div class="footer-credits">
       <div class="footer-credits-links">
-        <RouterLink :to="{ name: 'instructions' }">{{ $t("GEN_INSTRUCTIONS") }}</RouterLink>
         <RouterLink :to="{ name: 'about' }">{{ $t("GEN_ABOUT_US") }}</RouterLink>
       </div>
       <p class="footer-credits-item">

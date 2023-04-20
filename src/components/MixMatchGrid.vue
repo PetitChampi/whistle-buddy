@@ -57,6 +57,7 @@ function getPairs(cards: ICard[]): IPairItem[] {
 }
 
 function selectCard(card: IPairItem) {
+  if (guessedPairs.value.includes(card)) return;
   if (!selectedCard.value) selectedCard.value = card;
   else if (selectedCard.value.uid === card.uid) selectedCard.value = null;
   else if (selectedCard.value.cardData.id === card.cardData.id) {

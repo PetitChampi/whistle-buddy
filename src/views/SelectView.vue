@@ -18,9 +18,7 @@
         <p>{{ $t("SELECT_INTRO_P1") }}</p>
         <p>{{ $t("SELECT_INTRO_P2") }}</p>
         <br>
-        <span>{{ $t("SELECT_INTRO_P3L1") }}</span>
-        <RouterLink :to="{ name: 'instructions' }">{{ $t("SELECT_INTRO_INSTR") }}</RouterLink>
-        <span>{{ $t("SELECT_INTRO_P3L2") }}</span>
+        <span>{{ $t("SELECT_INTRO_P3") }}</span>
         <br><br>
         <p>{{ $t("SELECT_INTRO_P4") }}</p>
       </div>
