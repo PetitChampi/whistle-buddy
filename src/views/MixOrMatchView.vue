@@ -19,7 +19,7 @@
           <Timer
             :maxValue="mixMatchParams.timerValues.current * 60"
             :minValue="0"
-            :value="timeCount"
+            :value="timeRemaining"
           />
         </div>
       </div>
@@ -38,31 +38,37 @@
       </div>
     </div>
 
-    <div class="popup" v-if="gameFinished">
-      <div class="popup-content">
-        <div v-if="victory">
-          <h1 class="popup-title">{{ $t("G_MIXM_VICTORY") }}</h1>
-        <p class="popup-subtitle" v-if="victory">{{ $t("G_MIXM_VIC_TIME", {min: 3, sec: 25}) }}</p>
-        </div>
-        <div v-else>
-          <h1 class="popup-title">{{ $t("G_MIXM_LOSE") }}</h1>
-          <p class="popup-subtitle">{{ $t("G_MIXM_LOSE_SUBTITLE") }}</p>
-        </div>
+    <Transition>
+      <div class="popup" v-if="gameFinished">
+        <div class="popup-content">
+          <div v-if="victory">
+            <h1 class="popup-title">{{ $t("G_MIXM_VICTORY") }}</h1>
+          <p class="popup-subtitle" v-if="victory">
+            {{ $t("G_MIXM_VIC_TIME", {
+              min: Math.floor(timeSpent / 60), sec: timeSpent - Math.floor(timeSpent / 60)
+            }) }}
+          </p>
+          </div>
+          <div v-else>
+            <h1 class="popup-title">{{ $t("G_MIXM_LOSE") }}</h1>
+            <p class="popup-subtitle">{{ $t("G_MIXM_LOSE_SUBTITLE") }}</p>
+          </div>
 
-        <img v-if="victory" v-imgpreload="`${baseUrl}img/flann-happy.png`" alt="Mascot">
-        <img v-else v-imgpreload="`${baseUrl}img/flann-think.png`" alt="Mascot">
+          <img v-if="victory" v-imgpreload="`${baseUrl}img/flann-happy.png`" alt="Mascot">
+          <img v-else v-imgpreload="`${baseUrl}img/flann-think.png`" alt="Mascot">
 
-        <div class="btn-container">
-          <CustomButton :btnText="$t('G_MIXM_FINISH_BACK_SET')" btnType="secondary" @click="backToSettings" />
-          <CustomButton :btnText="$t('G_MIXM_FINISH_REPLAY')" @click="replay" />
+          <div class="btn-container">
+            <CustomButton :btnText="$t('G_MIXM_FINISH_BACK_SET')" btnType="secondary" @click="backToSettings" />
+            <CustomButton :btnText="$t('G_MIXM_FINISH_REPLAY')" @click="replay" />
+          </div>
+          <span class="popup-link">
+            <RouterLink :to="{ name: 'fingeringTable' }">
+              {{ $t("G_FINISH_BACK_TAB") }}
+            </RouterLink>
+          </span>
         </div>
-        <span class="popup-link">
-          <RouterLink :to="{ name: 'fingeringTable' }">
-            {{ $t("G_FINISH_BACK_TAB") }}
-          </RouterLink>
-        </span>
       </div>
-    </div>
+    </Transition>
   </div>
 </div>
 </template>
@@ -93,15 +99,20 @@ const showOverlay = ref<boolean>(false);
 const victory = ref<boolean>(false);
 
 let counter: ReturnType<typeof setInterval>;
-const timeCount = ref(mixMatchParams.value.timerValues.current * 60);
+const timeRemaining = ref<number>(mixMatchParams.value.timerValues.current * 60);
+const timeSpent = computed<number>(() => {
+  return mixMatchParams.value.timerValues.current * 60 - timeRemaining.value
+});
 
 const tooltipText = computed<string>(() => {
   return gamePaused.value ? t('G_MIXM_RESUME') : t('G_MIXM_PAUSE_GAME');
 });
 
-const cards = computed<ICard[]>(() => {
+const cards = ref<ICard[]>(getCards());
+
+function getCards() {
   return currentCardsPerFings.value.slice(0, mixMatchParams.value.nbOfPairs.current);
-});
+}
 
 function startGame() {
   window.scrollTo(0, 0);
@@ -112,13 +123,12 @@ function startGame() {
   setTimeout(() => {
     showOverlay.value = false;
     if (mixMatchParams.value.timer) counter = setInterval(tickTimer, 1000);
-  }, 2000)
+  }, 1500);
 }
 
 function tickTimer() {
-  timeCount.value = timeCount.value - 1;
-  if (timeCount.value <= 0) {
-    clearInterval(counter);
+  timeRemaining.value = timeRemaining.value - 1;
+  if (timeRemaining.value <= 0) {
     finishGame(false);
     return;
   }
@@ -126,20 +136,22 @@ function tickTimer() {
 
 function togglePause() {
   gamePaused.value = !gamePaused.value;
+  gamePaused.value ? clearInterval(counter) : counter = setInterval(tickTimer, 1000);
 }
 
 function finishGame(hasWon: boolean) {
   if (hasWon) victory.value = true;
   gameFinished.value = true;
+  clearInterval(counter);
 }
 function backToSettings() {
   gameStarted.value = false;
   gameFinished.value = false;
 }
 function replay() {
-  gameStarted.value = true;
-  victory.value = false;
-  gameFinished.value = false;
+  cards.value = getCards();
+  timeRemaining.value = mixMatchParams.value.timerValues.current * 60;
+  startGame();
 }
 </script>
 

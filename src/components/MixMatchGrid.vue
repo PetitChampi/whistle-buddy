@@ -4,9 +4,11 @@
       v-for="card in pairs"
       :key="card.uid"
       :note="card.cardData"
+      faceDown
       fixedHeight
       :flashcard="!guessedPairs.includes(card)"
       :flipped="card.isFlipped"
+      @@flip="card.isFlipped = $event"
       :success="guessedPairs.includes(card)"
       class="grid-item"
       :noteOnly="card.cardType === 'note'"
@@ -19,7 +21,7 @@
 <script setup lang="ts">
 import Card from "@/components/molecules/Card.vue";
 import type { ICard } from "@/types/MusicalDataTypes";
-import { computed } from "vue";
+import { watch } from "vue";
 import { ref } from "@vue/reactivity";
 
 const props = defineProps<{
@@ -37,20 +39,22 @@ interface IPairItem {
   isFlipped: boolean,
   cardData: ICard
 }
-const pairs = computed<IPairItem[]>(() => {
+const pairs = ref<IPairItem[]>(getPairs(props.cards));
+
+function getPairs(cards: ICard[]): IPairItem[] {
   let i = 0;
 
-  const fingerings = props.cards.map(card => {
+  const fingerings = cards.map(card => {
     return { uid: ++i, cardType: "fing", isFlipped: false, cardData: {...card} }
   });
-  const notes = props.cards.map(card => {
+  const notes = cards.map(card => {
     return { uid: ++i, cardType: "note", isFlipped: false, cardData: {...card} }
   });
 
   const dedoubledCards = [...fingerings, ...notes];
   // Rudimentary shuffling, not as good as the Fisher Yates algorithm but fits on one line so yah
   return dedoubledCards.sort((a, b) => 0.5 - Math.random());
-});
+}
 
 function selectCard(card: IPairItem) {
   if (!selectedCard.value) selectedCard.value = card;
@@ -58,12 +62,24 @@ function selectCard(card: IPairItem) {
   else if (selectedCard.value.cardData.id === card.cardData.id) {
     guessedPairs.value.push(selectedCard.value, card);
     selectedCard.value = null;
-    if (guessedPairs.value.length === pairs.value.length) emit("@allGuessed");
+    if (guessedPairs.value.length === pairs.value.length) {
+      emit("@allGuessed");
+      guessedPairs.value = [];
+    };
   } else {
-    // TODO reflip both cards
+    const currCard = pairs.value.find(card => card.uid === selectedCard.value?.uid) as IPairItem;
+    setTimeout(() => {
+      currCard.isFlipped = false;
+      card.isFlipped = false;
+    }, 400);
     selectedCard.value = null;
   }
 }
+
+watch(() => props.cards, (newCards) => {
+    pairs.value = getPairs(newCards);
+  }
+);
 </script>
 
 <style lang="scss" scoped>
