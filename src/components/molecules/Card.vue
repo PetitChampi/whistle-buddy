@@ -57,7 +57,7 @@
           </div>
           <p class="card-note-fr" v-if="generalParams.frNotation">{{ formattedNameFr }}</p>
         </div>
-        <div v-else>back of the card</div>
+        <div v-else class="filigrane">wb</div>
       </div>
     </div>
 
@@ -273,7 +273,11 @@ function playSound() {
     }
   }
 }
-
+.filigrane {
+  font-size: 3rem;
+  font-weight: 200;
+  color: var(--faint);
+}
 .flashcard {
   cursor: pointer;
 

@@ -43,11 +43,11 @@
         <div class="popup-content">
           <div v-if="victory">
             <h1 class="popup-title">{{ $t("G_MIXM_VICTORY") }}</h1>
-          <p class="popup-subtitle" v-if="victory">
-            {{ $t("G_MIXM_VIC_TIME", {
-              min: Math.floor(timeSpent / 60), sec: timeSpent - Math.floor(timeSpent / 60)
-            }) }}
-          </p>
+            <p class="popup-subtitle" v-if="mixMatchParams.timer">
+              {{ $t("G_MIXM_VIC_TIME", {
+                min: Math.floor(timeSpent / 60), sec: timeSpent - Math.floor(timeSpent / 60)
+              }) }}
+            </p>
           </div>
           <div v-else>
             <h1 class="popup-title">{{ $t("G_MIXM_LOSE") }}</h1>
@@ -59,7 +59,7 @@
 
           <div class="btn-container">
             <CustomButton :btnText="$t('G_MIXM_FINISH_BACK_SET')" btnType="secondary" @click="backToSettings" />
-            <CustomButton :btnText="$t('G_MIXM_FINISH_REPLAY')" @click="replay" />
+            <CustomButton :btnText="$t('G_MIXM_FINISH_REPLAY')" @click="startGame" />
           </div>
           <span class="popup-link">
             <RouterLink :to="{ name: 'fingeringTable' }">
@@ -99,7 +99,7 @@ const showOverlay = ref<boolean>(false);
 const victory = ref<boolean>(false);
 
 let counter: ReturnType<typeof setInterval>;
-const timeRemaining = ref<number>(mixMatchParams.value.timerValues.current * 60);
+const timeRemaining = ref<number>(getTimeRemaining());
 const timeSpent = computed<number>(() => {
   return mixMatchParams.value.timerValues.current * 60 - timeRemaining.value
 });
@@ -113,9 +113,12 @@ const cards = ref<ICard[]>(getCards());
 function getCards() {
   return currentCardsPerFings.value.slice(0, mixMatchParams.value.nbOfPairs.current);
 }
+function getTimeRemaining() { return mixMatchParams.value.timerValues.current * 60 }
 
 function startGame() {
   window.scrollTo(0, 0);
+  cards.value = getCards();
+  timeRemaining.value = getTimeRemaining();
   gameFinished.value = false;
   victory.value = false;
   gameStarted.value = true;
@@ -144,14 +147,10 @@ function finishGame(hasWon: boolean) {
   gameFinished.value = true;
   clearInterval(counter);
 }
+
 function backToSettings() {
   gameStarted.value = false;
   gameFinished.value = false;
-}
-function replay() {
-  cards.value = getCards();
-  timeRemaining.value = mixMatchParams.value.timerValues.current * 60;
-  startGame();
 }
 </script>
 
