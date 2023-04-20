@@ -14,11 +14,13 @@
   >
     <Card
       v-for="note in paginatedCards"
-      :key="note.id"
-      :note="note"
+      :key="note.cardData.id"
+      :note="note.cardData"
       class="grid-item"
       :flashcard="fingTableParams.flashcardMode"
-      :flipped="fingTableParams.flashcardMode && fingTableParams.flashcardSide === 'notes'"
+      :faceDown="fingTableParams.flashcardMode && fingTableParams.flashcardSide === 'notes'"
+      :flipped="fingTableParams.flashcardMode && note.isFlipped"
+      @@flip="note.isFlipped = $event"
     />
   </div>
   <div class="pagination" v-if="pagination">
@@ -34,10 +36,11 @@
 
 <script setup lang="ts">
 import Card from "@/components/molecules/Card.vue";
-import type { ICard } from "@/types/MusicalDataTypes";
+import type { ICard, IInteractiveCard } from "@/types/MusicalDataTypes";
 import { useParamsStore } from "@/stores/params";
 import { storeToRefs } from "pinia";
 import { ref, computed, watch } from "vue";
+import getInteractiveCards from "@/composables/getInteractiveCards";
 
 const props = defineProps<{
   cards: ICard[],
@@ -47,15 +50,15 @@ const props = defineProps<{
 const paramsStore = useParamsStore();
 const { fingTableParams } = storeToRefs(paramsStore);
 
-const cards = computed<ICard[]>(() => props.cards);
+const localCards = ref<IInteractiveCard[]>(getInteractiveCards(props.cards));
 const currentPage = ref<number>(1);
 const cardsPerPage = computed<number>(() => fingTableParams.value.cardsPerPage);
 const lastPage = computed<number>(() => Math.ceil(props.cards.length / cardsPerPage.value));
 
-const paginatedCards = computed(() => {
+const paginatedCards = computed<IInteractiveCard[]>(() => {
   const start = (currentPage.value - 1) * cardsPerPage.value;
   const end = start + cardsPerPage.value;
-  return cards.value.slice(start, end);
+  return localCards.value.slice(start, end);
 });
 
 function prev() {
@@ -72,6 +75,14 @@ watch(() => lastPage.value, (newLastPage, oldLastPage) => {
     currentPage.value > newLastPage && oldLastPage > newLastPage
   ) currentPage.value = newLastPage;
 });
+watch(() => fingTableParams.value.flashcardMode, (newVal) => {
+  if (newVal) localCards.value.forEach(card => card.isFlipped = false);
+});
+watch(() => props.cards, (newCards) => {
+    localCards.value = getInteractiveCards(newCards, localCards.value);
+  },
+  { deep: true }
+);
 </script>
 
 <style lang="scss" scoped>

@@ -20,7 +20,7 @@
       :fingeringOnly="valuesToShow === 'fingerings'"
       selectable
       :selected="selectedCard?.id === note.id"
-      @@cardClicked="selectedCard = $event"
+      @@select="selectedCard = $event.card"
       class="grid-item"
       :class="{ 'grid-item-fing': valuesToShow === 'fingerings' }"
     />

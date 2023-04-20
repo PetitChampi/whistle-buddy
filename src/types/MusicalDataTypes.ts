@@ -13,6 +13,11 @@ interface ICard {
   octave: Octave,
   soundUrl: string
 }
+interface IInteractiveCard {
+  cardData: ICard,
+  isFlipped?: boolean,
+  isSelected?: boolean
+}
 interface IGaugeValues {
   unit: string,
   min: number,
@@ -51,4 +56,4 @@ interface IFingsPerType {
   specific: IFingering[]
 }
 
-export type { IInstrument, INoteName, INote, IKey, IFingering, IFingsPerType, Octave, IOption, ICard, IGaugeValues };
+export type { IInstrument, INoteName, INote, IKey, IFingering, IFingsPerType, Octave, IOption, ICard, IGaugeValues, IInteractiveCard };

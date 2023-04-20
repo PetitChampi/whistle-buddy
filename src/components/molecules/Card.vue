@@ -1,8 +1,8 @@
 <template>
-  <article class="card" :class="{ flashcard }" @click="handleCardClick(note)">
+  <article class="card" :class="{ flashcard }" @click.stop="handleCardClick(note, $event)">
     <div
       class="card-inner"
-      :class="{ flipped: flashcard && isFlipped, selected: isSelected, error, success, fixed: fixedHeight }"
+      :class="{ faceDown, flipped: props.flipped, selected: props.selected, error, success, fixed: fixedHeight }"
     >
       <div class="front">
         <div class="card-fingerings" v-if="!noteOnly">
@@ -67,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed } from "vue";
+import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import type { ICard } from "@/types/MusicalDataTypes";
 import { useParamsStore } from "@/stores/params";
@@ -75,6 +75,7 @@ import { storeToRefs } from "pinia";
 
 export interface IProps {
   note: ICard,
+  faceDown?: boolean,
   flipped?: boolean,
   fingerings?: number,
   flashcard?: boolean,
@@ -99,10 +100,7 @@ const paramsStore = useParamsStore();
 const { generalParams } = storeToRefs(paramsStore);
 
 const route = useRoute();
-const emit = defineEmits(["@cardClicked"]);
-
-const isFlipped = ref<boolean>(props.flipped);
-const isSelected = ref<boolean>(props.selected);
+const emit = defineEmits(["@select", "@flip"]);
 
 const formattedNameEn = computed(() => (
   props.note.name.en.charAt(0).toUpperCase() + props.note.name.en.slice(1)
@@ -111,10 +109,9 @@ const formattedNameFr = computed(() => (
   props.note.name.fr.charAt(0).toUpperCase() + props.note.name.fr.slice(1)
 ));
 
-function handleCardClick(card: ICard) {
-  if (props.flashcard) isFlipped.value = !isFlipped.value;
-  if (props.selectable) isSelected.value = !isSelected.value;
-  emit("@cardClicked", isSelected.value ? card : null);
+function handleCardClick(card: ICard, e: MouseEvent) {
+  if (props.flashcard) emit("@flip", !props.flipped);
+  if (props.selectable) emit("@select", { selected: props.selected, card });
 }
 
 function playSound() {
@@ -123,12 +120,6 @@ function playSound() {
   );
   sound.play();
 }
-
-watch(() => props.selected, (newVal) => isSelected.value = newVal);
-watch(() => props.flipped, (newVal) => isFlipped.value = newVal);
-watch(() => props.flashcard, (newVal) => {
-  if (!newVal) isFlipped.value = newVal
-});
 </script>
 
 <style lang="scss" scoped>
@@ -144,10 +135,11 @@ watch(() => props.flashcard, (newVal) => {
     border-radius: 10px;
     transition: border ease .2s, transform ease .3s;
     transform-style: preserve-3d;
-    backface-visibility: hidden;
-
-    &.flipped {
+    &.faceDown, &.flipped {
       transform: rotateY(180deg);
+    }
+    &.faceDown.flipped {
+      transform: rotateY(0deg);
     }
     &.selected {
       border: 2px solid var(--accent);

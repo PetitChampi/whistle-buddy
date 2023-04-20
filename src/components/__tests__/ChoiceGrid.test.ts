@@ -61,12 +61,12 @@ describe("ChoiceGrid.vue", () => {
     expect(grid.classes()).toContain("grid-note-3");
   });
 
-  test("updates selectedCard when @cardClicked is emitted", async () => {
+  test("updates selectedCard when @select is emitted", async () => {
     const cardComponents = wrapper.findAllComponents(Card);
     const firstCard = cardComponents[0];
     const firstCardId = firstCard.props("note").id;
 
-    await firstCard.vm.$emit("@cardClicked", firstCard.props("note"));
+    await firstCard.vm.$emit("@select", { selected: true, card: firstCard.props("note") });
 
     expect(vm.selectedCard.id).toBe(firstCardId);
   });
