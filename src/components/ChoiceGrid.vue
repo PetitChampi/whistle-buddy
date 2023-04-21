@@ -30,11 +30,11 @@
 <script setup lang="ts">
 import Card from "@/components/molecules/Card.vue";
 import type { ICard } from "@/types/MusicalDataTypes";
-import { ref } from "vue";
 
 export interface IProps {
   cards: ICard[],
-  valuesToShow?: "notes" | "fingerings"
+  valuesToShow?: "notes" | "fingerings",
+  selectedCard?: ICard | null
 }
 const props = withDefaults(defineProps<IProps>(), {
   valuesToShow: "fingerings"
@@ -42,11 +42,8 @@ const props = withDefaults(defineProps<IProps>(), {
 
 const emit = defineEmits(["@selectCard"]);
 
-const selectedCard = ref<ICard | null>(null);
-
 function selectCard(e: { selected: boolean, card: ICard }) {
-  selectedCard.value = e.card;
-  emit("@selectCard", selectedCard.value);
+  emit("@selectCard", e.card);
 }
 </script>
 

@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach } from "vitest";
+import { describe, test, expect } from "vitest";
 import { shallowMount, VueWrapper } from "@vue/test-utils";
 import ChoiceGrid from "@/components/ChoiceGrid.vue";
 import Card from "@/components/molecules/Card.vue";
@@ -41,7 +41,7 @@ const cards: ICard[] = [
 
 describe("ChoiceGrid.vue", () => {
   const defaultProps = { cards };
-  const wrapper: VueWrapper = shallowMount(ChoiceGrid, {
+  const wrapper: VueWrapper<any> = shallowMount(ChoiceGrid, {
     props: defaultProps,
   });
   const vm = wrapper.vm as CustomCpnInstance;
@@ -61,13 +61,14 @@ describe("ChoiceGrid.vue", () => {
     expect(grid.classes()).toContain("grid-note-3");
   });
 
-  test("updates selectedCard when @select is emitted", async () => {
+  test("emits @selectCard with correct payload when @select is emitted", async () => {
     const cardComponents = wrapper.findAllComponents(Card);
     const firstCard = cardComponents[0];
     const firstCardId = firstCard.props("note").id;
 
     await firstCard.vm.$emit("@select", { selected: true, card: firstCard.props("note") });
 
-    expect(vm.selectedCard.id).toBe(firstCardId);
+    expect(wrapper.emitted()).toHaveProperty("@selectCard");
+    expect(wrapper.emitted("@selectCard")![0][0]).toHaveProperty("id", firstCardId);
   });
 });

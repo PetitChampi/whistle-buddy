@@ -41,6 +41,7 @@
       <div class="game-cards-choices">
         <ChoiceGrid
           :cards="choiceCards"
+          :selectedCard="selectedCard"
           :valuesToShow="guessGameParams.valuesToGuess === 'note' ? 'fingerings' : 'notes'"
           @@selectCard="selectedCard = $event"
         />
