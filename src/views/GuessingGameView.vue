@@ -8,29 +8,51 @@
         <div class="score">
           <p class="score-caption">{{ $t("G_GUESS_SCORE") }}</p>
           <p class="score-numbers">
-            <span class="score-numbers-current">3 </span>
-            / 14
+            <span class="score-numbers-current">{{ score }} </span>
+            / {{ cardsToGuess.length }}
           </p>
         </div>
-        <Timer :value="436" :maxValue="600" />
+        <Timer v-if="guessGameParams.timer" :value="436" :maxValue="600" />
       </div>
     </div>
 
     <div class="game-text">
       <h2>{{ $t("G_GUESS_HEADING_FTON") }}</h2>
-      <p>{{ $t("G_GUESS_SUBHEADING", { key: "Gb" }) }}</p>
+      <p>{{ $t("G_GUESS_SUBHEADING", { key: generalParams.key.name.en.toUpperCase() }) }}</p>
     </div>
     <div class="game-cards">
       <div class="game-cards-toguess">
-        <Card :note="note" class="card-item" noteOnly />
-        <!-- <Card :note="note" class="card-item" error :errorMsg="$t('G_GUESS_ERR_NOTE')" fingeringOnly /> -->
+        <Card
+          :note="currCardToGuess"
+          class="card-item"
+          :noteOnly="guessGameParams.valuesToGuess === 'note'"
+          :fingeringOnly="guessGameParams.valuesToGuess === 'fing'"
+        />
+        <Card
+          v-if="showResult && !isCorrect"
+          :note="selectedCard || currCardToGuess"
+          class="card-item"
+          error
+          :errorMsg="$t('G_GUESS_ERR_NOTE')"
+          :noteOnly="guessGameParams.valuesToGuess === 'note'"
+          :fingeringOnly="guessGameParams.valuesToGuess === 'fing'"
+        />
       </div>
       <div class="game-cards-choices">
-        <ChoiceGrid :cards="cards" />
+        <ChoiceGrid
+          :cards="choiceCards"
+          :valuesToShow="guessGameParams.valuesToGuess === 'note' ? 'fingerings' : 'notes'"
+          @@selectCard="selectedCard = $event"
+        />
       </div>
     </div>
     <div class="btn-container">
-      <CustomButton :btnText="$t('G_GUESS_NEXT')" iconR="chevron_forward" @click="gameFinished = true" />
+      <CustomButton
+        :btnText="$t('G_GUESS_NEXT')"
+        iconR="chevron_forward"
+        :disabled="!selectedCard"
+        @click="gameFinished = true"
+      />
     </div>
   </div>
 
@@ -57,7 +79,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "@vue/reactivity";
+import { ref, computed } from "@vue/reactivity";
 import GameParams from "@/components/GameParams.vue";
 import Timer from "@/components/molecules/Timer.vue";
 import Card from "@/components/molecules/Card.vue";
@@ -65,25 +87,42 @@ import ChoiceGrid from "@/components/ChoiceGrid.vue";
 import CustomButton from "@/components/molecules/CustomButton.vue";
 import type { ICard } from "@/types/MusicalDataTypes";
 import { watch } from "vue";
+import { useParamsStore } from "@/stores/params";
+import { storeToRefs } from "pinia";
 
 const baseUrl = import.meta.env.BASE_URL;
 
+const params = useParamsStore();
+const { generalParams, guessGameParams, currentCardsDynamic } = storeToRefs(params);
+
 const gameStarted = ref<boolean>(false);
 const gameFinished = ref<boolean>(false);
+const showResult = ref<boolean>(false);
+const isCorrect = ref<boolean>(false);
+const score = ref<number>(0);
+const selectedCard = ref<ICard | null>(null);
 
-const note = ref<ICard>({
-  id: 1,
-  name: {en: 'Gb', fr: 'Sol b'},
-  fingerings: [
-    { id: 1, posInScale: 1, holes: [2, 2, 1, 0, 0, 0], type: "halfhole", octaves: [1, 2] }
-  ],
-  octave: 1,
-  soundUrl: "7_f#_gb_1.mp3"
+const cardsToGuess = ref<ICard[]>(getCardsToGuess());
+
+const currCardToGuess = ref<ICard>(cardsToGuess.value[0]);
+
+const choiceCards = computed<ICard[]>(() => {
+  const cards = [ currCardToGuess.value ];
+  const falseCards = cardsToGuess.value.filter(c =>
+    (c.id !== currCardToGuess.value.id) && (c.octave === currCardToGuess.value.octave)
+  );
+
+  cards.push(...falseCards.slice(0, guessGameParams.value.nbChoices.current - 1));
+
+  return cards.sort((a, b) => 0.5 - Math.random());
 });
 
-const cards = ref<ICard[]>([
-  // TODO get random cards
-]);
+function getCardsToGuess() {
+  return currentCardsDynamic.value.sort((a, b) => 0.5 - Math.random());
+}
+
+function startRound() {}
+function checkResults() {}
 
 function backToSettings() {
   gameStarted.value = false;
@@ -94,12 +133,8 @@ function replayRound() {
   gameFinished.value = false;
 }
 
-watch(gameStarted, () => {
-  window.scrollTo(0, 0);
-})
-watch(gameFinished, () => {
-  window.scrollTo(0, 0);
-})
+watch(gameStarted, () => window.scrollTo(0, 0))
+watch(gameFinished, () => window.scrollTo(0, 0))
 </script>
 
 <style lang="scss" scoped>

@@ -67,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 import type { ICard } from "@/types/MusicalDataTypes";
 import { useParamsStore } from "@/stores/params";
@@ -135,6 +135,7 @@ function playSound() {
     border-radius: 10px;
     transition: border ease .2s, transform ease .3s;
     transform-style: preserve-3d;
+    border: 2px solid transparent;
     &.faceDown, &.flipped {
       transform: rotateY(180deg);
     }

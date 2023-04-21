@@ -20,7 +20,7 @@
       :fingeringOnly="valuesToShow === 'fingerings'"
       selectable
       :selected="selectedCard?.id === note.id"
-      @@select="selectedCard = $event.card"
+      @@select="selectCard($event)"
       class="grid-item"
       :class="{ 'grid-item-fing': valuesToShow === 'fingerings' }"
     />
@@ -40,7 +40,14 @@ const props = withDefaults(defineProps<IProps>(), {
   valuesToShow: "fingerings"
 });
 
+const emit = defineEmits(["@selectCard"]);
+
 const selectedCard = ref<ICard | null>(null);
+
+function selectCard(e: { selected: boolean, card: ICard }) {
+  selectedCard.value = e.card;
+  emit("@selectCard", selectedCard.value);
+}
 </script>
 
 <style lang="scss" scoped>
