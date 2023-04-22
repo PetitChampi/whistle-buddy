@@ -41,9 +41,9 @@ export interface IProps {
   cards: ICard[],
   valuesToShow?: "notes" | "fingerings",
   selectedCard?: ICard | null,
-  currCardToGuess: ICard | null,
-  showResult: boolean,
-  isCorrect: boolean
+  currCardToGuess?: ICard | null,
+  showResult?: boolean,
+  isCorrect?: boolean
 }
 const props = withDefaults(defineProps<IProps>(), {
   valuesToShow: "fingerings"
