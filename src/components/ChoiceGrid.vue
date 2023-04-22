@@ -18,8 +18,14 @@
       :note="note"
       :noteOnly="valuesToShow === 'notes'"
       :fingeringOnly="valuesToShow === 'fingerings'"
-      selectable
-      :selected="selectedCard?.id === note.id"
+      :selectable="!showResult"
+      :selected="!showResult && selectedCard?.id === note.id"
+      :error="showResult && !isCorrect && note.id === selectedCard?.id"
+      :success="
+        (showResult && isCorrect && note.id === selectedCard?.id) ||
+        (showResult && !isCorrect && note.id === currCardToGuess?.id)
+      "
+      :hasTick="showResult && note.id === selectedCard?.id || note.id === currCardToGuess?.id"
       @@select="selectCard($event)"
       class="grid-item"
       :class="{ 'grid-item-fing': valuesToShow === 'fingerings' }"
@@ -34,7 +40,10 @@ import type { ICard } from "@/types/MusicalDataTypes";
 export interface IProps {
   cards: ICard[],
   valuesToShow?: "notes" | "fingerings",
-  selectedCard?: ICard | null
+  selectedCard?: ICard | null,
+  currCardToGuess: ICard | null,
+  showResult: boolean,
+  isCorrect: boolean
 }
 const props = withDefaults(defineProps<IProps>(), {
   valuesToShow: "fingerings"

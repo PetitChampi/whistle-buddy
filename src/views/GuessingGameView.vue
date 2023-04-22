@@ -42,6 +42,9 @@
         <ChoiceGrid
           :cards="choiceCards"
           :selectedCard="selectedCard"
+          :currCardToGuess="currCardToGuess"
+          :showResult="showResult"
+          :isCorrect="isCorrect"
           :valuesToShow="guessGameParams.valuesToGuess === 'note' ? 'fingerings' : 'notes'"
           @@selectCard="selectedCard = $event"
         />
@@ -52,7 +55,7 @@
         :btnText="$t('G_GUESS_NEXT')"
         iconR="chevron_forward"
         :disabled="!selectedCard"
-        @click="gameFinished = true"
+        @click="showResult ? startRound() : checkResults()"
       />
     </div>
   </div>
@@ -122,8 +125,18 @@ function getCardsToGuess() {
   return currentCardsDynamic.value.sort((a, b) => 0.5 - Math.random());
 }
 
-function startRound() {}
-function checkResults() {}
+function startRound() {
+  showResult.value = false;
+  isCorrect.value = false;
+}
+
+function checkResults() {
+  showResult.value = true;
+  if (selectedCard.value?.id === currCardToGuess.value.id) {
+    isCorrect.value = true;
+    ++score.value;
+  }
+}
 
 function backToSettings() {
   gameStarted.value = false;
@@ -132,6 +145,7 @@ function backToSettings() {
 function replayRound() {
   gameStarted.value = true;
   gameFinished.value = false;
+  startRound();
 }
 
 watch(gameStarted, () => window.scrollTo(0, 0))
