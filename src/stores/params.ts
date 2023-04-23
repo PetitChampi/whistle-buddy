@@ -11,6 +11,7 @@ export const useParamsStore = defineStore("params", () => {
   // Data from musical data store
   const musicalDataStore = useMusicalDataStore();
   const notes = computed(() => musicalDataStore.notes);
+  const allFingerings = computed(() => musicalDataStore.fingerings);
   const defaultKey = computed(() => musicalDataStore.defaultKey);
   const defaultSelectedFings = computed(() => musicalDataStore.defaultSelectedFings);
 
@@ -61,41 +62,9 @@ export const useParamsStore = defineStore("params", () => {
     return generalParams.value.instrument === "low" ? soundsManifest.low : soundsManifest.tin;
   });
   
-  const currentCardsPerFings = computed<ICard[]>(() => {
-    const selectedFings = generalParams.value.selectedFingerings;
-    const currKey = generalParams.value.key;
-    const alterationIndex = (currKey.name.en.length === 2 && currKey.name.en.endsWith("b")) ? 1 : 0;
-    let i = 0;
+  const cardsPerTotalFings = computed<ICard[]>(() => getCardsPerFing(allFingerings.value));
 
-    const noHomo = selectedFings.flatMap((fing: IFingering) => {
-      const note = currentScale.value[fing.posInScale - 1];
-      const noteName = note.names.length > 1 ? note.names[alterationIndex] : note.names[0];
-
-      return fing.octaves.map((oct: Octave) => ({
-        id: ++i,
-        name: noteName,
-        fingerings: [ fing ],
-        octave: oct,
-        soundUrl: getSoundUrl(currentSounds.value, currKey, fing, oct)
-      }));
-    });
-
-    noHomo.sort((a, b) => { 
-      return a.fingerings[0].posInScale - b.fingerings[0].posInScale;
-    });
-    noHomo.sort((a, b) => { 
-      return a.octave - b.octave;
-    });
-
-    switch (generalParams.value.showOctave) {
-      case "low":
-        return noHomo.filter(item => item.octave === 1);
-      case "high":
-        return noHomo.filter(item => item.octave === 2);
-      default:
-        return noHomo;
-    }
-  });
+  const currentCardsPerFings = computed<ICard[]>(() => getCardsPerFing(generalParams.value.selectedFingerings));
 
   const currentCardsPerNote = computed<ICard[]>(() => {
     const selectedFings = generalParams.value.selectedFingerings;
@@ -152,8 +121,41 @@ export const useParamsStore = defineStore("params", () => {
     }
   });
 
-  // Actions
-  // TODO function getRandomCards(nb: number) ===> w/ currentCardsPerNote (no homophones in this game)
+  // Methods (=/= actions)
+  function getCardsPerFing(fings: IFingering[]): ICard[] {
+    const currKey = generalParams.value.key;
+    const alterationIndex = (currKey.name.en.length === 2 && currKey.name.en.endsWith("b")) ? 1 : 0;
+    let i = 0;
+
+    const noHomo = fings.flatMap((fing: IFingering) => {
+      const note = currentScale.value[fing.posInScale - 1];
+      const noteName = note.names.length > 1 ? note.names[alterationIndex] : note.names[0];
+
+      return fing.octaves.map((oct: Octave) => ({
+        id: ++i,
+        name: noteName,
+        fingerings: [ fing ],
+        octave: oct,
+        soundUrl: getSoundUrl(currentSounds.value, currKey, fing, oct)
+      }));
+    });
+
+    noHomo.sort((a, b) => { 
+      return a.fingerings[0].posInScale - b.fingerings[0].posInScale;
+    });
+    noHomo.sort((a, b) => { 
+      return a.octave - b.octave;
+    });
+
+    switch (generalParams.value.showOctave) {
+      case "low":
+        return noHomo.filter(item => item.octave === 1);
+      case "high":
+        return noHomo.filter(item => item.octave === 2);
+      default:
+        return noHomo;
+    }
+  }
 
   return {
     generalParams,
@@ -163,7 +165,8 @@ export const useParamsStore = defineStore("params", () => {
     currentScale,
     currentCardsPerFings,
     currentCardsPerNote,
-    currentCardsDynamic
+    currentCardsDynamic,
+    cardsPerTotalFings
   };
 });
 

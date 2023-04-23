@@ -19,13 +19,10 @@
       :noteOnly="valuesToShow === 'notes'"
       :fingeringOnly="valuesToShow === 'fingerings'"
       :selectable="!showResult"
-      :selected="!showResult && selectedCard?.id === note.id"
-      :error="showResult && !isCorrect && note.id === selectedCard?.id"
-      :success="
-        (showResult && isCorrect && note.id === selectedCard?.id) ||
-        (showResult && !isCorrect && note.id === currCardToGuess?.id)
-      "
-      :hasTick="showResult && note.id === selectedCard?.id || note.id === currCardToGuess?.id"
+      :selected="isSelected(note)"
+      :error="isError(note)"
+      :success="isSuccess(note)"
+      :hasTick="hasTick(note)"
       @@select="selectCard($event)"
       class="grid-item"
       :class="{ 'grid-item-fing': valuesToShow === 'fingerings' }"
@@ -53,6 +50,40 @@ const emit = defineEmits(["@selectCard"]);
 
 function selectCard(e: { selected: boolean, card: ICard }) {
   emit("@selectCard", e.card);
+}
+
+function isSameCard(c1: ICard, c2: ICard) {
+  return c1.name.en === c2?.name.en && c1.octave === c2?.octave;
+}
+
+function isSelected(note: ICard) {
+  return !props.showResult && isSameCard(note, props.selectedCard as ICard);
+}
+function isError(note: ICard) {
+  return (
+    props.showResult &&
+    !props.isCorrect &&
+    isSameCard(note, props.selectedCard as ICard)
+  );
+}
+function isSuccess(note: ICard) {
+  return (
+    (
+      props.showResult &&
+      props.isCorrect &&
+      isSameCard(note, props.selectedCard as ICard)
+    ) || (
+      props.showResult &&
+      !props.isCorrect &&
+      isSameCard(note, props.currCardToGuess as ICard)
+    )
+  );
+}
+function hasTick(note: ICard) {
+  return (
+    props.showResult &&
+    (isSameCard(note, props.selectedCard as ICard) || isSameCard(note, props.selectedCard as ICard))
+  );
 }
 </script>
 

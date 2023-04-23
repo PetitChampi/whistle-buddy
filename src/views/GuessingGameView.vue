@@ -1,7 +1,7 @@
 <template>
 <div>
 <!-- see above parent div for router transition -->
-  <GameParams :gameType="'guessing'" v-if="!gameStarted" @@gameStarted="gameStarted = true" />
+  <GameParams :gameType="'guessing'" v-if="!gameStarted" @@gameStarted="startGame" />
   <div v-if="gameStarted && !gameFinished" class="game">
     <div class="game-metrics-wrapper">
       <div class="game-metrics">
@@ -55,7 +55,7 @@
         :btnText="$t('G_GUESS_NEXT')"
         iconR="chevron_forward"
         :disabled="!selectedCard"
-        @click="showResult ? startRound() : checkResults()"
+        @click="showResult ? setNewTurn() : checkResults()"
       />
     </div>
   </div>
@@ -64,7 +64,12 @@
     <h1 class="finish-title">{{ $t("G_GUESS_FINISH_TITLE") }}</h1>
     <p class="finish-subtitle">
       {{ $t("G_GUESS_FINISH_SUB_INTRO") }}
-      <span class="score" :class="{ green: false }">{{ $t("G_GUESS_FINISH_SUB_NUMS", {score: 13, total: 14}) }}</span>
+      <span
+        class="score"
+        :class="{ green: score === cardsToGuess.length }"
+      >
+        {{ $t("G_GUESS_FINISH_SUB_NUMS", {score, total: cardsToGuess.length}) }}
+      </span>
     </p>
     <img v-imgpreload="`${baseUrl}img/flann-happy.png`" alt="Happy mascot">
     <div class="finish-links">
@@ -97,55 +102,74 @@ import { storeToRefs } from "pinia";
 const baseUrl = import.meta.env.BASE_URL;
 
 const params = useParamsStore();
-const { generalParams, guessGameParams, currentCardsDynamic } = storeToRefs(params);
+const { generalParams, guessGameParams, currentCardsDynamic, cardsPerTotalFings } = storeToRefs(params);
 
 const gameStarted = ref<boolean>(false);
 const gameFinished = ref<boolean>(false);
 const showResult = ref<boolean>(false);
 const isCorrect = ref<boolean>(false);
 const score = ref<number>(0);
+const turn = ref<number>(0);
 const selectedCard = ref<ICard | null>(null);
 
 const cardsToGuess = ref<ICard[]>(getCardsToGuess());
-
 const currCardToGuess = ref<ICard>(cardsToGuess.value[0]);
+const choiceCards = ref<ICard[]>(getChoiceCards());
 
-const choiceCards = computed<ICard[]>(() => {
-  const cards = [ currCardToGuess.value ];
-  const falseCards = cardsToGuess.value.filter(c =>
-    (c.id !== currCardToGuess.value.id) && (c.octave === currCardToGuess.value.octave)
+function getCardsToGuess(): ICard[] {
+  return currentCardsDynamic.value.sort((a, b) => 0.5 - Math.random());
+}
+function getChoiceCards(): ICard[] {
+  let i = 0;
+  const cards = [ { ...currCardToGuess.value, id: i } ];
+  const falseCards = cardsPerTotalFings.value.filter(c =>
+    (c.name.en !== currCardToGuess.value.name.en) && (c.octave === currCardToGuess.value.octave)
   );
 
   cards.push(...falseCards.slice(0, guessGameParams.value.nbChoices.current - 1));
 
   return cards.sort((a, b) => 0.5 - Math.random());
-});
-
-function getCardsToGuess() {
-  return currentCardsDynamic.value.sort((a, b) => 0.5 - Math.random());
 }
 
-function startRound() {
+function startGame() {
+  cardsToGuess.value = getCardsToGuess();
+  score.value = 0;
+  turn.value = 0;
+  setNewTurn();
+  gameStarted.value = true;
+}
+
+function setNewTurn() {
+  currCardToGuess.value = cardsToGuess.value[turn.value];
+  choiceCards.value = getChoiceCards();
+  selectedCard.value = null;
   showResult.value = false;
   isCorrect.value = false;
 }
 
 function checkResults() {
   showResult.value = true;
-  if (selectedCard.value?.id === currCardToGuess.value.id) {
+  if (
+    selectedCard.value?.name.en === currCardToGuess.value.name.en &&
+    selectedCard.value?.octave === currCardToGuess.value.octave
+  ) {
     isCorrect.value = true;
     ++score.value;
   }
+  if (++turn.value === cardsToGuess.value.length) gameFinished.value = true;
 }
 
 function backToSettings() {
   gameStarted.value = false;
   gameFinished.value = false;
 }
+
 function replayRound() {
   gameStarted.value = true;
   gameFinished.value = false;
-  startRound();
+  score.value = 0;
+  turn.value = 0;
+  setNewTurn();
 }
 
 watch(gameStarted, () => window.scrollTo(0, 0))
