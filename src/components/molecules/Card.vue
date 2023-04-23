@@ -133,7 +133,6 @@ function playSound() {
 
   &-inner {
     border-radius: 10px;
-    transition: border ease .2s, transform ease .3s;
     transform-style: preserve-3d;
     border: 2px solid transparent;
     &.faceDown, &.flipped {
@@ -144,6 +143,7 @@ function playSound() {
     }
     &.selected {
       border: 2px solid var(--accent);
+      transition: border ease .2s, transform ease .3s;
     }
     &.error {
       border: 2px solid var(--error);

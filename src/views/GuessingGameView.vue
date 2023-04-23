@@ -88,7 +88,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "@vue/reactivity";
+import { ref } from "@vue/reactivity";
 import GameParams from "@/components/GameParams.vue";
 import Timer from "@/components/molecules/Timer.vue";
 import Card from "@/components/molecules/Card.vue";
@@ -120,8 +120,7 @@ function getCardsToGuess(): ICard[] {
   return currentCardsDynamic.value.sort((a, b) => 0.5 - Math.random());
 }
 function getChoiceCards(): ICard[] {
-  let i = 0;
-  const cards = [ { ...currCardToGuess.value, id: i } ];
+  const cards = [ { ...currCardToGuess.value, id: 0 } ];
   const falseCards = cardsPerTotalFings.value.filter(c =>
     (c.name.en !== currCardToGuess.value.name.en) && (c.octave === currCardToGuess.value.octave)
   );
