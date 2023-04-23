@@ -82,6 +82,14 @@
 
   "G_FINISH_BACK_TAB": "Go to fingerings table",
 
+  "ABOUT_P1": "Hello folks!",
+  "ABOUT_P2": "This site is an independent project, that was conceived by two friends: Arthur, a musician who teaches Irish flute and whistle, and Esther, a musician as well but primarily a web developer and designer.",
+  "ABOUT_P3": "We were then joined by our third partner, Noémie alias Nano, who helped us bring our mascot to life and develop the project's visual identity with her illustrations.",
+  "ABOUT_P4": "We hope you enjoy our creation, made with love, and if you're a musician, that it serves you well!",
+  "ABOUT_P5": "If you would like to make a small donation, particularly to cover the site's maintenance costs, you can tip us here:",
+  "ABOUT_P6": "Also, if you see a bug or have any suggestions for us, feel free to send us a ",
+  "ABOUT_P7": "Thank you for visiting us, we truly appreciate it!",
+
   "404_SUBTITLE": "This page doesn't exist.",
   "404_PARAGRAPH": "Go back to the",
   "404_LINK": "start page"

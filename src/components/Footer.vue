@@ -10,13 +10,17 @@
         <RouterLink :to="{ name: 'about' }">{{ $t("GEN_ABOUT_US") }}</RouterLink>
       </div>
       <p class="footer-credits-item">
-        {{ $t("FOOTER_CREDIT_CCDP") }} <span class="footer-credits-item-name">Esther&nbsp;Bauzou</span>
+        {{ $t("FOOTER_CREDIT_CCDP") }} <span class="footer-credits-item-name">
+          <a href="https://cv.esbauz.me" target="_blank">Esther&nbsp;Bauzou</a>
+        </span>
       </p>
       <p class="footer-credits-item">
         {{ $t("FOOTER_CREDIT_CC") }} <span class="footer-credits-item-name">Arthur&nbsp;Ozenne</span>
       </p>
       <p class="footer-credits-item">
-        {{ $t("FOOTER_CREDIT_I") }} <span class="footer-credits-item-name">Noémie&nbsp;Levenson</span>
+        {{ $t("FOOTER_CREDIT_I") }} <span class="footer-credits-item-name">
+          <a href="https://inknanoart.carrd.co" target="_blank">Nano</a>
+        </span>
       </p>
     </div>
   </footer>
@@ -59,6 +63,13 @@
 
       &-name {
         font-weight: 700;
+        a {
+          font-weight: 700;
+          color: var(--text-standard);
+          &:hover {
+            border-color: var(--text-standard);
+          }
+        }
       }
     }
   }

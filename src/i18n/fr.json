@@ -82,6 +82,14 @@
 
   "G_FINISH_BACK_TAB": "Table des doigtés",
 
+  "ABOUT_P1": "Salut tout le monde !",
+  "ABOUT_P2": "Ce site est un projet indépendant, imaginé par deux amis : Arthur, musicien professeur de flûte irlandaise et de whistle et Esther, musicienne elle aussi mais surtout développeuse et designer web.",
+  "ABOUT_P3": "Nous avons ensuite été rejoints par notre troisième larron, Noémie alias Nano, qui nous a aidé à donner vie à notre mascotte et développer l'identité visuelle du projet grâce à ses illustrations.",
+  "ABOUT_P4": "On espère que notre création concoctée avec amour vous plaît, et si vous êtes musicien, vous rend service !",
+  "ABOUT_P5": "Si vous souhaitez nous faire un petit don, notamment pour couvrir les frais de maintenance du site, nous avons créé une cagnotte :",
+  "ABOUT_P6": "Aussi, si vous rencontrez un bug ou avez des suggestions pour nous, n'hésitez pas à nous envoyer un ",
+  "ABOUT_P7": "Merci de votre visite, ça nous fait super plaisir !",
+
   "404_SUBTITLE": "Cette page n'existe pas.",
   "404_PARAGRAPH": "Retourner à la",
   "404_LINK": "page d'accueil"
