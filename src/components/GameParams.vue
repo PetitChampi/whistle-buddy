@@ -62,6 +62,7 @@
       </SettingsGroup>
 
       <SettingsGroup
+        v-if="gameType === 'mixmatch'"
         :title="$t('G_PARAMS_TITLE_TIMER')"
         hasCheckbox
         large
