@@ -135,6 +135,7 @@ function playSound() {
     border-radius: 10px;
     transform-style: preserve-3d;
     border: 2px solid transparent;
+    transition: transform ease .2s;
     &.faceDown, &.flipped {
       transform: rotateY(180deg);
     }

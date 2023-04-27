@@ -139,6 +139,7 @@ function startGame() {
 }
 
 function setNewTurn() {
+  if (turn.value === cardsToGuess.value.length) gameFinished.value = true;
   currCardToGuess.value = cardsToGuess.value[turn.value];
   choiceCards.value = getChoiceCards();
   selectedCard.value = null;
@@ -155,7 +156,7 @@ function checkResults() {
     isCorrect.value = true;
     ++score.value;
   }
-  if (++turn.value === cardsToGuess.value.length) gameFinished.value = true;
+  ++turn.value;
 }
 
 function backToSettings() {
