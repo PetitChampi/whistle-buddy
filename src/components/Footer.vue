@@ -15,7 +15,9 @@
         </span>
       </p>
       <p class="footer-credits-item">
-        {{ $t("FOOTER_CREDIT_CC") }} <span class="footer-credits-item-name">Arthur&nbsp;Ozenne</span>
+        {{ $t("FOOTER_CREDIT_CC") }} <span class="footer-credits-item-name">
+          <a href="https://arthurozennecoursfluteetwhistle.carrd.co/" target="_blank">Arthur&nbsp;Ozenne</a>
+        </span>
       </p>
       <p class="footer-credits-item">
         {{ $t("FOOTER_CREDIT_I") }} <span class="footer-credits-item-name">
