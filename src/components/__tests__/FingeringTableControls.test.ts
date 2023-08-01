@@ -1,8 +1,7 @@
-import { describe, test, expect, vi } from "vitest";
+import { describe, test, expect } from "vitest";
 import { mount, config } from "@vue/test-utils";
 import { useParamsStore } from "@/stores/params";
 import { createPinia } from "pinia";
-import { useI18n } from "vue-i18n";
 import FingeringTableControls from "@/components/FingeringTableControls.vue";
 import ListDropdown from "@/components/molecules/ListDropdown.vue";
 import SettingsGroup from "@/components/SettingsGroup.vue";
@@ -11,14 +10,9 @@ import TextSwitch from "@/components/molecules/TextSwitch.vue";
 import IconButton from "@/components/molecules/IconButton.vue";
 import type { ICard } from "@/types/MusicalDataTypes";
 
-vi.mock("vue-i18n");
-
-// @ts-expect-error mockReturnValue does not exist on the original function but is created on the mock
-useI18n.mockReturnValue({
-  t: (tKey: string) => tKey,
-});
 config.global.mocks = {
-  $t: (tKey: string) => tKey
+  $t: (tKey: string) => tKey,
+  t: (tKey: string) => tKey,
 };
 
 const cards: ICard[] = [

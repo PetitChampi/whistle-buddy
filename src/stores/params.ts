@@ -69,7 +69,10 @@ export const useParamsStore = defineStore("params", () => {
   const currentCardsPerNote = computed<ICard[]>(() => {
     const selectedFings = generalParams.value.selectedFingerings;
     const currKey = generalParams.value.key;
-    const alterationIndex = (currKey.name.en.length === 2 && currKey.name.en.endsWith("b")) ? 1 : 0;
+    const alterationIndex = (
+      currKey.name.en.length === 2 &&
+      currKey.name.en.endsWith("b")
+    ) || currKey.name.en === "f" ? 1 : 0;
     let i = 0;
 
     const yesHomo: ICard[] = currentScale.value.map((note: INote, index) => {
@@ -124,7 +127,10 @@ export const useParamsStore = defineStore("params", () => {
   // Methods (=/= actions)
   function getCardsPerFing(fings: IFingering[]): ICard[] {
     const currKey = generalParams.value.key;
-    const alterationIndex = (currKey.name.en.length === 2 && currKey.name.en.endsWith("b")) ? 1 : 0;
+    const alterationIndex = (
+      currKey.name.en.length === 2 &&
+      currKey.name.en.endsWith("b")
+    ) || currKey.name.en === "f" ? 1 : 0;
     let i = 0;
 
     const noHomo = fings.flatMap((fing: IFingering) => {
