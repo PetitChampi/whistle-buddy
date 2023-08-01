@@ -36,7 +36,7 @@ const cards: ICard[] = [
       id: 5, posInScale: 5,  holes: [ 2, 2, 2, 2, 0, 0 ], type: "specific", octaves: [ 1 ]
     }],
     octave: 1,
-    soundUrl: "7_f#_gb_1.mp3"
+    soundUrl: "7_fs_gb_1.mp3"
   },
 ];
 

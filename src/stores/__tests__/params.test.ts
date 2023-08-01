@@ -79,7 +79,7 @@ describe("Store: params", () => {
         name: { en: "c#", fr: "do#" },
         fingerings: [ paramsStore.generalParams.selectedFingerings[2] ],
         octave: 1,
-        soundUrl: "2_c#_db_1.mp3"
+        soundUrl: "2_cs_db_1.mp3"
       },
       {
         id: 2,
@@ -93,7 +93,7 @@ describe("Store: params", () => {
         name: { en: "c#", fr: "do#" },
         fingerings: [ paramsStore.generalParams.selectedFingerings[2] ],
         octave: 2,
-        soundUrl: "14_c#_db_2.mp3"
+        soundUrl: "14_cs_db_2.mp3"
       },
     ];
 
@@ -130,14 +130,14 @@ describe("Store: params", () => {
           paramsStore.generalParams.selectedFingerings[2]
         ],
         octave: 1,
-        soundUrl: "11_a#_bb_1.mp3"
+        soundUrl: "11_as_bb_1.mp3"
       },
       {
         id: 3,
         name: { en: "a#", fr: "la#" },
         fingerings: [ paramsStore.generalParams.selectedFingerings[1] ],
         octave: 2,
-        soundUrl: "23_a#_bb_2.mp3"
+        soundUrl: "23_as_bb_2.mp3"
       },
     ];
     expect(paramsStore.currentCardsPerNote).toEqual(expectedCardsPerNote);
