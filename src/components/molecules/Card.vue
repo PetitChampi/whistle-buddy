@@ -57,7 +57,23 @@
           </div>
           <p class="card-note-fr" v-if="generalParams.frNotation">{{ formattedNameFr }}</p>
         </div>
-        <div v-else class="filigrane">wb</div>
+        <div v-else class="filigrane">
+          <div
+            v-for="corner in ['tr', 'tl', 'br', 'bl']"
+            :key="corner"
+            class="corner"
+            :class="corner"
+            :style="{
+              backgroundImage: `url('/img/knot-angle_${darkMode ? 'dark' : 'light'}.svg')`
+            }"
+          ></div>
+          <div
+            class="center"
+            :style="{
+              backgroundImage: `url('/img/knot-center_${darkMode ? 'dark' : 'light'}.svg')`
+            }"
+          ></div>
+        </div>
       </div>
     </div>
 
@@ -71,6 +87,7 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 import type { ICard } from "@/types/MusicalDataTypes";
 import { useParamsStore } from "@/stores/params";
+import { useDarkModeStore } from "@/stores/darkMode";
 import { storeToRefs } from "pinia";
 
 export interface IProps {
@@ -98,6 +115,8 @@ const props = withDefaults(defineProps<IProps>(), {
 
 const paramsStore = useParamsStore();
 const { generalParams } = storeToRefs(paramsStore);
+const darkModeStore = useDarkModeStore();
+const { darkMode } = storeToRefs(darkModeStore);
 
 const route = useRoute();
 const emit = defineEmits(["@select", "@flip"]);
@@ -276,9 +295,31 @@ function playSound() {
   }
 }
 .filigrane {
-  font-size: 3rem;
-  font-weight: 200;
-  color: var(--faint);
+  --corner-size: 25%;
+  --center-size: 50%;
+  --corner-offset: 4%;
+  .corner {
+    position: absolute;
+    width: var(--corner-size);
+    aspect-ratio: 1;
+    background-image: url("/img/knot-angle_light.svg");
+    background-size: cover;
+    opacity: .1;
+  }
+  .tr { top: var(--corner-offset); right: var(--corner-offset); }
+  .tl { top: var(--corner-offset); left: var(--corner-offset); transform: rotate(270deg); }
+  .br { bottom: var(--corner-offset); right: var(--corner-offset); transform: rotate(90deg); }
+  .bl { bottom: var(--corner-offset); left: var(--corner-offset); transform: rotate(180deg); }
+  .center {
+    position: absolute;
+    width: var(--center-size);
+    aspect-ratio: 1;
+    right: 50%;
+    top: 50%;
+    transform: translate(50%, -50%);
+    background-size: cover;
+    opacity: .1;
+  }
 }
 .flashcard {
   cursor: pointer;
