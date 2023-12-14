@@ -5,20 +5,20 @@
     @click.prevent="tickBox"
   >
     <input
-      type="checkbox"
       :id="value"
+      type="checkbox"
       :checked="checkedCond"
       :value="value"
     >
     <label :for="value">
-      <span class="tick"></span>
+      <span class="tick" />
       {{ label }}
     </label>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from "vue";
 
 const props = defineProps<{
   modelValue: string[] | boolean,

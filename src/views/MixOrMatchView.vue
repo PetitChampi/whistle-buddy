@@ -1,80 +1,80 @@
 <template>
-<div>
-<!-- see above parent div for router transition -->
-  <GameParams :gameType="'mixmatch'" v-if="!gameStarted" @@gameStarted="startGame" />
-  <div v-if="gameStarted">
-    <Transition>
-      <div class="overlay" v-if="showOverlay">{{ $t("G_MIXM_INSTRUCTION") }}</div>
-    </Transition>
+  <div>
+    <!-- see above parent div for router transition -->
+    <GameParams v-if="!gameStarted" :gameType="'mixmatch'" @@gameStarted="startGame" />
+    <div v-if="gameStarted">
+      <Transition>
+        <div v-if="showOverlay" class="overlay">{{ $t("G_MIXM_INSTRUCTION") }}</div>
+      </Transition>
 
-    <div class="game">
-      <div class="game-action">
-        <h1 class="game-action-title">{{ $t("G_MIXM_INSTRUCTION") }}</h1>
-        <div class="game-action-controls" v-if="mixMatchParams.timer">
-          <IconButton
-            :icon="gamePaused ? 'play' : 'pause'"
-            @click="togglePause"
-            v-tooltip="{ text: tooltipText }"
+      <div class="game">
+        <div class="game-action">
+          <h1 class="game-action-title">{{ $t("G_MIXM_INSTRUCTION") }}</h1>
+          <div v-if="mixMatchParams.timer" class="game-action-controls">
+            <IconButton
+              v-tooltip="{ text: tooltipText }"
+              :icon="gamePaused ? 'play' : 'pause'"
+              @click="togglePause"
+            />
+            <Timer
+              :maxValue="mixMatchParams.timerValues.current * 60"
+              :minValue="0"
+              :value="timeRemaining"
+            />
+          </div>
+        </div>
+
+        <div class="game-grid">
+          <MixMatchGrid
+            :cards="cards"
+            class="cards"
+            :class="{ 'paused-cards': gamePaused }"
+            @@allGuessed="finishGame(true)"
           />
-          <Timer
-            :maxValue="mixMatchParams.timerValues.current * 60"
-            :minValue="0"
-            :value="timeRemaining"
-          />
+          <div v-if="gamePaused" class="pause">
+            <p class="pause-title">{{ $t("G_MIXM_PAUSED") }}</p>
+            <p class="pause-link" @click="togglePause">{{ $t("G_MIXM_RESUME") }}<span class="icon-play" /></p>
+          </div>
         </div>
       </div>
 
-      <div class="game-grid">
-        <MixMatchGrid
-          :cards="cards"
-          class="cards"
-          :class="{ 'paused-cards': gamePaused }"
-          @@allGuessed="finishGame(true)"
-        />
-        <div v-if="gamePaused" class="pause">
-          <p class="pause-title">{{ $t("G_MIXM_PAUSED") }}</p>
-          <p class="pause-link" @click="togglePause">{{ $t("G_MIXM_RESUME") }}<span class="icon-play"></span></p>
+      <Transition>
+        <div v-if="gameFinished" class="popup">
+          <div class="popup-content">
+            <div v-if="victory">
+              <h1 class="popup-title">{{ $t("G_MIXM_VICTORY") }}</h1>
+              <p v-if="mixMatchParams.timer" class="popup-subtitle">
+                {{ $t("G_MIXM_VIC_TIME", {
+                  min: Math.floor(timeSpent / 60), sec: timeSpent - Math.floor(timeSpent / 60)
+                }) }}
+              </p>
+            </div>
+            <div v-else>
+              <h1 class="popup-title">{{ $t("G_MIXM_LOSE") }}</h1>
+              <p class="popup-subtitle">{{ $t("G_MIXM_LOSE_SUBTITLE") }}</p>
+            </div>
+
+            <img v-if="victory" v-imgpreload="`${baseUrl}img/flann-happy.png`" alt="Mascot">
+            <img v-else v-imgpreload="`${baseUrl}img/flann-think.png`" alt="Mascot">
+
+            <div class="btn-container">
+              <CustomButton :btnText="$t('G_MIXM_FINISH_BACK_SET')" btnType="secondary" @click="backToSettings" />
+              <CustomButton :btnText="$t('G_MIXM_FINISH_REPLAY')" @click="startGame" />
+            </div>
+            <span class="popup-link">
+              <RouterLink :to="{ name: 'fingeringTable' }">
+                {{ $t("G_FINISH_BACK_TAB") }}
+              </RouterLink>
+            </span>
+          </div>
         </div>
-      </div>
+      </Transition>
     </div>
-
-    <Transition>
-      <div class="popup" v-if="gameFinished">
-        <div class="popup-content">
-          <div v-if="victory">
-            <h1 class="popup-title">{{ $t("G_MIXM_VICTORY") }}</h1>
-            <p class="popup-subtitle" v-if="mixMatchParams.timer">
-              {{ $t("G_MIXM_VIC_TIME", {
-                min: Math.floor(timeSpent / 60), sec: timeSpent - Math.floor(timeSpent / 60)
-              }) }}
-            </p>
-          </div>
-          <div v-else>
-            <h1 class="popup-title">{{ $t("G_MIXM_LOSE") }}</h1>
-            <p class="popup-subtitle">{{ $t("G_MIXM_LOSE_SUBTITLE") }}</p>
-          </div>
-
-          <img v-if="victory" v-imgpreload="`${baseUrl}img/flann-happy.png`" alt="Mascot">
-          <img v-else v-imgpreload="`${baseUrl}img/flann-think.png`" alt="Mascot">
-
-          <div class="btn-container">
-            <CustomButton :btnText="$t('G_MIXM_FINISH_BACK_SET')" btnType="secondary" @click="backToSettings" />
-            <CustomButton :btnText="$t('G_MIXM_FINISH_REPLAY')" @click="startGame" />
-          </div>
-          <span class="popup-link">
-            <RouterLink :to="{ name: 'fingeringTable' }">
-              {{ $t("G_FINISH_BACK_TAB") }}
-            </RouterLink>
-          </span>
-        </div>
-      </div>
-    </Transition>
   </div>
-</div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "@vue/reactivity";
+import { ref, computed } from "vue";
 import GameParams from "@/components/GameParams.vue";
 import IconButton from "@/components/molecules/IconButton.vue";
 import Timer from "@/components/molecules/Timer.vue";
@@ -101,11 +101,11 @@ const victory = ref<boolean>(false);
 let counter: ReturnType<typeof setInterval>;
 const timeRemaining = ref<number>(getTimeRemaining());
 const timeSpent = computed<number>(() => {
-  return mixMatchParams.value.timerValues.current * 60 - timeRemaining.value
+  return mixMatchParams.value.timerValues.current * 60 - timeRemaining.value;
 });
 
 const tooltipText = computed<string>(() => {
-  return gamePaused.value ? t('G_MIXM_RESUME') : t('G_MIXM_PAUSE_GAME');
+  return gamePaused.value ? t("G_MIXM_RESUME") : t("G_MIXM_PAUSE_GAME");
 });
 
 const cards = ref<ICard[]>(getCards());

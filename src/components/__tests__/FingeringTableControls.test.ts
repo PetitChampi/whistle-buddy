@@ -1,61 +1,41 @@
-import { describe, test, expect } from "vitest";
-import { mount, config } from "@vue/test-utils";
-import { useParamsStore } from "@/stores/params";
-import { createPinia } from "pinia";
+import { describe, test, expect, beforeEach, afterEach } from "vitest";
+import { shallowMount, config } from "@vue/test-utils";
 import FingeringTableControls from "@/components/FingeringTableControls.vue";
 import ListDropdown from "@/components/molecules/ListDropdown.vue";
 import SettingsGroup from "@/components/SettingsGroup.vue";
 import SwitchInput from "@/components/molecules/SwitchInput.vue";
 import TextSwitch from "@/components/molecules/TextSwitch.vue";
 import IconButton from "@/components/molecules/IconButton.vue";
-import type { ICard } from "@/types/MusicalDataTypes";
+import tooltip from "@/directives/tooltip";
+import { useParamsStore } from "@/stores/params";
+import { createTestingPinia } from "@pinia/testing";
+import type { VueWrapper } from "@vue/test-utils";
 
 config.global.mocks = {
   $t: (tKey: string) => tKey,
   t: (tKey: string) => tKey,
 };
 
-const cards: ICard[] = [
-  {
-    id: 1,
-    name: { en: "d", fr: "ré" },
-    fingerings: [{
-      id: 1, posInScale: 1,  holes: [ 2, 2, 2, 2, 2, 2 ], type: "standard", octaves: [ 1 ]
-    }],
-    octave: 1,
-    soundUrl: "3_d_1.mp3"
-  },
-  {
-    id: 2,
-    name: { en: "d", fr: "ré" },
-    fingerings: [{
-      id: 3, posInScale: 3,  holes: [ 2, 2, 2, 0, 0, 0 ], type: "standard", octaves: [ 1 ]
-    }],
-    octave: 2,
-    soundUrl: "5_e_1.mp3"
-  },
-  {
-    id: 3,
-    name: { en: "d", fr: "ré" },
-    fingerings: [{
-      id: 5, posInScale: 5,  holes: [ 2, 2, 2, 2, 0, 0 ], type: "specific", octaves: [ 1 ]
-    }],
-    octave: 1,
-    soundUrl: "7_fs_gb_1.mp3"
-  },
-];
-
 describe("FingeringTableControls.vue", () => {
-  const pinia = createPinia();
-  const paramsStore = useParamsStore(pinia);
+  let wrapper: VueWrapper;
 
-  const wrapper = mount(FingeringTableControls, {
-    global: { plugins: [pinia] }
+  const testPinia = createTestingPinia();
+  const paramsStore = useParamsStore(testPinia);
+
+  beforeEach(() => {
+    wrapper = shallowMount(FingeringTableControls, {
+      global: {
+        plugins: [testPinia],
+        directives: { tooltip }
+      }
+    });
   });
+
+  afterEach(() => { wrapper.unmount() });
 
   test("renders the controls container with the correct number of items", () => {
     const controlsContainer = wrapper.find(".controls");
-    
+
     expect(controlsContainer.exists()).toBeTruthy();
     expect(controlsContainer.findAll(".controls-item").length).toBe(3);
   });
@@ -88,7 +68,7 @@ describe("FingeringTableControls.vue", () => {
     paramsStore.fingTableParams.flashcardMode = true;
 
     expect(textSwitch.exists()).toBeTruthy();
-    expect(textSwitch.props("options").length).toBe(2);
+    expect(textSwitch.props("options")?.length).toBe(2);
   });
 
   test("renders IconButton with correct icon and toggles fingTableParams.shuffle when clicked", async () => {

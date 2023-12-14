@@ -13,21 +13,21 @@
     <div class="controls-item">
       <span class="label">{{ $t("GEN_FINGERINGS") }}</span>
       <Dropdown type="settings">
-        <template v-slot:dropdown-title>
+        <template #dropdown-title>
           {{ `${generalParams.selectedFingerings.length} ${$t("GEN_SELECTED")}` }}
         </template>
-        <template v-slot:dropdown-content>
+        <template #dropdown-content>
           <div class="settings-container">
             <SettingsGroup
               :title="$t('GEN_STANDARD_L')"
               hasCheckbox
               :checkboxLabel="$t('GEN_ALL')"
               :checkboxModelValue="selectAll.standard"
-              @@updateCheckbox="selectAll.standard = !selectAll.standard"
               accordion
               openByDefault
+              @@updateCheckbox="selectAll.standard = !selectAll.standard"
             >
-              <template v-slot:content>
+              <template #content>
                 <div class="checkbox-grid" :class="{ disabled: selectAll.standard }">
                   <CheckboxInput
                     v-for="fing in fingsPerType.standard"
@@ -46,10 +46,10 @@
               hasCheckbox
               :checkboxLabel="$t('GEN_ALL')"
               :checkboxModelValue="selectAll.halfhole"
-              @@updateCheckbox="selectAll.halfhole = !selectAll.halfhole"
               accordion
+              @@updateCheckbox="selectAll.halfhole = !selectAll.halfhole"
             >
-              <template v-slot:content>
+              <template #content>
                 <div class="checkbox-grid" :class="{ disabled: selectAll.halfhole }">
                   <CheckboxInput
                     v-for="fing in fingsPerType.halfhole"
@@ -69,10 +69,10 @@
               hasCheckbox
               :checkboxLabel="$t('GEN_ALL')"
               :checkboxModelValue="selectAll.specific"
-              @@updateCheckbox="selectAll.specific = !selectAll.specific"
               accordion
+              @@updateCheckbox="selectAll.specific = !selectAll.specific"
             >
-              <template v-slot:content>
+              <template #content>
                 <div class="checkbox-grid" :class="{ disabled: selectAll.specific }">
                   <CheckboxInput
                     v-for="fing in fingsPerType.specific"
@@ -96,18 +96,18 @@
           <SwitchInput v-model="fingTableParams.flashcardMode" />
           <Transition>
             <div v-if="fingTableParams.flashcardMode">
-              <TextSwitch :options="flashcardOptions" v-model="fingTableParams.flashcardSide" />
+              <TextSwitch v-model="fingTableParams.flashcardSide" :options="flashcardOptions" />
             </div>
           </Transition>
         </div>
       </div>
       <div class="controls-button">
         <IconButton
+          v-tooltip="{ text: $t('GEN_SHUFFLE') }"
           icon="shuffle"
           activateOnClick
           :active="fingTableParams.shuffle"
           @@activateBtn="fingTableParams.shuffle = !fingTableParams.shuffle"
-          v-tooltip="{ text: $t('GEN_SHUFFLE') }"
         />
       </div>
     </div>
@@ -175,7 +175,7 @@ watch(() => selectedFingStrings.value, (newFings) => {
     generalParams.value.selectedFingerings.push(
       fingerings.value.find(fing => fing.id === Number(fingId)) as IFingering
     );
-  })
+  });
 });
 
 watch(selectAll, (newSelectAll) => {
@@ -203,14 +203,12 @@ watch(selectAll, (newSelectAll) => {
   @media screen and (max-width: $mobile) {
     flex-wrap: wrap;
   }
-
   &-group {
     display: flex;
     align-items: flex-end;
     flex-grow: 1;
     flex-basis: 50%;
   }
-
   &-item {
     .label {
       display: block;
@@ -235,7 +233,6 @@ watch(selectAll, (newSelectAll) => {
     justify-content: flex-end;
   }
 }
-
 .settings-container {
   padding: 20px 20px 30px 30px;
   width: 330px;
@@ -243,7 +240,6 @@ watch(selectAll, (newSelectAll) => {
   display: flex;
   flex-direction: column;
   gap: 15px;
-
   .checkbox-grid {
     display: grid;
     grid-template-columns: repeat(3, min-content);
@@ -256,14 +252,12 @@ watch(selectAll, (newSelectAll) => {
   pointer-events: none;
   user-select: none;
 }
-
 // transition classes
 .v {
   &-enter-active,
   &-leave-active {
     transition: opacity .4s ease;
   }
-
   &-enter-from,
   &-leave-to {
     opacity: 0;

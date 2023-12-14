@@ -6,7 +6,7 @@ describe("Directive: tooltip", () => {
   let document: Document;
 
   beforeEach(() => {
-    const dom = new JSDOM('', { url: 'http://localhost/' });
+    const dom = new JSDOM("", { url: "http://localhost/" });
     document = dom.window.document;
   });
 
@@ -17,7 +17,7 @@ describe("Directive: tooltip", () => {
   test("createTooltipElement", () => {
     const tooltipElement = createTooltipElement(document, "Test tooltip", "top");
 
-    expect(tooltipElement.nodeName).toBe('DIV');
+    expect(tooltipElement.nodeName).toBe("DIV");
     expect(tooltipElement.classList.contains("tooltip")).toBe(true);
     expect(tooltipElement.classList.contains("top")).toBe(true);
     expect(tooltipElement.innerHTML).toBe("Test tooltip");

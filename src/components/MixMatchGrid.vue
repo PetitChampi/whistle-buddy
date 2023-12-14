@@ -8,11 +8,11 @@
       fixedHeight
       :flashcard="!guessedPairs.includes(card)"
       :flipped="card.isFlipped"
-      @@flip="card.isFlipped = $event"
       :success="guessedPairs.includes(card)"
       class="grid-item"
       :noteOnly="card.cardType === 'note'"
       :fingeringOnly="card.cardType === 'fing'"
+      @@flip="card.isFlipped = $event"
       @click="selectCard(card)"
     />
   </div>
@@ -22,7 +22,7 @@
 import Card from "@/components/molecules/Card.vue";
 import type { ICard } from "@/types/MusicalDataTypes";
 import { watch } from "vue";
-import { ref } from "@vue/reactivity";
+import { ref } from "vue";
 
 const props = defineProps<{
   cards: ICard[],
@@ -45,15 +45,15 @@ function getPairs(cards: ICard[]): IPairItem[] {
   let i = 0;
 
   const fingerings = cards.map(card => {
-    return { uid: ++i, cardType: "fing", isFlipped: false, cardData: {...card} }
+    return { uid: ++i, cardType: "fing", isFlipped: false, cardData: {...card} };
   });
   const notes = cards.map(card => {
-    return { uid: ++i, cardType: "note", isFlipped: false, cardData: {...card} }
+    return { uid: ++i, cardType: "note", isFlipped: false, cardData: {...card} };
   });
 
   const dedoubledCards = [...fingerings, ...notes];
   // Rudimentary shuffling, not as good as the Fisher Yates algorithm but fits on one line so yah
-  return dedoubledCards.sort((a, b) => 0.5 - Math.random());
+  return dedoubledCards.sort(() => 0.5 - Math.random());
 }
 
 function selectCard(card: IPairItem) {
@@ -66,7 +66,7 @@ function selectCard(card: IPairItem) {
     if (guessedPairs.value.length === pairs.value.length) {
       emit("@allGuessed");
       guessedPairs.value = [];
-    };
+    }
   } else {
     const currCard = pairs.value.find(card => card.uid === selectedCard.value?.uid) as IPairItem;
     setTimeout(() => {

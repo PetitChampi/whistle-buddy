@@ -3,7 +3,7 @@
     <RouterView name="FullPage" />
     <RouterView name="Navigation" />
     <div class="container">
-      <RouterView name="MainContent" v-slot="{ Component }">
+      <RouterView v-slot="{ Component }" name="MainContent">
         <Transition name="fade" mode="out-in" @beforeLeave="transitionStore.transitionDelay = 300">
           <Component :is="Component" />
         </Transition>

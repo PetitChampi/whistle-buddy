@@ -1,32 +1,34 @@
 <template>
-  <div class="custom-select" :class="{ open: isOpen }" ref="selectEl">
-    <div class="custom-select--trigger" @click="toggleOpen" ref="triggerEl">
-      <slot name="dropdown-title"></slot>
-      <div class="custom-select--arrow" :class="{ open: isOpen }"></div>
+  <div ref="selectEl" class="custom-select" :class="{ open: isOpen }">
+    <div ref="triggerEl" class="custom-select--trigger" @click="toggleOpen">
+      <slot name="dropdown-title" />
+      <div class="custom-select--arrow" :class="{ open: isOpen }" />
     </div>
     <div
+      ref="trayEl"
       class="custom-select-content"
       :class="{ open: isOpen, settings: type === 'settings' }"
-      ref="trayEl"
     >
-      <slot name="dropdown-content"></slot>
+      <slot name="dropdown-content" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from "@vue/runtime-core";
+import { onBeforeUnmount, onMounted, ref } from "vue";
 
 export interface IProps {
   closeOnInteraction?: boolean,
   type?: "list" | "settings"
 }
-const props = withDefaults(defineProps<IProps>(), {});
+const props = withDefaults(defineProps<IProps>(), {
+  type: "list"
+});
 
 const isOpen = ref<boolean>(false);
 const selectEl = ref<HTMLElement | null>(null);
-const triggerEl = ref<any>(null);
-const trayEl = ref<any>(null);
+const triggerEl = ref<HTMLElement | null>(null);
+const trayEl = ref<HTMLElement | null>(null);
 
 function toggleOpen() {
   isOpen.value = !isOpen.value;
@@ -40,8 +42,9 @@ function checkClickTarget(e: MouseEvent) {
 }
 
 function resizeTray() {
+  if (!trayEl.value || !triggerEl.value) return;
   if (window.innerWidth > 500) {
-    trayEl.value.style.top = null;
+    trayEl.value.style.top = "";
     return;
   }
   const trigCoords = triggerEl.value.getBoundingClientRect();

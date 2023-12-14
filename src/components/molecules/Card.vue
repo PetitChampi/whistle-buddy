@@ -1,11 +1,11 @@
 <template>
-  <article class="card" :class="{ flashcard }" @click.stop="handleCardClick(note, $event)">
+  <article class="card" :class="{ flashcard }" @click.stop="handleCardClick(note)">
     <div
       class="card-inner"
       :class="{ faceDown, flipped: props.flipped, selected: props.selected, error, success, fixed: fixedHeight }"
     >
       <div class="front">
-        <div class="card-fingerings" v-if="!noteOnly">
+        <div v-if="!noteOnly" class="card-fingerings">
           <div
             v-for="fing in note.fingerings"
             :key="fing.id"
@@ -13,49 +13,52 @@
             :class="{ oct2: note.octave === 2 }"
           >
             <span
-              class="card-fingerings-item-hole"
               v-for="(hole, index) in fing.holes"
               :key="index"
+              class="card-fingerings-item-hole"
               :class="{ full: hole === 2, half: hole === 1 }"
-            ></span>
+            />
           </div>
         </div>
-        <div class="card-note" v-if="
-          ((route.name === 'fingeringTable' && !flashcard) ||
-          route.name !== 'fingeringTable') &&
-          !fingeringOnly
-        ">
+        <div
+          v-if="
+            ((route.name === 'fingeringTable' && !flashcard) ||
+              route.name !== 'fingeringTable') &&
+              !fingeringOnly
+          "
+          class="card-note"
+        >
           <div class="card-note-title">
             <p class="card-note-en" :class="{ oct2: note.octave === 2 }">
               {{ formattedNameEn.charAt(0) }}
               <span class="alteration">{{ formattedNameEn.slice(1) }}</span>
             </p>
             <span
-              class="icon-volume"
               v-if="route.name === 'fingeringTable'"
               v-tooltip="{ text: $t('GEN_PLAY_NOTE') }"
+              class="icon-volume"
               @click.stop="playSound"
-            ></span>
+            />
           </div>
-          <p class="card-note-fr" v-if="generalParams.frNotation">{{ formattedNameFr }}</p>
+          <p v-if="generalParams.frNotation" class="card-note-fr">{{ formattedNameFr }}</p>
         </div>
       </div>
 
       <div class="back">
-        <div class="card-note" v-if="route.name === 'fingeringTable'">
+        <div v-if="route.name === 'fingeringTable'" class="card-note">
           <div class="card-note-title">
             <p class="card-note-en" :class="{ oct2: note.octave === 2 }">
               {{ formattedNameEn.charAt(0) }}
               <span class="alteration">{{ formattedNameEn.slice(1) }}</span>
             </p>
             <span
-              class="icon-volume"
               v-if="route.name === 'fingeringTable'"
-              @click.stop="playSound"
               v-tooltip="{ text: $t('GEN_PLAY_NOTE') }"
-            ></span>
+              class="icon-volume"
+              @click.stop="playSound"
+            />
           </div>
-          <p class="card-note-fr" v-if="generalParams.frNotation">{{ formattedNameFr }}</p>
+          <p v-if="generalParams.frNotation" class="card-note-fr">{{ formattedNameFr }}</p>
         </div>
         <div v-else class="filigrane">
           <div
@@ -66,19 +69,19 @@
             :style="{
               backgroundImage: `url('/img/knot-angle_${darkMode ? 'dark' : 'light'}.svg')`
             }"
-          ></div>
+          />
           <div
             class="center"
             :style="{
               backgroundImage: `url('/img/knot-center_${darkMode ? 'dark' : 'light'}.svg')`
             }"
-          ></div>
+          />
         </div>
       </div>
     </div>
 
-    <span v-if="hasTick" class="tick" :class="{ error, success }"></span>
-    <p class="error-msg" v-if="errorMsg">{{ errorMsg }}</p>
+    <span v-if="hasTick" class="tick" :class="{ error, success }" />
+    <p v-if="errorMsg" class="error-msg">{{ errorMsg }}</p>
   </article>
 </template>
 
@@ -110,7 +113,8 @@ const props = withDefaults(defineProps<IProps>(), {
   fingerings: 1,
   flashcard: false,
   flipped: false,
-  selected: false
+  selected: false,
+  errorMsg: ""
 });
 
 const paramsStore = useParamsStore();
@@ -128,7 +132,7 @@ const formattedNameFr = computed(() => (
   props.note.name.fr.charAt(0).toUpperCase() + props.note.name.fr.slice(1)
 ));
 
-function handleCardClick(card: ICard, e: MouseEvent) {
+function handleCardClick(card: ICard) {
   if (props.flashcard) emit("@flip", !props.flipped);
   if (props.selectable) emit("@select", { selected: props.selected, card });
 }

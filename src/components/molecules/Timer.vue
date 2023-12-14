@@ -1,6 +1,6 @@
 <template>
-  <div class="timer" :style="`--value:${value}; --maxValue:${maxValue}`">
-    <span class="timer-bar"></span>
+  <div class="timer" :style="`--value:${props.value}; --maxValue:${props.maxValue}`">
+    <span class="timer-bar" />
   </div>
 </template>
 

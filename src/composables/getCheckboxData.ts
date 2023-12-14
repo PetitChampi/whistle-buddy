@@ -21,4 +21,4 @@ export default function getCheckboxData(fing: IFingering): IOption {
       fing.octaves[0] === 2 ? "+" : ""
     }`
   };
-};
+}

@@ -13,4 +13,4 @@ describe("Store: darkMode", () => {
     darkModeStore.switchMode();
     expect(darkModeStore.darkMode).toBe(true);
   });
-})
+});

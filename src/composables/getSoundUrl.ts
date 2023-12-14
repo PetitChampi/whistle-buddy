@@ -6,4 +6,4 @@ export function getSoundUrl(
   return sounds[
     (currKey.absolutePos - 1) + (fing.posInScale - 1) + ((oct - 1) * 12)
   ];
-};
+}

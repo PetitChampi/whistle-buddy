@@ -1,94 +1,94 @@
 <template>
-<div>
-<!-- see above parent div for router transition -->
-  <GameParams :gameType="'guessing'" v-if="!gameStarted" @@gameStarted="startGame" />
-  <div v-if="gameStarted && !gameFinished" class="game">
-    <div class="game-metrics-wrapper">
-      <div class="game-metrics">
-        <div class="score">
-          <p class="score-caption">{{ $t("G_GUESS_SCORE") }}</p>
-          <p class="score-numbers">
-            <span class="score-numbers-current">{{ score }} </span>
-            / {{ cardsToGuess.length }}
-          </p>
+  <div>
+    <!-- see above parent div for router transition -->
+    <GameParams v-if="!gameStarted" :gameType="'guessing'" @@gameStarted="startGame" />
+    <div v-if="gameStarted && !gameFinished" class="game">
+      <div class="game-metrics-wrapper">
+        <div class="game-metrics">
+          <div class="score">
+            <p class="score-caption">{{ $t("G_GUESS_SCORE") }}</p>
+            <p class="score-numbers">
+              <span class="score-numbers-current">{{ score }} </span>
+              / {{ cardsToGuess.length }}
+            </p>
+          </div>
+          <Timer v-if="guessGameParams.timer" :value="436" :maxValue="600" />
         </div>
-        <Timer v-if="guessGameParams.timer" :value="436" :maxValue="600" />
       </div>
-    </div>
 
-    <div class="game-text">
-      <h2>{{ $t("G_GUESS_HEADING_FTON") }}</h2>
-      <p>{{ $t("G_GUESS_SUBHEADING", { key: generalParams.key.name.en.toUpperCase() }) }}</p>
-    </div>
-    <div class="game-cards">
-      <div class="game-cards-toguess">
-        <Card
-          :note="currCardToGuess"
-          class="card-item"
-          :noteOnly="guessGameParams.valuesToGuess === 'note'"
-          :fingeringOnly="guessGameParams.valuesToGuess === 'fing'"
-        />
-        <Card
-          v-if="showResult && !isCorrect"
-          :note="selectedCard || currCardToGuess"
-          class="card-item"
-          error
-          :errorMsg="$t('G_GUESS_ERR_NOTE')"
-          :noteOnly="guessGameParams.valuesToGuess === 'note'"
-          :fingeringOnly="guessGameParams.valuesToGuess === 'fing'"
-        />
+      <div class="game-text">
+        <h2>{{ $t("G_GUESS_HEADING_FTON") }}</h2>
+        <p>{{ $t("G_GUESS_SUBHEADING", { key: generalParams.key.name.en.toUpperCase() }) }}</p>
       </div>
-      <div class="game-cards-choices">
-        <ChoiceGrid
-          :cards="choiceCards"
-          :selectedCard="selectedCard"
-          :currCardToGuess="currCardToGuess"
-          :showResult="showResult"
-          :isCorrect="isCorrect"
-          :valuesToShow="guessGameParams.valuesToGuess === 'note' ? 'fingerings' : 'notes'"
-          @@selectCard="selectedCard = $event"
-        />
+      <div class="game-cards">
+        <div class="game-cards-toguess">
+          <Card
+            :note="currCardToGuess"
+            class="card-item"
+            :noteOnly="guessGameParams.valuesToGuess === 'note'"
+            :fingeringOnly="guessGameParams.valuesToGuess === 'fing'"
+          />
+          <Card
+            v-if="showResult && !isCorrect"
+            :note="selectedCard || currCardToGuess"
+            class="card-item"
+            error
+            :errorMsg="$t('G_GUESS_ERR_NOTE')"
+            :noteOnly="guessGameParams.valuesToGuess === 'note'"
+            :fingeringOnly="guessGameParams.valuesToGuess === 'fing'"
+          />
+        </div>
+        <div class="game-cards-choices">
+          <ChoiceGrid
+            :cards="choiceCards"
+            :selectedCard="selectedCard"
+            :currCardToGuess="currCardToGuess"
+            :showResult="showResult"
+            :isCorrect="isCorrect"
+            :valuesToShow="guessGameParams.valuesToGuess === 'note' ? 'fingerings' : 'notes'"
+            @@selectCard="selectedCard = $event"
+          />
+        </div>
       </div>
-    </div>
-    <div class="btn-container">
-      <CustomButton
-        :btnText="$t('G_GUESS_NEXT')"
-        iconR="chevron_forward"
-        :disabled="!selectedCard"
-        @click="showResult ? setNewTurn() : checkResults()"
-      />
-    </div>
-  </div>
-
-  <div v-if="gameFinished"  class="finish">
-    <h1 class="finish-title">{{ $t("G_GUESS_FINISH_TITLE") }}</h1>
-    <p class="finish-subtitle">
-      {{ $t("G_GUESS_FINISH_SUB_INTRO") }}
-      <span
-        class="score"
-        :class="{ green: score === cardsToGuess.length }"
-      >
-        {{ $t("G_GUESS_FINISH_SUB_NUMS", {score, total: cardsToGuess.length}) }}
-      </span>
-    </p>
-    <img v-imgpreload="`${baseUrl}img/flann-happy.png`" alt="Happy mascot">
-    <div class="finish-links">
       <div class="btn-container">
-        <CustomButton :btnText="$t('G_GUESS_FINISH_BACK_SET')" btnType="secondary" @click="backToSettings" />
-        <CustomButton :btnText="$t('G_GUESS_FINISH_REPLAY')" @click="replayRound" />
+        <CustomButton
+          :btnText="$t('G_GUESS_NEXT')"
+          iconR="chevron_forward"
+          :disabled="!selectedCard"
+          @click="showResult ? setNewTurn() : checkResults()"
+        />
       </div>
-      <span class="finish-links-bottom">
-        <RouterLink :to="{ name: 'fingeringTable' }">
-          {{ $t("G_FINISH_BACK_TAB") }}
-        </RouterLink>
-      </span>
+    </div>
+
+    <div v-if="gameFinished" class="finish">
+      <h1 class="finish-title">{{ $t("G_GUESS_FINISH_TITLE") }}</h1>
+      <p class="finish-subtitle">
+        {{ $t("G_GUESS_FINISH_SUB_INTRO") }}
+        <span
+          class="score"
+          :class="{ green: score === cardsToGuess.length }"
+        >
+          {{ $t("G_GUESS_FINISH_SUB_NUMS", {score, total: cardsToGuess.length}) }}
+        </span>
+      </p>
+      <img v-imgpreload="`${baseUrl}img/flann-happy.png`" alt="Happy mascot">
+      <div class="finish-links">
+        <div class="btn-container">
+          <CustomButton :btnText="$t('G_GUESS_FINISH_BACK_SET')" btnType="secondary" @click="backToSettings" />
+          <CustomButton :btnText="$t('G_GUESS_FINISH_REPLAY')" @click="replayRound" />
+        </div>
+        <span class="finish-links-bottom">
+          <RouterLink :to="{ name: 'fingeringTable' }">
+            {{ $t("G_FINISH_BACK_TAB") }}
+          </RouterLink>
+        </span>
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "@vue/reactivity";
+import { ref } from "vue";
 import GameParams from "@/components/GameParams.vue";
 import Timer from "@/components/molecules/Timer.vue";
 import Card from "@/components/molecules/Card.vue";
@@ -117,7 +117,7 @@ const currCardToGuess = ref<ICard>(cardsToGuess.value[0]);
 const choiceCards = ref<ICard[]>(getChoiceCards());
 
 function getCardsToGuess(): ICard[] {
-  return currentCardsDynamic.value.sort((a, b) => 0.5 - Math.random());
+  return currentCardsDynamic.value.sort(() => 0.5 - Math.random());
 }
 function getChoiceCards(): ICard[] {
   const cards = [ { ...currCardToGuess.value, id: 0 } ];
@@ -127,7 +127,7 @@ function getChoiceCards(): ICard[] {
 
   cards.push(...falseCards.slice(0, guessGameParams.value.nbChoices.current - 1));
 
-  return cards.sort((a, b) => 0.5 - Math.random());
+  return cards.sort(() => 0.5 - Math.random());
 }
 
 function startGame() {
@@ -172,8 +172,8 @@ function replayRound() {
   setNewTurn();
 }
 
-watch(gameStarted, () => window.scrollTo(0, 0))
-watch(gameFinished, () => window.scrollTo(0, 0))
+watch(gameStarted, () => window.scrollTo(0, 0));
+watch(gameFinished, () => window.scrollTo(0, 0));
 </script>
 
 <style lang="scss" scoped>

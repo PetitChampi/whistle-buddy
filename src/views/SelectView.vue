@@ -1,50 +1,50 @@
 <template>
-<div>
-<!-- Parent div wrapper for eventual transitions -->
-  <div class="controls-bar">
-    <NonMusicalControls />
-  </div>
-  <main class="main">
-    <div class="container">
-      <div class="main-header">
-        <img
-          v-imgpreload="`${baseUrl}img/flann-greet.png`"
-          alt="Happy mascot"
-          class="main-header-img"
-        >
-        <h1 class="main-title">Whistle Buddy</h1>
-      </div>
-      <div class="main-text">
-        <p>{{ $t("SELECT_INTRO_P1") }}</p>
-        <p>{{ $t("SELECT_INTRO_P2") }}</p>
-        <br>
-        <span>{{ $t("SELECT_INTRO_P3") }}</span>
-        <br><br>
-        <p>{{ $t("SELECT_INTRO_P4") }}</p>
-      </div>
-      <div class="main-cards">
-        <FeatureCard
-          :cardTitle="$t('GEN_FINGERING_TABLE')"
-          toPageName="fingeringTable"
-          :imgSrc="`${baseUrl}img/table_${imgSuffix}.png`"
-          class="main-cards-item"
-        />
-        <FeatureCard
-          :cardTitle="$t('GEN_GUESSING_GAME')"
-          toPageName="guessingGame"
-          :imgSrc="`${baseUrl}img/qcm_${imgSuffix}.png`"
-          class="main-cards-item"
-        />
-        <FeatureCard
-          :cardTitle="$t('GEN_MIX_OR_MATCH')"
-          toPageName="mixOrMatch"
-          :imgSrc="`${baseUrl}img/mixm_${imgSuffix}.png`"
-          class="main-cards-item"
-        />
-      </div>
+  <div>
+    <!-- Parent div wrapper for eventual transitions -->
+    <div class="controls-bar">
+      <NonMusicalControls />
     </div>
-  </main>
-</div>
+    <main class="main">
+      <div class="container">
+        <div class="main-header">
+          <img
+            v-imgpreload="`${baseUrl}img/flann-greet.png`"
+            alt="Happy mascot"
+            class="main-header-img"
+          >
+          <h1 class="main-title">Whistle Buddy</h1>
+        </div>
+        <div class="main-text">
+          <p>{{ $t("SELECT_INTRO_P1") }}</p>
+          <p>{{ $t("SELECT_INTRO_P2") }}</p>
+          <br>
+          <span>{{ $t("SELECT_INTRO_P3") }}</span>
+          <br><br>
+          <p>{{ $t("SELECT_INTRO_P4") }}</p>
+        </div>
+        <div class="main-cards">
+          <FeatureCard
+            :cardTitle="$t('GEN_FINGERING_TABLE')"
+            toPageName="fingeringTable"
+            :imgSrc="`${baseUrl}img/table_${imgSuffix}.png`"
+            class="main-cards-item"
+          />
+          <FeatureCard
+            :cardTitle="$t('GEN_GUESSING_GAME')"
+            toPageName="guessingGame"
+            :imgSrc="`${baseUrl}img/qcm_${imgSuffix}.png`"
+            class="main-cards-item"
+          />
+          <FeatureCard
+            :cardTitle="$t('GEN_MIX_OR_MATCH')"
+            toPageName="mixOrMatch"
+            :imgSrc="`${baseUrl}img/mixm_${imgSuffix}.png`"
+            class="main-cards-item"
+          />
+        </div>
+      </div>
+    </main>
+  </div>
 </template>
 
 <script setup lang="ts">

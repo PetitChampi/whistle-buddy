@@ -1,16 +1,16 @@
 <template>
   <Dropdown :closeOnInteraction="props.closeOnInteraction" type="list">
-    <template v-slot:dropdown-title>
+    <template #dropdown-title>
       <span class="select-title">{{ buttonText }}</span>
     </template>
-    <template v-slot:dropdown-content>
+    <template #dropdown-content>
       <div class="list-container">
         <span
+          v-for="option in options"
+          :key="option.value"
           class="select-option"
           :class="option.value === selectedOption && 'selected'"
           @click="selectOption(option)"
-          v-for="option in options"
-          :key="option.value"
         >
           {{ option.displayValue }}
         </span>
@@ -31,7 +31,10 @@ export interface IProps {
   defaultButtonText?: string,
   closeOnInteraction?: boolean
 }
-const props = withDefaults(defineProps<IProps>(), {});
+const props = withDefaults(defineProps<IProps>(), {
+  defaultSelectedValue: "",
+  defaultButtonText: "Choose...",
+});
 
 const { t } = useI18n({ useScope: "global" });
 

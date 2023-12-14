@@ -4,7 +4,7 @@
     :class="{ active: isActive, play: isPlay }"
     @click="toggleActivate"
   >
-    <span :class="`icon-${icon}`"></span>
+    <span :class="`icon-${icon}`" />
   </div>
 </template>
 

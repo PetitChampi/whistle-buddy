@@ -1,7 +1,7 @@
 <template>
   <label class="switch" @click.prevent="toggle">
     <input type="checkbox" class="switch-checkbox" :checked="modelValue">
-    <span class="switch-slider"></span>
+    <span class="switch-slider" />
   </label>
 </template>
 

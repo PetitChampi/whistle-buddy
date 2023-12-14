@@ -6,7 +6,7 @@ interface ITooltip {
 }
 
 export function isTouchDevice(): boolean {
-  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  return "ontouchstart" in window || navigator.maxTouchPoints > 0;
 }
 
 export function createTooltipElement(
@@ -24,7 +24,7 @@ export function updateTooltipElement(
   tooltip.innerHTML = tooltipText;
   tooltip.classList.remove("top", "bottom");
   tooltip.classList.add(tooltipDirection);
-  tooltip.setAttribute('key', tooltipText);
+  tooltip.setAttribute("key", tooltipText);
 }
 
 const tooltip: Directive = {
@@ -52,6 +52,6 @@ const tooltip: Directive = {
 
     updateTooltipElement(tooltipElement, tooltipText, tooltipDirection);
   }
-}
+};
 
 export default tooltip;

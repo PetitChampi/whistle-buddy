@@ -23,13 +23,13 @@
       @@flip="note.isFlipped = $event"
     />
   </div>
-  <div class="pagination" v-if="pagination">
+  <div v-if="pagination" class="pagination">
     <div class="pagination-prev" @click="prev">
-      <span class="icon-arrow_left"></span>
+      <span class="icon-arrow_left" />
     </div>
     <div class="pagination-page">{{ currentPage }} <span class="separator">/</span> {{ lastPage }}</div>
     <div class="pagination-next" @click="next">
-      <span class="icon-arrow_right"></span>
+      <span class="icon-arrow_right" />
     </div>
   </div>
 </template>

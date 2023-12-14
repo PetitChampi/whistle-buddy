@@ -8,7 +8,7 @@
       >
         <h2 class="group-header-text-title">
           {{ title }}
-          <div class="group-header-badge" v-if="props.badgeText">
+          <div v-if="props.badgeText" class="group-header-badge">
             {{ props.badgeText }}
           </div>
           <div
@@ -16,7 +16,7 @@
             class="group-header-icon"
             :class="{ flipped: props.accordion && !closed }"
           >
-            <span class="icon-chevron_down"></span>
+            <span class="icon-chevron_down" />
           </div>
         </h2>
         <div class="group-header-text-subtitle">{{ subtitle }}</div>
@@ -27,14 +27,14 @@
           v-if="hasCheckbox"
           :value="checkboxValue"
           :modelValue="checkboxModelValue"
-          @update:modelValue="$emit('@updateCheckbox', $event)"
           :size="large ? 'l' : undefined"
+          @update:modelValue="$emit('@updateCheckbox', $event)"
         />
       </div>
     </header>
-    <div class="group-content" :class="{ accordion }" ref="accContent">
-      <div class="group-content-inner" v-if="!!slots['content']">
-        <slot name="content"></slot>
+    <div ref="accContent" class="group-content" :class="{ accordion }">
+      <div v-if="!!slots['content']" class="group-content-inner">
+        <slot name="content" />
       </div>
     </div>
   </div>
@@ -43,7 +43,7 @@
 <script setup lang="ts">
 import CheckboxInput from "@/components/molecules/CheckboxInput.vue";
 import { ref } from "vue";
-import { onMounted, useSlots } from "@vue/runtime-core";
+import { onMounted, useSlots } from "vue";
 
 export interface IProps {
   title: string,
@@ -59,31 +59,38 @@ export interface IProps {
 }
 const props = withDefaults(defineProps<IProps>(), {
   checkboxModelValue: () => [],
-  checkboxValue: "defaultVal"
+  checkboxValue: "defaultVal",
+  subtitle: "",
+  badgeText: "",
+  checkboxLabel: "",
 });
 
-const emit = defineEmits(["@updateCheckbox"]);
+defineEmits(["@updateCheckbox"]);
 
 const slots = useSlots();
 
-const accContent = ref<any>(null);
+const accContent = ref<HTMLElement | null>(null);
 
 const closed = ref<boolean>(!props.openByDefault);
 
 function toggleAccordion() {
-  if (!props.accordion) return;
+  if (!props.accordion || !accContent.value) return;
   closed.value = !closed.value;
   if (!closed.value) accContent.value.style.maxHeight = `${accContent.value.scrollHeight}px`;
   else accContent.value.style.maxHeight = "0";
 }
 
 onMounted(() => {
+  if (!accContent.value) return;
+
   // Manually added padding of .group-content-inner, since its presence is assessed after onMounted
-  if (!props.accordion || !closed.value) accContent.value.style.maxHeight = `calc(${accContent.value.scrollHeight}px + 15px)`
+  if (!props.accordion || !closed.value) {
+    accContent.value.style.maxHeight = `calc(${accContent.value.scrollHeight}px + 15px)`;
+  }
   else {
     accContent.value.style.maxHeight = "0";
     accContent.value.style.overflow = "hidden";
-  };
+  }
 });
 </script>
 

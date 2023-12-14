@@ -26,7 +26,7 @@ const keyOptions = computed<IOption[]>(() => {
     note.names.forEach(name => noteOpts.push({
       value: name.en,
       displayValue: name.en.charAt(0).toUpperCase() + name.en.slice(1),
-    }))
+    }));
   });
   return noteOpts;
 });
@@ -39,7 +39,7 @@ function chooseKey(key: IOption) {
   const noteToKey = {
     absolutePos: note.absolutePos,
     name: note.names.find(name => name.en === key.value) as INoteName
-  }
+  };
 
   generalParams.value.key = noteToKey ?? defaultKey.value;
 }

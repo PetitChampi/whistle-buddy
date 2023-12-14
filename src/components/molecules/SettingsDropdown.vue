@@ -1,9 +1,9 @@
 <template>
   <Dropdown type="settings">
-    <template v-slot:dropdown-title>
-      <span class="icon-settings"></span>
+    <template #dropdown-title>
+      <span class="icon-settings" />
     </template>
-    <template v-slot:dropdown-content>
+    <template #dropdown-content>
       <div class="settings-container">
         <SettingsGroup
           :title="$t('GEN_PARAMS_FR_NOTATION')"
@@ -17,11 +17,29 @@
           v-if="route.name !== 'guessingGame' && route.name !== 'mixOrMatch'"
           :title="$t('GEN_PARAMS_SHOW_OCTAVE')"
         >
-          <template v-slot:content>
+          <template #content>
             <div class="radio-group">
-              <RadioInput v-model="generalParams.showOctave" groupName="octave" value="low" label="1" small />
-              <RadioInput v-model="generalParams.showOctave" groupName="octave" value="high" label="2" small />
-              <RadioInput v-model="generalParams.showOctave" groupName="octave" value="both" label="1 + 2" small />
+              <RadioInput
+                v-model="generalParams.showOctave"
+                groupName="octave"
+                value="low"
+                label="1"
+                small
+              />
+              <RadioInput
+                v-model="generalParams.showOctave"
+                groupName="octave"
+                value="high"
+                label="2"
+                small
+              />
+              <RadioInput
+                v-model="generalParams.showOctave"
+                groupName="octave"
+                value="both"
+                label="1 + 2"
+                small
+              />
             </div>
           </template>
         </SettingsGroup>
@@ -47,7 +65,7 @@
         </SettingsGroup> -->
 
         <SettingsGroup :title="$t('GEN_PARAMS_INSTRUMENT')">
-          <template v-slot:content>
+          <template #content>
             <ListDropdown
               :options="instrOptions"
               :defaultSelectedValue="generalParams.instrument"
@@ -67,7 +85,7 @@ import SettingsGroup from "@/components/SettingsGroup.vue";
 import RadioInput from "@/components/molecules/RadioInput.vue";
 import ListDropdown from "./ListDropdown.vue";
 import type { IOption } from "@/types/MusicalDataTypes";
-import { ref } from "@vue/reactivity";
+import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { useParamsStore } from "@/stores/params";
 import { storeToRefs } from "pinia";
@@ -76,8 +94,6 @@ const route = useRoute();
 
 const paramsStore = useParamsStore();
 const { generalParams } = storeToRefs(paramsStore);
-
-const tray = ref<any>(null)
 
 const instrOptions = ref<IOption[]>([
   { value: "low", displayValue: "Low / mezzo whistle" },

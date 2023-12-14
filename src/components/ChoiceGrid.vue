@@ -23,9 +23,9 @@
       :error="isError(note)"
       :success="isSuccess(note)"
       :hasTick="hasTick(note)"
-      @@select="selectCard($event)"
       class="grid-item"
       :class="{ 'grid-item-fing': valuesToShow === 'fingerings' }"
+      @@select="selectCard($event)"
     />
   </div>
 </template>
@@ -43,7 +43,9 @@ export interface IProps {
   isCorrect?: boolean
 }
 const props = withDefaults(defineProps<IProps>(), {
-  valuesToShow: "fingerings"
+  valuesToShow: "fingerings",
+  selectedCard: null,
+  currCardToGuess: null
 });
 
 const emit = defineEmits(["@selectCard"]);

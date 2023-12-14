@@ -2,12 +2,7 @@ import { describe, test, expect } from "vitest";
 import { shallowMount, VueWrapper } from "@vue/test-utils";
 import ChoiceGrid from "@/components/ChoiceGrid.vue";
 import Card from "@/components/molecules/Card.vue";
-import type { ComponentPublicInstance } from "vue";
 import type { ICard } from "@/types/MusicalDataTypes";
-
-interface CustomCpnInstance extends ComponentPublicInstance {
-  selectedCard: ICard
-}
 
 const cards: ICard[] = [
   {
@@ -41,10 +36,9 @@ const cards: ICard[] = [
 
 describe("ChoiceGrid.vue", () => {
   const defaultProps = { cards };
-  const wrapper: VueWrapper<any> = shallowMount(ChoiceGrid, {
+  const wrapper: VueWrapper = shallowMount(ChoiceGrid, {
     props: defaultProps,
   });
-  const vm = wrapper.vm as CustomCpnInstance;
 
   test("renders correct number of Card components", () => {
     const cardComponents = wrapper.findAllComponents(Card);

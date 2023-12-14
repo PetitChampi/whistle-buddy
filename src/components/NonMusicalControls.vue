@@ -13,7 +13,7 @@
 <script setup lang="ts">
 import ModeToggle from "@/components/molecules/ModeToggle.vue";
 import ListDropdown from "@/components/molecules/ListDropdown.vue";
-import { ref } from "@vue/reactivity";
+import { ref } from "vue";
 import type { IOption } from "@/types/MusicalDataTypes";
 import { useI18n } from "vue-i18n";
 

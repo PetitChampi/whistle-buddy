@@ -13,13 +13,13 @@
     <h2 class="game-settings-title">{{ $t("G_PARAMS_HEADING") }}</h2>
     <div class="settings-items">
       <SettingsGroup :title="$t('G_PARAMS_TITLE_KEY')" large>
-        <template v-slot:content>
+        <template #content>
           <KeySelector />
         </template>
       </SettingsGroup>
 
       <SettingsGroup v-if="gameType === 'guessing'" :title="$t('G_PARAMS_TITLE_VTG')" large>
-        <template v-slot:content>
+        <template #content>
           <div class="radio-group">
             <RadioInput
               v-model="guessGameParams.valuesToGuess"
@@ -38,24 +38,24 @@
       </SettingsGroup>
 
       <SettingsGroup v-if="gameType === 'guessing'" :title="$t('G_PARAMS_TITLE_NB_CHOICES')" large>
-        <template v-slot:content>
+        <template #content>
           <div class="settings-item-content">
             <GaugeInput
+              v-model="guessGameParams.nbChoices.current"
               :min="guessGameParams.nbChoices.min"
               :max="guessGameParams.nbChoices.max"
-              v-model="guessGameParams.nbChoices.current"
             />
           </div>
         </template>
       </SettingsGroup>
 
       <SettingsGroup v-if="gameType === 'mixmatch'" :title="$t('G_PARAMS_TITLE_NB_PAIRS')" large>
-        <template v-slot:content>
+        <template #content>
           <div class="settings-item-content">
             <GaugeInput
+              v-model="mixMatchParams.nbOfPairs.current"
               :min="mixMatchParams.nbOfPairs.min"
               :max="mixMatchParams.nbOfPairs.max"
-              v-model="mixMatchParams.nbOfPairs.current"
             />
           </div>
         </template>
@@ -69,13 +69,13 @@
         :checkboxModelValue="currentGameParams.value.timer"
         @@updateCheckbox="currentGameParams.value.timer = $event"
       >
-        <template v-slot:content>
+        <template #content>
           <div class="settings-item-content">
             <GaugeInput
+              v-model="currentGameParams.value.timerValues.current"
               :min="currentGameParams.value.timerValues.min"
               :max="currentGameParams.value.timerValues.max"
               :unit="currentGameParams.value.timerValues.unit"
-              v-model="currentGameParams.value.timerValues.current"
               :disabled="!currentGameParams.value.timer"
             />
           </div>
@@ -88,7 +88,7 @@
         accordion
         :badgeText="generalParams.selectedFingerings.length.toString()"
       >
-        <template v-slot:content>
+        <template #content>
           <div class="settings-item-content">
             <p class="checkbox-grid-label">{{ $t('GEN_STANDARD') }}</p>
             <div class="checkbox-grid">
@@ -126,8 +126,10 @@
     </div>
 
     <div class="divider">
-      <span class="divider-text" v-html="$t('GEN_PARAMS_GENERAL')"></span>
-      <div class="divider-line"></div>
+      <!-- NOTE: Using v-html is safe here since its value isn't user-modifiable -->
+      <!-- eslint-disable-next-line vue/no-v-html -->
+      <span class="divider-text" v-html="$t('GEN_PARAMS_GENERAL')" />
+      <div class="divider-line" />
     </div>
 
     <div class="settings-items">
@@ -193,10 +195,10 @@ const selectedFingStrings = ref<string[]>(
 const currentGameParams = computed<Ref<IGuessGameParams> | Ref<IMixMatchParams>>(() => {
   let currGameParams: Ref<IGuessGameParams> | Ref<IMixMatchParams> = guessGameParams;
   switch (props.gameType) {
-    case 'guessing':
+    case "guessing":
       currGameParams = guessGameParams;
       break;
-    case 'mixmatch':
+    case "mixmatch":
       currGameParams = mixMatchParams;
       break;
     default:
@@ -215,7 +217,7 @@ watch(() => selectedFingStrings.value, (newFings) => {
     generalParams.value.selectedFingerings.push(
       fingerings.value.find(fing => fing.id === Number(fingId)) as IFingering
     );
-  })
+  });
 });
 </script>
 

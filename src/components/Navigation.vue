@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky-container" ref="navEl">
+  <div ref="navEl" class="sticky-container">
     <nav class="navigation" :class="{ open }">
       <div class="navigation-controls">
         <KeySelector />
@@ -7,9 +7,9 @@
       </div>
 
       <div class="burger" @click="toggleOpen">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
+        <div class="bar" />
+        <div class="bar" />
+        <div class="bar" />
       </div>
 
       <div class="navigation-menu">
@@ -42,7 +42,7 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 
-const navEl = ref<any>(null);
+const navEl = ref<HTMLElement | EventTarget | null>(null);
 const open = ref<boolean>(false);
 
 function toggleOpen() {
@@ -51,7 +51,7 @@ function toggleOpen() {
 
 function checkClickTarget(e: MouseEvent) {
   if (!open.value) return;
-  if (!e.composedPath().includes((navEl.value as EventTarget))) {
+  if (!e.composedPath().includes(navEl.value as EventTarget)) {
     open.value = false;
   }
 }
@@ -61,7 +61,7 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  document.body.removeEventListener("click", checkClickTarget)
+  document.body.removeEventListener("click", checkClickTarget);
 });
 
 watch(() => route.name, () => {

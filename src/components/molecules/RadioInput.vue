@@ -5,14 +5,14 @@
     @click.prevent="toggle"
   >
     <input
+      :id="value"
       type="radio"
       :name="groupName"
-      :id="value"
       :checked="modelValue === value"
       :value="value"
     >
     <label :for="value">
-      <span class="circle"></span>
+      <span class="circle" />
       {{ label }}
     </label>
   </div>

@@ -96,7 +96,7 @@ export const useParamsStore = defineStore("params", () => {
           fingerings: fingSet,
           octave: uniqueOctaves[index],
           soundUrl: getSoundUrl(currentSounds.value, currKey, fingSet[0], uniqueOctaves[index])
-        }
+        };
       });
     }).flat();
 

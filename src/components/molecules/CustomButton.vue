@@ -1,8 +1,8 @@
 <template>
   <button class="btn" :class="{ secondary: btnType === 'secondary', disabled }" :disabled="disabled">
-    <span v-if="props.iconL" class="icon-chevron_forward icon-l"></span>
+    <span v-if="props.iconL" class="icon-chevron_forward icon-l" />
     {{ btnText }}
-    <span v-if="props.iconR" class="icon-chevron_forward icon-r"></span>
+    <span v-if="props.iconR" class="icon-chevron_forward icon-r" />
   </button>
 </template>
 
@@ -16,7 +16,9 @@ export interface IProps {
 }
 const props = withDefaults(defineProps<IProps>(), {
   btnType: "primary",
-  btnText: "Button text"
+  btnText: "Button text",
+  iconR: "",
+  iconL: "",
 });
 </script>
 

@@ -1,9 +1,9 @@
 <template>
   <span class="switch">
     <label
-      class="switch-option"
-      v-for="option in options"
+      v-for="option in props.options"
       :key="option.value"
+      class="switch-option"
     >
       <input
         class="switch-option-radio"

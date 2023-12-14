@@ -17,6 +17,6 @@ const imgpreload: ImgpreloadDirective = {
   updated(el: HTMLImageElement, binding: DirectiveBinding<string>) {
     el.src = binding.value;
   }
-}
+};
 
 export default imgpreload;

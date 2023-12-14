@@ -13,17 +13,17 @@
         <span class="gauge-button-text">-</span>
       </span>
       <div class="gauge-input-container">
-        <span class="gauge-thumb" ref="thumb">{{ modelValue }}{{ unit }}</span>
+        <span ref="thumb" class="gauge-thumb">{{ modelValue }}{{ unit }}</span>
         <input
-          type="range"
-          ref="slider"
-          @input="updateThumb"
           id=""
+          ref="slider"
+          type="range"
           class="gauge-slider"
           :min="min"
           :max="max"
           :value="modelValue"
           :disabled="disabled"
+          @input="updateThumb"
         >
       </div>
       <span class="gauge-button plus" @click="increment">
@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "@vue/reactivity";
+import { ref } from "vue";
 import { onMounted } from "vue";
 
 const props = defineProps<{
@@ -47,12 +47,14 @@ const props = defineProps<{
 
 const emit = defineEmits(["update:modelValue"]);
 
-const thumb = ref<any>(null);
-const slider = ref<any>(null);
+const thumb = ref<HTMLElement | null>(null);
+const slider = ref<HTMLInputElement | null>(null);
 
 function updateThumb() {
-  emit("update:modelValue", slider.value?.value)
-  const percentage = ((slider.value.value - props.min) / (props.max - props.min)) * 100;
+  if (!slider.value || !thumb.value) return;
+
+  emit("update:modelValue", slider.value.value);
+  const percentage = ((Number(slider.value.value) - props.min) / (props.max - props.min)) * 100;
   const thumbWidth = getComputedStyle(thumb.value).width;
   const thumbWidthAsNb = Number(thumbWidth.substring(0, thumbWidth.length - 2));
   const thumbWidthChunk = (thumbWidthAsNb / 100) * percentage;
@@ -60,17 +62,26 @@ function updateThumb() {
 }
 
 function increment() {
-  if (Number(props.modelValue) < props.max) ++slider.value.value;
-  updateThumb();
-}
-function decrement() {
-  if (Number(props.modelValue) > props.min) --slider.value.value;
+  if (!slider.value) return;
+  let currentValue = Number(slider.value.value);
+  if (currentValue < props.max) {
+    currentValue++;
+    slider.value.value = currentValue.toString();
+  }
   updateThumb();
 }
 
-onMounted(() => {
+function decrement() {
+  if (!slider.value) return;
+  let currentValue = Number(slider.value.value);
+  if (currentValue > props.min) {
+    currentValue--;
+    slider.value.value = currentValue.toString();
+  }
   updateThumb();
-});
+}
+
+onMounted(() => { updateThumb() });
 </script>
 
 <style lang="scss" scoped>
@@ -171,6 +182,7 @@ onMounted(() => {
     box-shadow: var(--button-shadow);
     font-weight: 500;
     z-index: 2;
+    transition: left .1s;
   }
 }
 </style>

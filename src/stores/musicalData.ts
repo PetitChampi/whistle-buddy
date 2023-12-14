@@ -48,7 +48,7 @@ export const useMusicalDataStore = defineStore("musicalData", () => {
     return {
       absolutePos: defaultNote.absolutePos,
       name: defaultNote.names[0]
-    }
+    };
   });
   const defaultSelectedFings = computed<IFingering[]>(() => {
     return fingerings.value.filter(fing => fing.type === "standard");

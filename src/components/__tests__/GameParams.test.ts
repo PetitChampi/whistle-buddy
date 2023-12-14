@@ -1,15 +1,16 @@
 import { describe, test, expect } from "vitest";
 import { shallowMount, config, VueWrapper } from "@vue/test-utils";
 import { useParamsStore } from "@/stores/params";
-import { createPinia } from "pinia";
+import { createTestingPinia } from "@pinia/testing";
 import GameParams from "@/components/GameParams.vue";
-import CustomButton from "../molecules/CustomButton.vue";
-import type { ComponentPublicInstance } from "vue";
+import CustomButton from "@/components/molecules/CustomButton.vue";
+import imgpreload from "@/directives/imgpreload";
+import type { ComponentPublicInstance, Ref } from "vue";
 import type { IGuessGameParams, IMixMatchParams } from "@/types/ParamTypes";
 
 interface CustomCpnInstance extends ComponentPublicInstance {
   selectedFingStrings: string[],
-  currentGameParams: IGuessGameParams | IMixMatchParams
+  currentGameParams: Ref<IGuessGameParams | IMixMatchParams>
 }
 
 config.global.mocks = {
@@ -17,14 +18,16 @@ config.global.mocks = {
 };
 
 describe("GameSettings.vue", () => {
-  const pinia = createPinia();
+  const pinia = createTestingPinia();
   const paramsStore = useParamsStore(pinia);
 
-  const wrapper: VueWrapper<any> = shallowMount(GameParams, {
+  const wrapper: VueWrapper = shallowMount(GameParams, {
     props: { gameType: "guessing" },
-    global: { plugins: [pinia] }
+    global: {
+      plugins: [pinia],
+      directives: { imgpreload }
+    }
   });
-  const vm = wrapper.vm as CustomCpnInstance;
 
   test("renders the component", () => {
     const controlsContainer = wrapper.find(".game-settings");
@@ -47,10 +50,11 @@ describe("GameSettings.vue", () => {
   });
 
   test("currentGameParams updates based on gameType prop", async () => {
-    await wrapper.setProps({ gameType: "guessing" });
-    expect(wrapper.vm.currentGameParams.value).toEqual(paramsStore.guessGameParams);
+  const vm = wrapper.vm as CustomCpnInstance;
+  await wrapper.setProps({ gameType: "guessing" });
+    expect(vm.currentGameParams.value).toEqual(paramsStore.guessGameParams);
 
     await wrapper.setProps({ gameType: "mixmatch" });
-    expect(wrapper.vm.currentGameParams.value).toEqual(paramsStore.mixMatchParams);
+    expect(vm.currentGameParams.value).toEqual(paramsStore.mixMatchParams);
   });
 });

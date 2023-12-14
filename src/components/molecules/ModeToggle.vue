@@ -1,10 +1,10 @@
 <template>
   <div class="mode-toggle" @click="switchMode">
-    <span class="mode-toggle-sun" v-if="darkMode">
-      <span class="icon-sun"></span>
+    <span v-if="darkMode" class="mode-toggle-sun">
+      <span class="icon-sun" />
     </span>
-    <span class="mode-toggle-moon" v-else>
-      <span class="icon-moon"></span>
+    <span v-else class="mode-toggle-moon">
+      <span class="icon-moon" />
     </span>
   </div>
 </template>
