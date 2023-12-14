@@ -182,7 +182,6 @@ onMounted(() => { updateThumb() });
     box-shadow: var(--button-shadow);
     font-weight: 500;
     z-index: 2;
-    transition: left .1s;
   }
 }
 </style>
