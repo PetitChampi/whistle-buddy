@@ -7,7 +7,6 @@
       <p>{{ $t("ABOUT_P3") }}</p>
       <p>{{ $t("ABOUT_P4") }}</p>
       <p>{{ $t("ABOUT_P5") }} <br><a href="https://www.buymeacoffee.com/whistlebuddy" target="_blank">buymeacoffee.com/whistlebuddy</a></p>
-      <p>{{ $t("ABOUT_P6") }}<a href="mailto:esther@whistle-buddy.com" target="_blank">message</a></p>
       <p>{{ $t("ABOUT_P7") }}</p>
     </div>
     <div class="about-image">
